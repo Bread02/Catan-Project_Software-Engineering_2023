@@ -18,6 +18,12 @@ public class PlayerDropZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider cardPlayed)
     {
+        // if dice, return and ignore
+        if(cardPlayed.CompareTag("Dice"))
+        {
+            return;
+        }
+
         string cardType = cardPlayed.tag;
         if(playerNumThatOwnsThisDropZone == turnManager.ReturnCurrentPlayer().playerNumber)
         {
