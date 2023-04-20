@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 013328be59b89b842aab05000f6dce1b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - terrainAssigner: {instanceID: 0}
+  - desertMaterial: {fileID: 2100000, guid: c822054dd6b447d428a1ba580f7c34a6, type: 2}
+  - forestMaterial: {fileID: 2100000, guid: 37295c9e55e266745a8199145926a557, type: 2}
+  - sheepMaterial: {fileID: 2100000, guid: c402c5229e70cab458e3dba08d13d8fd, type: 2}
+  - brickMaterial: {fileID: 2100000, guid: 6bd0c40c7fc8f0e46b9b4f10498c3fbf, type: 2}
+  - grainMaterial: {fileID: 2100000, guid: 5d08be6790f77314d9703cd350d52d7c, type: 2}
+  - oreMaterial: {fileID: 2100000, guid: 95000a36852d0884d95d7c80104f5c68, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

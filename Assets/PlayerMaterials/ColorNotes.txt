@@ -1,0 +1,7 @@
+For testing purposes
+Blue = Player 1
+Orange = player 2
+Red = player 3
+White = player 4
+
+Final version should allow the player to select their color.
