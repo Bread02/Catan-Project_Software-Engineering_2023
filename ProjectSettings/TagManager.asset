@@ -26,6 +26,7 @@ TagManager:
   - TradeChooser
   - MakeTrade
   - Furniture
+  - CityPoint
   layers:
   - Default
   - TransparentFX
