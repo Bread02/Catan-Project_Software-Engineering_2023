@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -12,9 +14,6 @@ public class PlayerManager : MonoBehaviour
     private Dictionary<string, TMP_Text> rcQuantityTextsDict, dcQuantityTextsDict; //key = card type, value = text to show quantity of card type in player's hand
     private Dictionary<string, GameObject> cardSpawnPoints; //key = card type, value = CardSP for card type
     private Dictionary<string, GameObject> cardTypeParentObjs; //key = card type, value = parent object for card type
-
-
-
 
     [Header("Game Objects")]
     [SerializeField] private GameObject cardPfab;
@@ -46,7 +45,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Player Stats")]
     private int numberOfKnightCardsPlayed;
     private int longestSingleRoad;
-
+    public bool ownsLargestArmy;
 
     [Header("Ints")]
     public int playerNumber;
@@ -61,17 +60,17 @@ public class PlayerManager : MonoBehaviour
     {
         List<int> values = new List<int>();
         int totalValue = 0;
-        foreach(var kvp in pCardQuantities)
+        foreach (var kvp in pCardQuantities)
         {
             if (kvp.Key == "grain" || kvp.Key == "wool" || kvp.Key == "brick" || kvp.Key == "ore" || kvp.Key == "lumber")
             {
-          //      Debug.Log("Key: " + kvp.Key);
-          //      Debug.Log("value: " + kvp.Value);
+                //      Debug.Log("Key: " + kvp.Key);
+                //      Debug.Log("value: " + kvp.Value);
                 values.Add(kvp.Value);
             }
         }
 
-        foreach(int val in values)
+        foreach (int val in values)
         {
             totalValue += val;
         }
@@ -94,6 +93,17 @@ public class PlayerManager : MonoBehaviour
     }
 
     public ColorSelected colorSelected;
+
+    public void SetLargestArmy(bool hasLargestArmy)
+    {
+        ownsLargestArmy = hasLargestArmy;
+    }
+
+
+    public int ReturnNumberOfKnightCardsPlayed()
+    {
+        return numberOfKnightCardsPlayed;
+    }
 
     private void Start()
     {
@@ -145,10 +155,6 @@ public class PlayerManager : MonoBehaviour
         largestArmyCheck.CheckLongestArmy();
     }
 
-    public int ReturnNumberOfKnightCardsPlayed()
-    {
-        return numberOfKnightCardsPlayed;
-    }
 
     public void PlayerColor(string color)
     {
@@ -178,9 +184,9 @@ public class PlayerManager : MonoBehaviour
     //can use negative numbers too (adding a negative is subtraction)
     public void IncOrDecValue(string key, int value, GameObject cardPfabToRemove = null)
     {
-        if(value > 0)
+        if (value > 0)
         {
-            if(key == "grain" || key == "wool" || key == "brick" || key == "ore" || key == "lumber")
+            if (key == "grain" || key == "wool" || key == "brick" || key == "ore" || key == "lumber")
             {
                 AddResourceCard(key, value);
             }
@@ -189,7 +195,7 @@ public class PlayerManager : MonoBehaviour
                 AddDevelopmentCard(key, value);
             }
         }
-        else if(value < 0)
+        else if (value < 0)
         {
             if (key == "grain" || key == "wool" || key == "brick" || key == "ore" || key == "lumber")
             {
@@ -223,7 +229,7 @@ public class PlayerManager : MonoBehaviour
 
             pCardQuantities[cardTag] = 0;
 
-            foreach(TMP_Text spText in rcQuantTxts)
+            foreach (TMP_Text spText in rcQuantTxts)
             {
                 spText.gameObject.SetActive(false);
             }
@@ -328,7 +334,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void AddDevelopmentCard(string cardTag, int amountAdded)
+    public void AddDevelopmentCard(string cardTag, int amountAdded)
     {
         if (pCardQuantities[cardTag] == 0) //card type is NOT currently in player's hand
         {
@@ -409,12 +415,12 @@ public class PlayerManager : MonoBehaviour
     public void CheckIfNewCards(List<GameObject> tiles)
     {
         // go through all player owned settlements and find if adjacent tile is in the tiles list.
-            for (int j = 0; j < playerOwnedSettlements.Count; j++)
-            {
+        for (int j = 0; j < playerOwnedSettlements.Count; j++)
+        {
             //    Debug.Log("Inside player owned settlements");
 
-                foreach (GameObject tiles1 in tiles)
-                {
+            foreach (GameObject tiles1 in tiles)
+            {
 
                 //    Debug.Log("Inside tiles");
 
@@ -458,9 +464,9 @@ public class PlayerManager : MonoBehaviour
 
     public void SetBuildingColors(string color)
     {
-        if(color == "red")
+        if (color == "red")
         {
-            
+
         }
     }
 
@@ -477,7 +483,7 @@ public class PlayerManager : MonoBehaviour
         playerVictoryPoints += playerOwnedCities.Count * 2;
 
         // 
-        if(PlayerHasLongestRoad())
+        if (PlayerHasLongestRoad())
         {
             playerVictoryPoints += 2;
         }
@@ -496,7 +502,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool PlayerHasLargestArmy()
     {
-        return false;
+        return ownsLargestArmy;
     }
 
 
