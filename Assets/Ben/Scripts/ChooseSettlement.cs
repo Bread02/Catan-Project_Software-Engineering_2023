@@ -31,6 +31,15 @@ public class ChooseSettlement : MonoBehaviour
     public Material orange;
     public Material white;
 
+    [Header("Contains Port Features")]
+    public bool isImprovedHarbor = false;
+    public bool isBrickHarbor = false;
+    public bool isLumberHarbor = false;
+    public bool isWoolHarbor = false;
+    public bool isOreHarbor = false;
+    public bool isGrainHarbor = false;
+
+
     [Header("Audio")]
     public AudioManager audioManager;
 
