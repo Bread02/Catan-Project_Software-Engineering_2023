@@ -112,78 +112,87 @@ public class ChooseBorder : MonoBehaviour
     // Check if a player settlement is adjacent to this road OR another road is adjacent to this road (of same player), if YES, allow building.
     private void OnMouseDown()
     {
-        // false until otherwise proven
-        bool adjacentSettlementPresent = false;
-        bool adjacentRoadPresent = false;
-        // roads must connect to a settlement or to an adjacent road.
-        foreach (GameObject adjacentSettlement in adjacentSettlements)
+        //Can only interact with border when the user has bought a road!
+        if (this.gameObject.GetComponent<Renderer>().enabled)
         {
-            if (adjacentSettlement.GetComponent<ChooseSettlement>().settlementTaken)
+            // false until otherwise proven
+            bool adjacentSettlementPresent = false;
+            bool adjacentRoadPresent = false;
+            // roads must connect to a settlement or to an adjacent road.
+            foreach (GameObject adjacentSettlement in adjacentSettlements)
             {
-                adjacentSettlementPresent = true;
-        //           Debug.Log("Adjacent settlement present for road");
+                if (adjacentSettlement.GetComponent<ChooseSettlement>().settlementTaken)
+                {
+                    adjacentSettlementPresent = true;
+                    //           Debug.Log("Adjacent settlement present for road");
 
+                }
             }
-        }
 
-        // IF IN STARTING PHASE IT MUST BE CONNECTED TO A VILLAGE WITH NO ADJACENT ROADS.
-        foreach (GameObject adjacentRoad in adjacentRoads)
-        {
-            if (adjacentRoad.GetComponent<ChooseBorder>().borderTaken)
+            // IF IN STARTING PHASE IT MUST BE CONNECTED TO A VILLAGE WITH NO ADJACENT ROADS.
+            foreach (GameObject adjacentRoad in adjacentRoads)
             {
-                  adjacentRoadPresent = true;
-                  Debug.Log("Adjacent road present for road");
-                
+                if (adjacentRoad.GetComponent<ChooseBorder>().borderTaken)
+                {
+                    adjacentRoadPresent = true;
+                    Debug.Log("Adjacent road present for road");
+
+                }
             }
-        }
 
-        if(!turnManager.allPlayersBuiltStart && adjacentRoadPresent)
-        {
-            StartCoroutine(warningText.WarningTextBox("EACH SETTLEMENT NEEDS A STARTING ROAD"));
-            return;
-        }
-
-        if (!adjacentRoadPresent && !adjacentSettlementPresent)
-        {
-            Debug.Log("CANNOT BUILD ROAD. NO ADJACENT ROAD OR SETTLEMENT PRESENT");
-            StartCoroutine(warningText.WarningTextBox("CANNOT BUILD ROAD. NO ADJACENT ROAD OR SETTLEMENT PRESENT."));
-            return;
-        }
-
-
-        if (!borderTaken)
-        {
-            borderTaken = true;
-            makeTradeScript.GetComponent<MakeTrade>().SetRoadBought(false);
-
-            PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
-            playerManager.playerOwnedRoads.Add(this.gameObject);
-            string playerColor = playerManager.GetPlayerColor();
-         //   Debug.Log("PLayer color: " + playerColor);
-
-            //Play sound queue
-            audioManager.PlaySound("build");
-
-            // get color of player to turn settlement into
-            switch (playerColor)
+            if (!turnManager.allPlayersBuiltStart && adjacentRoadPresent)
             {
-                case "red":
-                    this.gameObject.GetComponent<Renderer>().material = red;
-                    break;
-                case "blue":
-                    this.gameObject.GetComponent<Renderer>().material = blue;
-                    break;
-                case "white":
-                    this.gameObject.GetComponent<Renderer>().material = white;
-                    break;
-                case "orange":
-                    this.gameObject.GetComponent<Renderer>().material = orange;
-                    break;
-                default:
-                    Debug.LogError("Color ISSUE. Unacceptable string for color");
-                    this.gameObject.GetComponent<Renderer>().material = takenColour;
-                    break;
+                StartCoroutine(warningText.WarningTextBox("EACH SETTLEMENT NEEDS A STARTING ROAD"));
+                return;
+            }
 
+            if (!adjacentRoadPresent && !adjacentSettlementPresent)
+            {
+                Debug.Log("CANNOT BUILD ROAD. NO ADJACENT ROAD OR SETTLEMENT PRESENT");
+                StartCoroutine(warningText.WarningTextBox("CANNOT BUILD ROAD. NO ADJACENT ROAD OR SETTLEMENT PRESENT."));
+                return;
+            }
+
+
+            if (!borderTaken)
+            {
+                borderTaken = true;
+                makeTradeScript.GetComponent<MakeTrade>().SetRoadBought(false);
+
+                PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+                playerManager.playerOwnedRoads.Add(this.gameObject);
+                string playerColor = playerManager.GetPlayerColor();
+                //   Debug.Log("PLayer color: " + playerColor);
+
+                //Play sound queue
+                audioManager.PlaySound("build");
+
+                // get color of player to turn settlement into
+                switch (playerColor)
+                {
+                    case "red":
+                        this.gameObject.GetComponent<Renderer>().material = red;
+                        break;
+                    case "blue":
+                        this.gameObject.GetComponent<Renderer>().material = blue;
+                        break;
+                    case "white":
+                        this.gameObject.GetComponent<Renderer>().material = white;
+                        break;
+                    case "orange":
+                        this.gameObject.GetComponent<Renderer>().material = orange;
+                        break;
+                    default:
+                        Debug.LogError("Color ISSUE. Unacceptable string for color");
+                        this.gameObject.GetComponent<Renderer>().material = takenColour;
+                        break;
+
+                }
+
+                if (turnManager.isSetUpPhase)
+                {
+                    turnManager.roadAndSettlementPlacedSetUpCounter++;
+                }
             }
         }
     }

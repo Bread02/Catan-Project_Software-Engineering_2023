@@ -8,6 +8,10 @@ public class MakeTrade : MonoBehaviour
 
     private bool roadBought, settlementBought, cityBought;
 
+    private bool isSetUpPhase;
+
+    private int roadAndSettlementPlacedInSetUp;
+
     public TurnManager turnManager;
 
     private void Start()
@@ -15,31 +19,29 @@ public class MakeTrade : MonoBehaviour
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         roadBought = true;
         settlementBought = true;
-
+        isSetUpPhase = true;
+        roadAndSettlementPlacedInSetUp = 0;
     }
 
     public bool GetRoadBought() { return roadBought; }
 
-    /*
-     * Will only ever set boolean variable to false - used so that other settlement renderers are disabled in the display.
-     */
     public void SetRoadBought(bool x)
     {
-        submitTradeButt.SetActive(true);
         tradeMang.SetActive(true);
         roadBought = x;
     }
 
     public bool GetSettlementBought() { return settlementBought; }
 
-    /*
-     * Will only ever set boolean variable to false - used so that other settlement renderers are disabled in the display.
-     */
     public void SetSettlementBought(bool x)
     {
-        submitTradeButt.SetActive(true);
         tradeMang.SetActive(true);
         settlementBought = x;
+    }
+
+    public void SetIsSetUpPhase(bool x)
+    {
+        isSetUpPhase = x;
     }
 
     public void BuyRoad()
@@ -60,7 +62,6 @@ public class MakeTrade : MonoBehaviour
         settlementBought = true;
         tradeMang.SetActive(false); //removes trade GUI to make it easier to see board
         Debug.Log("You bought a settlement!");
-       
     }
 
     public void BuyCity()

@@ -140,87 +140,99 @@ public class ChooseSettlement : MonoBehaviour
     // check the settlement is not already taken, and check there are no adjacent built settlements.
     private void OnMouseDown()
     {
-        foreach(GameObject adjacentSettlement in adjacentSettlements)
+        //Can only interact with this point when the user has bought a settlement!
+        if (this.gameObject.GetComponent<Renderer>().enabled)
         {
-            if (adjacentSettlement.GetComponent<ChooseSettlement>().settlementTaken)
+            foreach (GameObject adjacentSettlement in adjacentSettlements)
             {
-                Debug.Log("CANNOT BUILD SETTLEMENT. ADJACENT SETTLEMENT ALREADY CLAIMED");
-                StartCoroutine(warningText.WarningTextBox("Cannot build settlement. Adjacent settlement already claimed."));
-                return;
-            }
-        }
-
-        if (!settlementTaken)
-        {
-         //   this.gameObject.GetComponent<Renderer>().material = takenColour;
-            settlementTaken = true;
-            playerClaimedBy = turnManager.playerToPlay;
-
-            // add to playerManager of correct player.
-            PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
-            playerManager.playerOwnedSettlements.Add(this.gameObject);
-            string playerColor = playerManager.GetPlayerColor();
-
-
-            // give this player an improved port if this is a port hex.
-            if(isImprovedHarbor)
-            {
-                playerManager.ownsImprovedHarbor = true;
-            }
-            if (isBrickHarbor)
-            {
-                playerManager.ownsBrickHarbor = true;
-            }
-            if (isLumberHarbor)
-            {
-                playerManager.ownsLumberHarbor = true;
-            }
-            if (isWoolHarbor)
-            {
-                playerManager.ownsWoolHarbor = true;
-            }
-            if (isGrainHarbor)
-            {
-                playerManager.ownsGrainHarbor = true;
-            }
-            if (isOreHarbor)
-            {
-                playerManager.ownsOreHarbor = true;
+                if (adjacentSettlement.GetComponent<ChooseSettlement>().settlementTaken)
+                {
+                    Debug.Log("CANNOT BUILD SETTLEMENT. ADJACENT SETTLEMENT ALREADY CLAIMED");
+                    StartCoroutine(warningText.WarningTextBox("Cannot build settlement. Adjacent settlement already claimed."));
+                    return;
+                }
             }
 
-
-            //     Debug.Log("PLayer color: " + playerColor);
-
-            //Play Audio Queue
-            audioManager.PlaySound("build");
-
-            // get color of player to turn settlement into
-            switch (playerColor)
+            if (!settlementTaken)
             {
-                case "red":
-                    this.gameObject.GetComponent<Renderer>().material = red;
-                    break;
-                case "blue":
-                    this.gameObject.GetComponent<Renderer>().material = blue;
-                    break;
-                case "white":
-                    this.gameObject.GetComponent<Renderer>().material = white;
-                    break;
-                case "orange":
-                    this.gameObject.GetComponent<Renderer>().material = orange;
-                    break;
-                default:
-                    Debug.LogError("Color ISSUE. Unacceptable string for color");
-                    this.gameObject.GetComponent<Renderer>().material = takenColour;
-                    break;
+                Debug.Log("settlement taken");
+                Debug.Log("value of isSetUpPhase in turnManager is: " + turnManager.isSetUpPhase);
 
-            }
+                //   this.gameObject.GetComponent<Renderer>().material = takenColour;
+                settlementTaken = true;
+                playerClaimedBy = turnManager.playerToPlay;
 
-            makeTradeScript.GetComponent<MakeTrade>().SetSettlementBought(false);
+                // add to playerManager of correct player.
+                PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+                playerManager.playerOwnedSettlements.Add(this.gameObject);
+                string playerColor = playerManager.GetPlayerColor();
 
-            foreach(GameObject adjacentTile in adjacentTiles)
-            {
-                adjacentTile.GetComponent<TerrainHex>().adjacentSettlements.Add(this.gameObject);
+
+                // give this player an improved port if this is a port hex.
+                if (isImprovedHarbor)
+                {
+                    playerManager.ownsImprovedHarbor = true;
+                }
+                if (isBrickHarbor)
+                {
+                    playerManager.ownsBrickHarbor = true;
+                }
+                if (isLumberHarbor)
+                {
+                    playerManager.ownsLumberHarbor = true;
+                }
+                if (isWoolHarbor)
+                {
+                    playerManager.ownsWoolHarbor = true;
+                }
+                if (isGrainHarbor)
+                {
+                    playerManager.ownsGrainHarbor = true;
+                }
+                if (isOreHarbor)
+                {
+                    playerManager.ownsOreHarbor = true;
+                }
+
+
+                //     Debug.Log("PLayer color: " + playerColor);
+
+                //Play Audio Queue
+                audioManager.PlaySound("build");
+
+                // get color of player to turn settlement into
+                switch (playerColor)
+                {
+                    case "red":
+                        this.gameObject.GetComponent<Renderer>().material = red;
+                        break;
+                    case "blue":
+                        this.gameObject.GetComponent<Renderer>().material = blue;
+                        break;
+                    case "white":
+                        this.gameObject.GetComponent<Renderer>().material = white;
+                        break;
+                    case "orange":
+                        this.gameObject.GetComponent<Renderer>().material = orange;
+                        break;
+                    default:
+                        Debug.LogError("Color ISSUE. Unacceptable string for color");
+                        this.gameObject.GetComponent<Renderer>().material = takenColour;
+                        break;
+
+                }
+
+                if (turnManager.isSetUpPhase)
+                {
+                    Debug.Log("siiiu");
+                    turnManager.roadAndSettlementPlacedSetUpCounter++;
+                }
+                makeTradeScript.GetComponent<MakeTrade>().SetSettlementBought(false);
+
+                foreach (GameObject adjacentTile in adjacentTiles)
+                {
+                    adjacentTile.GetComponent<TerrainHex>().adjacentSettlements.Add(this.gameObject);
+                }
             }
         }
     }
