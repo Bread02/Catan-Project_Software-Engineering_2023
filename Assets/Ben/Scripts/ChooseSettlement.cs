@@ -160,7 +160,36 @@ public class ChooseSettlement : MonoBehaviour
             PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
             playerManager.playerOwnedSettlements.Add(this.gameObject);
             string playerColor = playerManager.GetPlayerColor();
-       //     Debug.Log("PLayer color: " + playerColor);
+
+
+            // give this player an improved port if this is a port hex.
+            if(isImprovedHarbor)
+            {
+                playerManager.ownsImprovedHarbor = true;
+            }
+            if (isBrickHarbor)
+            {
+                playerManager.ownsBrickHarbor = true;
+            }
+            if (isLumberHarbor)
+            {
+                playerManager.ownsLumberHarbor = true;
+            }
+            if (isWoolHarbor)
+            {
+                playerManager.ownsWoolHarbor = true;
+            }
+            if (isGrainHarbor)
+            {
+                playerManager.ownsGrainHarbor = true;
+            }
+            if (isOreHarbor)
+            {
+                playerManager.ownsOreHarbor = true;
+            }
+
+
+            //     Debug.Log("PLayer color: " + playerColor);
 
             //Play Audio Queue
             audioManager.PlaySound("build");
