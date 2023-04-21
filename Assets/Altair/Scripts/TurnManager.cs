@@ -237,9 +237,13 @@ public class TurnManager : MonoBehaviour
     // if dice rolling is false, and trade is false, show button.
     public void Update()
     {
-        if(finishedDiceRolling && !isTrading)
+        if (finishedDiceRolling && !isTrading)
         {
             DisplayEndTurnButton();
+        }
+        else
+        {
+            HideEndTurnButton();
         }
 
         // force next player turn
@@ -310,8 +314,20 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        finishedDiceRolling = false;
+
         turnNumber++;
-        playerToPlay++;
+
+        if(playerToPlay >= playerList.Count)
+        {
+            playerToPlay = 1;
+        }
+        else
+        {
+            playerToPlay++;
+        }
+
+        playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
 
         // reset dice
         if (allPlayersBuiltStart)

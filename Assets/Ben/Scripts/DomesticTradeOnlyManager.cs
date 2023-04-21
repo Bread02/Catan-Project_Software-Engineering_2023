@@ -37,6 +37,7 @@ public class DomesticTradeOnlyManager : MonoBehaviour
         Debug.Log("Trade receiver: " + tradeReceiverNum);
         if (!hasTradeInitiateGivenFirstCard)
         {
+            turnManager.isTrading = true;
             bankGraphicObject.SetActive(false);
 
             //Removes player dropzones for the players that aren't part of this current domestic trade
@@ -97,6 +98,8 @@ public class DomesticTradeOnlyManager : MonoBehaviour
             }
 
             this.gameObject.SetActive(false);
+
+            turnManager.isTrading = false;
         }
     }
 }
