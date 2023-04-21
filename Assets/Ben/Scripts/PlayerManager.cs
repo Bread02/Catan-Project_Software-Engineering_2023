@@ -4,11 +4,16 @@ using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
+    [Header("Other Scripts")]
+    private LargestArmyCheck largestArmyCheck;
+
     [Header("Dictionaries")]
     private Dictionary<string, int> pCardQuantities; //key = card type, value = quantity of card type in player's hand
     private Dictionary<string, TMP_Text> rcQuantityTextsDict, dcQuantityTextsDict; //key = card type, value = text to show quantity of card type in player's hand
     private Dictionary<string, GameObject> cardSpawnPoints; //key = card type, value = CardSP for card type
     private Dictionary<string, GameObject> cardTypeParentObjs; //key = card type, value = parent object for card type
+
+
 
 
     [Header("Game Objects")]
@@ -37,6 +42,11 @@ public class PlayerManager : MonoBehaviour
     public Material blue;
     public Material white;
     public Material orange;
+
+    [Header("Player Stats")]
+    private int numberOfKnightCardsPlayed;
+    private int longestSingleRoad;
+
 
     [Header("Ints")]
     public int playerNumber;
@@ -87,6 +97,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        largestArmyCheck = GameObject.Find("LargestArmyCheck").GetComponent<LargestArmyCheck>();
+
         pCardQuantities = new Dictionary<string, int>
         {
             {"grain", 0 },
@@ -125,6 +137,17 @@ public class PlayerManager : MonoBehaviour
 
         RCfreeSpacePointer = 0;
         DCfreeSpacePointer = 0;
+    }
+
+    public void IncrementKnightCardUsage()
+    {
+        numberOfKnightCardsPlayed++;
+        largestArmyCheck.CheckLongestArmy();
+    }
+
+    public int ReturnNumberOfKnightCardsPlayed()
+    {
+        return numberOfKnightCardsPlayed;
     }
 
     public void PlayerColor(string color)

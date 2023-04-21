@@ -105,6 +105,7 @@ public class BankManager : MonoBehaviour
             {
                 // activate robber
                 robber.TriggerRobberMovement();
+                turnManager.ReturnCurrentPlayer().IncrementKnightCardUsage();
             }
 
         }
