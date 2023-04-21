@@ -20,7 +20,7 @@ public class DiceRolling : MonoBehaviour
     public bool timeToRoll;
 
 
-    [SerializeField] private TextMeshProUGUI diceRollText;
+    //[SerializeField] private TextMeshProUGUI diceRollText;
     public GameObject rollDiceButton;
 
     // Start is called before the first frame update
@@ -51,7 +51,7 @@ public class DiceRolling : MonoBehaviour
 
        int totalResult = redResult + yellowResult;
 
-       diceRollText.text = "Rolled: " + totalResult.ToString();
+       //diceRollText.text = "Rolled: " + totalResult.ToString();
 
 
        TriggerNumberAction(totalResult);
@@ -125,7 +125,7 @@ public class DiceRolling : MonoBehaviour
         }
         if(!yellowRolled && !redRolled)
         {
-            diceRollText.text = "Rolled: ?";
+            //diceRollText.text = "Rolled: ?";
         }
 
 
@@ -137,6 +137,10 @@ public class DiceRolling : MonoBehaviour
         if(!tradeManager.inTradeMode && !yellowRolled && !redRolled)
         {
             TimeToRollDice();
+        }
+        else
+        {
+            DisableTimeToRollDice();
         }
 
 
