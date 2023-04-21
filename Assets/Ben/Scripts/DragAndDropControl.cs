@@ -9,25 +9,41 @@ using UnityEngine;
 
 public class DragAndDropControl : MonoBehaviour
 {
+    private TurnManager turnManager;
     private new Rigidbody rigidbody;
     private GameBoardManager board;
 
+    private int playerNumWhoOwnsThisCard;
+
     void Start()
     {
+        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         board = GameObject.FindGameObjectWithTag("GameBoard").GetComponent<GameBoardManager>();
         rigidbody = GetComponent<Rigidbody>();
     }
 
+    public void SetPlayerNumWhoOwnsThisCard(int playerNum)
+    {
+        playerNumWhoOwnsThisCard = playerNum;
+    }
+
+    public int GetPlayerNumWhoOwnsThisCard()
+    {
+        return playerNumWhoOwnsThisCard;
+    }
+
     private void OnMouseDrag()
     {
-        rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        if (turnManager.ReturnCurrentPlayer().playerNumber == playerNumWhoOwnsThisCard)
+        {
+            rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 
-        Vector3 newWorldPosition = new Vector3(board.CurrentMousePosition.x, 0.4f, board.CurrentMousePosition.z);
+            Vector3 newWorldPosition = new Vector3(board.CurrentMousePosition.x, 0.4f, board.CurrentMousePosition.z);
 
-        var difference = newWorldPosition - transform.position;
+            var difference = newWorldPosition - transform.position;
 
-        var speed = 10 * difference;
-        rigidbody.velocity = speed;
-        //rigidbody.rotation = Quaternion.Euler(new Vector3(speed.z, 0, -speed.x));
+            var speed = 10 * difference;
+            rigidbody.velocity = speed;
+        }
     }
 }

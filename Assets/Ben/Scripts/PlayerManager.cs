@@ -97,7 +97,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        largestArmyCheck = GameObject.Find("LargestArmyCheck").GetComponent<LargestArmyCheck>();
+        // largestArmyCheck = GameObject.Find("LargestArmyCheck").GetComponent<LargestArmyCheck>(); - commented out because it throws error
 
         pCardQuantities = new Dictionary<string, int>
         {
@@ -305,6 +305,7 @@ public class PlayerManager : MonoBehaviour
             for (int i = 0; i < amountAdded; i++) //for loop as multiple cards can be added in one call of method
             {
                 GameObject newCard = Instantiate(cardPfab, cardTypeParentObj.transform);
+                newCard.GetComponent<DragAndDropControl>().SetPlayerNumWhoOwnsThisCard(playerNumber);
                 newCard.tag = cardTag;
                 SetCardMat(newCard);
             }
@@ -321,6 +322,7 @@ public class PlayerManager : MonoBehaviour
             for (int i = 0; i < amountAdded; i++)
             {
                 GameObject newCard = Instantiate(cardPfab, cardTypeParentObjs[cardTag].transform);
+                newCard.GetComponent<DragAndDropControl>().SetPlayerNumWhoOwnsThisCard(playerNumber);
                 newCard.tag = cardTag;
                 SetCardMat(newCard);
             }
@@ -346,6 +348,7 @@ public class PlayerManager : MonoBehaviour
             for (int i = 0; i < amountAdded; i++) //for loop as multiple cards can be added in one call of method
             {
                 GameObject newCard = Instantiate(cardPfab, cardTypeParentObj.transform);
+                newCard.GetComponent<DragAndDropControl>().SetPlayerNumWhoOwnsThisCard(playerNumber);
                 newCard.tag = cardTag;
                 SetCardMat(newCard);
             }
@@ -362,6 +365,7 @@ public class PlayerManager : MonoBehaviour
             for (int i = 0; i < amountAdded; i++)
             {
                 GameObject newCard = Instantiate(cardPfab, cardTypeParentObjs[cardTag].transform);
+                newCard.GetComponent<DragAndDropControl>().SetPlayerNumWhoOwnsThisCard(playerNumber);
                 newCard.tag = cardTag;
                 SetCardMat(newCard);
             }
