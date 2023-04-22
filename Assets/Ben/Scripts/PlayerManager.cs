@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     private LargestArmyCheck largestArmyCheck;
 
     [Header("Dictionaries")]
-    private Dictionary<string, int> pCardQuantities; //key = card type, value = quantity of card type in player's hand
+    protected Dictionary<string, int> pCardQuantities; //key = card type, value = quantity of card type in player's hand
     private Dictionary<string, TMP_Text> rcQuantityTextsDict, dcQuantityTextsDict; //key = card type, value = text to show quantity of card type in player's hand
     private Dictionary<string, GameObject> cardSpawnPoints; //key = card type, value = CardSP for card type
     private Dictionary<string, GameObject> cardTypeParentObjs; //key = card type, value = parent object for card type

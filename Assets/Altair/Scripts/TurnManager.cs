@@ -39,7 +39,7 @@ public class TurnManager : MonoBehaviour
     public List<GameObject> allSettlementBuildSites;
     public List<GameObject> allRoadBuildSites;
 
-    public int turnNumber;
+    public int turnNumber, roadAndSettlementPlacedSetUpCounter;
 
     // player number assigned with color
     public Dictionary<int, string> playerNumberColor;
@@ -76,6 +76,8 @@ public class TurnManager : MonoBehaviour
     public GameObject player2DropZone;
     public GameObject player3DropZone;
     public GameObject player4DropZone;
+
+    public bool isSetUpPhase;
 
     // Start is called before the first frame update
     // instantiate correct number of player managers.
@@ -261,53 +263,80 @@ public class TurnManager : MonoBehaviour
     public void SetAllPlayerPositions()
     {
         StartCoroutine(WaitForPlayerBuild());
-
     }
 
     // player builds 2 roads and 2 settlements when they start.
     IEnumerator WaitForPlayerBuild()
     {
-        int turnNumberCount = 1;
+        isSetUpPhase = true;
+        bool isRoundOne = true;
         for (int i = 0; i < playersToSpawn; i++)
         {
-         //   Debug.Log("Waiting for 1 to build");
             string helpText1 = "Build your first settlement and adjacent road.";
             StartCoroutine(helpText.HelpTextBox(helpText1));
-            yield return new WaitUntil(() => !tradeManager.inTradeMode);
-            Debug.Log("Player has built first structure, waiting for second");
+            helpText.SetHelpTextBoxActive();
 
+            tradeManager.inTradeMode = true;
+            isTrading = true;
+            
+            makeTrade.SetSettlementBought(true);
+            makeTrade.SetRoadBought(true);
+            yield return new WaitUntil(() => roadAndSettlementPlacedSetUpCounter == 2);
+            roadAndSettlementPlacedSetUpCounter = 0;
+            EndPlayerTurn();
+        }
+
+        //Must add cards in reverse order
+        for(int i = playersToSpawn; i > 0; i--)
+        {
             string helpText2 = "Build your second settlement and adjacent road.";
             StartCoroutine(helpText.HelpTextBox(helpText2));
+            helpText.SetHelpTextBoxActive();
 
             tradeManager.inTradeMode = true;
             isTrading = true;
-            helpText.SetHelpTextBoxActive();
+
             makeTrade.SetSettlementBought(true);
             makeTrade.SetRoadBought(true);
-            yield return new WaitUntil(() => !tradeManager.inTradeMode);
-            Debug.Log("Now finishing turn");
+            yield return new WaitUntil(() => roadAndSettlementPlacedSetUpCounter == 2);
+            roadAndSettlementPlacedSetUpCounter = 0;
             EndPlayerTurn();
-          //  yield return new WaitUntil(() => turnNumber == turnNumberCount);
-            Debug.Log("Resetting start building");
-            
-            tradeManager.inTradeMode = true;
-            isTrading = true;
-            helpText.SetHelpTextBoxActive();
-            makeTrade.SetSettlementBought(true);
-            makeTrade.SetRoadBought(true);
-            turnNumberCount++;
         }
+
+
         tradeManager.inTradeMode = false;
         isTrading = false;
         helpText.SetHelpTextBoxOff();
         makeTrade.SetSettlementBought(false);
         makeTrade.SetRoadBought(false);
+        makeTrade.SetIsSetUpPhase(false);
         allPlayersBuiltStart = true;
-     //   EndPlayerTurn();
         doNotRoll = false;
+        isSetUpPhase = false;
         Debug.Log("Can now roll, new turn started. Finished waitforplayerbuild");
     }
 
+    //For setup phase ONLY
+    public void EndPlayerTurnReverseOrder()
+    {
+        finishedDiceRolling = false;
+
+        turnNumber++;
+
+        if (playerToPlay >= playerList.Count)
+        {
+            playerToPlay = 1;
+        }
+        else
+        {
+            playerToPlay++;
+        }
+
+        playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
+
+        DisplayCurrentPlayerTurn();
+        Debug.Log("Player to play: " + playerToPlay);
+    }
 
     // if dice rolling is false, and trade is false, show button.
     public void Update()

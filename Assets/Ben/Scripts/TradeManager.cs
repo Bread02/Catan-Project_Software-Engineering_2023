@@ -40,16 +40,6 @@ public class TradeManager : MonoBehaviour
 
     private void Update()
     {
-        /*
-        if (inTradeMode)
-        {
-            endTurnBut.SetActive(false);
-        }
-        else
-        {
-            endTurnBut.SetActive(true);
-        }*/
-
         //If player has more than 1 card unused in the trade window, they can return that card to their hand
         if(sum > 0)
         {
