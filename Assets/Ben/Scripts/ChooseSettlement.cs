@@ -39,6 +39,8 @@ public class ChooseSettlement : MonoBehaviour
     public bool isOreHarbor = false;
     public bool isGrainHarbor = false;
 
+    public bool isCity = false;
+
 
     [Header("Audio")]
     public AudioManager audioManager;
@@ -116,6 +118,17 @@ public class ChooseSettlement : MonoBehaviour
         {
             this.gameObject.GetComponent<Renderer>().enabled = false;
         }
+
+        /*
+        if (makeTradeScript.GetComponent<MakeTrade>().GetCityBought() && settlementTaken)
+        {
+            this.gameObject.GetComponent<Renderer>().enabled = true;
+        }
+        else if (!makeTradeScript.GetComponent<MakeTrade>().GetCityBought() && settlementTaken)
+        {
+            this.gameObject.GetComponent<Renderer>().enabled = false;
+        }
+        */
     }
 
     // find tiles adjacent to this settlement
@@ -194,8 +207,6 @@ public class ChooseSettlement : MonoBehaviour
                     playerManager.ownsOreHarbor = true;
                 }
 
-
-                //     Debug.Log("PLayer color: " + playerColor);
 
                 //Play Audio Queue
                 audioManager.PlaySound("build");
