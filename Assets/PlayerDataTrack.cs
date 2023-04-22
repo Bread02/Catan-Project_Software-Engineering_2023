@@ -135,6 +135,8 @@ public class PlayerDataTrack : MonoBehaviour
             player4Stat.SetActive(false);
         }
 
+
+        List<Color> colorList = CheckColors();
       //  turnManager.SetupGame(numberOfPlayers);
 
 
@@ -293,8 +295,6 @@ public class PlayerDataTrack : MonoBehaviour
         // number to icons
         NumberToIcons(player1PortraitIconUINum, player2PortraitIconUINum, player3PortraitIconUINum, player4PortraitIconUINum);
 
-
-
         // names
         player1NameUI = playToGame.Player1Name;
         player2NameUI = playToGame.Player2Name;
@@ -306,6 +306,19 @@ public class PlayerDataTrack : MonoBehaviour
         player3NameText.text = player3NameUI;
         player4NameText.text = player4NameUI;
 
+
+        // check abridged
+
+        // check enabled players
+        AICheck();
+        CheckEnabledPlayers();
+        CheckColors();
+        CheckGameMode();
+
+    }
+
+    public void AICheck()
+    {
         // AI icon
         player1AI = playToGame.Player1AI;
         player2AI = playToGame.Player2AI;
@@ -347,18 +360,10 @@ public class PlayerDataTrack : MonoBehaviour
         {
             player4PlayerAIUI.sprite = playerHumanIcon;
         }
-
-        // check abridged
-
-        // check enabled players
-        CheckEnabledPlayers();
-        CheckColors();
-        CheckGameMode();
-
     }
 
     // change player stat BG to correct color of player
-    void CheckColors()
+    List<Color> CheckColors()
     {
         player1Color = playToGame.Player1Color;
         player2Color = playToGame.Player2Color;
@@ -370,6 +375,15 @@ public class PlayerDataTrack : MonoBehaviour
         player2Stat.transform.GetChild(0).GetComponent<Image>().color = player2Color;
         player3Stat.transform.GetChild(0).GetComponent<Image>().color = player3Color;
         player4Stat.transform.GetChild(0).GetComponent<Image>().color = player4Color;
+
+        // send color info to turnmanager.
+        List<Color> playerColorList = new List<Color>();
+        playerColorList.Add(player1Color);
+        playerColorList.Add(player2Color);
+        playerColorList.Add(player3Color);
+        playerColorList.Add(player4Color);
+
+        return playerColorList;
 
     }
 

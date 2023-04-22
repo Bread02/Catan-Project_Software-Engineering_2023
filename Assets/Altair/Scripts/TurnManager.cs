@@ -129,12 +129,12 @@ public class TurnManager : MonoBehaviour
         playerDropZones.Add(player4DropZone);
     }
     
-
+    
     // In FINAL VERSION, this will be used and NOT awake method.
     // this is triggered by the game data track to setup the game PROPERLY with the correct number of players.
     // ONLY UNCOMMENT THIS IF YOU PLAN TO USE THIS INSTEAD AND FOR THE FINAL VERSION
     /*
-    public void SetupGame(int numberOfPlayers)
+    public void SetupGame(int numberOfPlayers, List<Color> colorList)
     {
         FindObjects();
 
@@ -227,7 +227,7 @@ public class TurnManager : MonoBehaviour
 
     // THIS IS THE FINAL VERSION CONNECTED TO THE SETUP METHOD.
     /*
-    public void AssignPlayerToColorFinal()
+    public void AssignPlayerToColorFinal(List<Color> playerColor)
     {
         Debug.Log("Assigning player to color");
         playerNumberColor = new Dictionary<int, string>();
@@ -236,6 +236,8 @@ public class TurnManager : MonoBehaviour
         playerNumberColor.Add(3, "red");
         playerNumberColor.Add(4, "white");
 
+        // grab 0 color
+
         playerList[0].PlayerColor("blue");
         playerList[1].PlayerColor("orange");
         playerList[2].PlayerColor("red");
@@ -243,6 +245,8 @@ public class TurnManager : MonoBehaviour
 
     }
     */
+
+    
     public void AssignPlayerToColor()
     {
         Debug.Log("Assigning player to color");
@@ -256,8 +260,8 @@ public class TurnManager : MonoBehaviour
         playerList[1].PlayerColor("orange");
         playerList[2].PlayerColor("red");
         playerList[3].PlayerColor("white");
-
     }
+    
 
     // before ANY dice rolling can commence, players must all select the road and settlement locations they want to start at.
     public void SetAllPlayerPositions()
