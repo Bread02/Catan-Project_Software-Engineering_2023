@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System;
 // ONLY ENABLE THIS CLASS IF COMING FROM PLAYMENU TO GAME.
 public class PlayerDataTrack : MonoBehaviour
 {
     [Header ("ONLY ENABLE THIS CLASS IF COMING FROM PLAYMENU TO GAME.")]
-
     private PlayToGame playToGame;
     private TurnManager turnManager;
     private AbridgedMode abridgedMode;
@@ -18,6 +17,19 @@ public class PlayerDataTrack : MonoBehaviour
     public GameObject player2Stat;
     public GameObject player3Stat;
     public GameObject player4Stat;
+
+    [Header("Player Victory Points Text")]
+    [SerializeField] private TextMeshProUGUI p1VictoryPointsText;
+    [SerializeField] private TextMeshProUGUI p2VictoryPointsText;
+    [SerializeField] private TextMeshProUGUI p3VictoryPointsText;
+    [SerializeField] private TextMeshProUGUI p4VictoryPointsText;
+
+    [SerializeField] private TextMeshProUGUI p1PlaceText;
+    [SerializeField] private TextMeshProUGUI p2PlaceText;
+    [SerializeField] private TextMeshProUGUI p3PlaceText;
+    [SerializeField] private TextMeshProUGUI p4PlaceText;
+
+    public List<int> playerRankings = new List<int>();
 
     [Header("Abridged settings")]
     public int abridgeTime;
@@ -93,6 +105,8 @@ public class PlayerDataTrack : MonoBehaviour
         playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         abridgedMode = GameObject.Find("AbridgedUI").GetComponent<AbridgedMode>();
+
+        InvokeRepeating("VictoryPoints", 1f, 1f);
         GrabPlayToGameData();
     }
 
@@ -138,8 +152,6 @@ public class PlayerDataTrack : MonoBehaviour
 
         CheckColors();
       //  turnManager.SetupGameFinal(numberOfPlayers, CheckColors());
-
-
     }
 
     private void NumberToIcons(int player1Num, int player2Num, int player3Num, int player4Num)
@@ -415,5 +427,25 @@ public class PlayerDataTrack : MonoBehaviour
         }
 
         Debug.Log("ERRROR. game mode is : " + playToGame.GameMode);
+    }
+
+
+    // victory points. Grab from playermanager each player's VP's
+    public void VictoryPoints()
+    {
+        // grab each game manager
+
+        List<PlayerManager> playerManagers = turnManager.playerList;
+
+        // grab all VPs
+        int player1Points = playerManagers[0].playerVictoryPoints;
+        int player2Points = playerManagers[1].playerVictoryPoints;
+        int player3Points = playerManagers[2].playerVictoryPoints;
+        int player4Points = playerManagers[3].playerVictoryPoints;
+
+        p1VictoryPointsText.text = player1Points.ToString();
+        p2VictoryPointsText.text = player2Points.ToString();
+        p3VictoryPointsText.text = player3Points.ToString();
+        p4VictoryPointsText.text = player4Points.ToString();
     }
 }

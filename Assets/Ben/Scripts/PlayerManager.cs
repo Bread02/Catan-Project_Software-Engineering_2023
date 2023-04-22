@@ -109,6 +109,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        InvokeRepeating("CountVictoryPoints", 1f, 1f);
+
         // largestArmyCheck = GameObject.Find("LargestArmyCheck").GetComponent<LargestArmyCheck>(); - commented out because it throws error
 
         pCardQuantities = new Dictionary<string, int>
@@ -481,7 +483,6 @@ public class PlayerManager : MonoBehaviour
         // start with 0.
         playerVictoryPoints = 0;
 
-
         // 1 point per settlement
         playerVictoryPoints += playerOwnedSettlements.Count;
 
@@ -499,6 +500,11 @@ public class PlayerManager : MonoBehaviour
             playerVictoryPoints += 2;
         }
         playerVictoryPoints += victoryPointCardsPlayed;
+    }
+
+    public int ReturnVictoryPoints()
+    {
+        return playerVictoryPoints;
     }
 
     public bool PlayerHasLongestRoad()
