@@ -302,6 +302,8 @@ public class TradeManager : MonoBehaviour
 
     public void CardAddedToTrade(GameObject card)
     {
+        submitTradeBut.SetActive(true);
+
         //Ensure all player drop zones are NOT active
         foreach (GameObject playerDropZone in turnManager.playerDropZones)
         {
