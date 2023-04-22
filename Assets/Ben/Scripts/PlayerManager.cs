@@ -30,8 +30,8 @@ public class PlayerManager : MonoBehaviour
     private List<GameObject> RChandOrder, DChandOrder;
 
     [Header("Player Owned Structures")]
-    public List<GameObject> playerOwnedSettlements;
-    public List<GameObject> playerOwnedCities;
+    public List<GameObject> playerOwnedSettlements; // THIS INCLUDES CITIES
+    public List<GameObject> playerOwnedCities; // A CITY IS ALSO COUNTED AS A SETTLEMENT.
     public List<GameObject> playerOwnedRoads;
 
     public string playerColor;
@@ -453,11 +453,20 @@ public class PlayerManager : MonoBehaviour
                     // if not blocked by robber, remove card from bank and add new card to player's hand.
                     if (!tiles1.GetComponent<TerrainHex>().robberBlocked)
                     {
-
-                        string terrainType = tiles1.GetComponent<TerrainHex>().terrain.ToString();
-                        GameObject.Find("THE_BANK").GetComponent<BankManager>().IncOrDecValue(terrainType, -1);
-                        AddResourceCard(terrainType, 1);
-                        Debug.Log("Adding new player card");
+                        if (!playerOwnedSettlements[j].GetComponent<ChooseSettlement>().isCity)
+                        {
+                            string terrainType = tiles1.GetComponent<TerrainHex>().terrain.ToString();
+                            GameObject.Find("THE_BANK").GetComponent<BankManager>().IncOrDecValue(terrainType, -1);
+                            AddResourceCard(terrainType, 1);
+                            Debug.Log("Adding new player card");
+                        }
+                        else // if city, double output
+                        {
+                            string terrainType = tiles1.GetComponent<TerrainHex>().terrain.ToString();
+                            GameObject.Find("THE_BANK").GetComponent<BankManager>().IncOrDecValue(terrainType, -2);
+                            AddResourceCard(terrainType, 2);
+                            Debug.Log("Adding new player card");
+                        }
                     }
                     else
                     {
@@ -487,7 +496,15 @@ public class PlayerManager : MonoBehaviour
         playerVictoryPoints += playerOwnedSettlements.Count;
 
         // 2 points per city
-        playerVictoryPoints += playerOwnedCities.Count * 2;
+        foreach (var item in playerOwnedSettlements)
+        {
+            if(item.GetComponent<ChooseSettlement>().isCity)
+            {
+                // ADD ADDITIONAL VICTORY POINT FOR EACH CITY
+                playerVictoryPoints += playerOwnedCities.Count;
+
+            }
+        }
 
         // 
         if (PlayerHasLongestRoad())

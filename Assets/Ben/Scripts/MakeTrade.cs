@@ -5,6 +5,7 @@ using UnityEngine;
 public class MakeTrade : MonoBehaviour
 {
     [SerializeField] private GameObject tradeMang, submitTradeButt, playerMang, bankMang;
+    private HelpText helpText;
 
     private bool roadBought, settlementBought, cityBought;
 
@@ -17,6 +18,8 @@ public class MakeTrade : MonoBehaviour
     private void Start()
     {
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+        helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
+
         roadBought = true;
         settlementBought = true;
         isSetUpPhase = true;
@@ -34,6 +37,11 @@ public class MakeTrade : MonoBehaviour
     public bool GetSettlementBought() { return settlementBought; }
 
     public bool GetCityBought() { return cityBought; }
+     public void SetCityBought(bool cityBoughtBool)
+    {
+        tradeMang.SetActive(true);
+        cityBought = cityBoughtBool;
+    }
 
 
     public void SetSettlementBought(bool x)
@@ -73,6 +81,7 @@ public class MakeTrade : MonoBehaviour
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("grain", -2);
         cityBought = true;
         tradeMang.SetActive(false); //removes trade GUI to make it easier to see board
+        helpText.HelpTextBox("Choose a settlement to build your city on");
      //   turnManager.
         Debug.Log("You bought a city!");
     }

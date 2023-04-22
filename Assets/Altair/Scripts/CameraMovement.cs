@@ -8,6 +8,7 @@ public class CameraMovement : MonoBehaviour
     [Header("Camera")]
     private Transform cameraTransform;
     private GameObject mainCamera;
+    private TurnManager turnManager;
 
     [Header("Control scroll and zoom speed")]
     public float zoomSpeed;
@@ -39,7 +40,7 @@ public class CameraMovement : MonoBehaviour
     public float dragSpeed;
     public Vector3 pos10;
 
-    [Header("Mobile Only Bool")]
+    [Header("Disable Scrolling IF this camera is not in use")]
     public bool disableScroll;
 
     [Header("Player")]
@@ -51,8 +52,7 @@ public class CameraMovement : MonoBehaviour
         mainCamera = this.gameObject;
         cameraTransform = mainCamera.transform;
         CameraLockConstraints();
-
-
+        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
     }
 
     // Update is called once per frame
@@ -61,12 +61,18 @@ public class CameraMovement : MonoBehaviour
         Zooming();
         EdgeScrolling();
         MousePanScroll();
-    }
 
-
-    void GrabSensitivityFromGameData()
-    {
-
+        // if camera not in use, disable scroll.
+        if(turnManager.ReturnCurrentPlayer().playerNumber == playerNumber)
+        {
+            disableScroll = false;
+            return;
+        }
+        else
+        {
+            disableScroll = true;
+            return;
+        }
     }
 
     void CameraLockConstraints()
@@ -116,63 +122,66 @@ public class CameraMovement : MonoBehaviour
     // move camera based on local rotation
     private void EdgeScrolling()
     {
-        Vector3 mousePosition = Input.mousePosition;
-
-        // if mouse position < 20x scroll left
-        if (mousePosition.x < 40 && cameraTransform.position.x > lockXNegative)
+        if (!disableScroll)
         {
-            mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
-        }
+            Vector3 mousePosition = Input.mousePosition;
 
-        // if mouse position is > screen resolution - 20, scroll right.
-        if (mousePosition.x > (Screen.width - 40) && cameraTransform.position.x < lockXPositive)
-        {
-            mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
-        }
-
-        // scroll up
-        if (mousePosition.y < 40 && cameraTransform.position.z > lockZNegative)
-        {
-            // if camera 2, flip.
-            switch (playerNumber)
+            // if mouse position < 20x scroll left
+            if (mousePosition.x < 40 && cameraTransform.position.x > lockXNegative)
             {
-                case 1:
-                     mainCamera.transform.Translate(0, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                    break;
-                case 2:
-                    mainCamera.transform.Translate(0, 0, screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                    break;
-                case 3:
-                    mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                    break;
-                case 4:
-                    // this is 3 but flipped.
-                    mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                    break;
+                mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
             }
-        }
 
-        // scroll down
-        if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.z < lockZPositive)
-        {
-
-            // if camera 2, flip.
-            switch (playerNumber)
+            // if mouse position is > screen resolution - 20, scroll right.
+            if (mousePosition.x > (Screen.width - 40) && cameraTransform.position.x < lockXPositive)
             {
-                case 1:
-                    mainCamera.transform.Translate(0, 0, screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                    break;
-                case 2:
-                    mainCamera.transform.Translate(0, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                    break;
-                case 3:
-                    // needs to go between Z and X
-                    mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                    break;
-                case 4:
-                    // this is 3 but flipped.
-                    mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                    break;
+                mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+            }
+
+            // scroll up
+            if (mousePosition.y < 40 && cameraTransform.position.z > lockZNegative)
+            {
+                // if camera 2, flip.
+                switch (playerNumber)
+                {
+                    case 1:
+                        mainCamera.transform.Translate(0, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
+                        break;
+                    case 2:
+                        mainCamera.transform.Translate(0, 0, screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
+                        break;
+                    case 3:
+                        mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
+                        break;
+                    case 4:
+                        // this is 3 but flipped.
+                        mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
+                        break;
+                }
+            }
+
+            // scroll down
+            if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.z < lockZPositive)
+            {
+
+                // if camera 2, flip.
+                switch (playerNumber)
+                {
+                    case 1:
+                        mainCamera.transform.Translate(0, 0, screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
+                        break;
+                    case 2:
+                        mainCamera.transform.Translate(0, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
+                        break;
+                    case 3:
+                        // needs to go between Z and X
+                        mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
+                        break;
+                    case 4:
+                        // this is 3 but flipped.
+                        mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
+                        break;
+                }
             }
         }
     }

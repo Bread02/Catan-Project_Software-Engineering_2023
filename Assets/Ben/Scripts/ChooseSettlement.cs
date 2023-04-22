@@ -41,6 +41,7 @@ public class ChooseSettlement : MonoBehaviour
 
     public bool isCity = false;
     public Mesh cityMesh;
+    public bool inCityBuildMode;
 
 
     [Header("Audio")]
@@ -67,11 +68,19 @@ public class ChooseSettlement : MonoBehaviour
         AdjacentTiles();
         FindAdjacentSettlements();
         FindAdjacentRoads();
+
     }
 
-    public void ChangeToCityMesh()
+    public void ChangeToCity()
     {
         this.gameObject.GetComponent<MeshFilter>().mesh = cityMesh;
+        isCity = true;
+
+        // interact with player manager to add claimed city
+        PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+        playerManager.playerOwnedCities.Add(this.gameObject);
+        inCityBuildMode = false;
+        makeTradeScript.GetComponent<MakeTrade>().SetCityBought(false);
     }
 
     // this is for BUILDING RULE ADHERENCE
@@ -127,14 +136,16 @@ public class ChooseSettlement : MonoBehaviour
         // change all to city mesh
         if(Input.GetKeyDown(KeyCode.W))
         {
-            ChangeToCityMesh();
+            ChangeToCity();
+        }
+
+        
+        if (makeTradeScript.GetComponent<MakeTrade>().GetCityBought() && settlementTaken)
+        {
+            inCityBuildMode = true;
         }
 
         /*
-        if (makeTradeScript.GetComponent<MakeTrade>().GetCityBought() && settlementTaken)
-        {
-            this.gameObject.GetComponent<Renderer>().enabled = true;
-        }
         else if (!makeTradeScript.GetComponent<MakeTrade>().GetCityBought() && settlementTaken)
         {
             this.gameObject.GetComponent<Renderer>().enabled = false;
@@ -164,6 +175,49 @@ public class ChooseSettlement : MonoBehaviour
     // check the settlement is not already taken, and check there are no adjacent built settlements.
     private void OnMouseDown()
     {
+        Debug.Log("Choose settlement mouse down");
+        // In the case of cities, do this alternate option
+        if(settlementTaken && inCityBuildMode)
+        {
+            Debug.Log("Choose settlement mouse down 2");
+            if (playerClaimedBy == turnManager.playerToPlay)
+            {
+                Debug.Log("Choose settlement mouse dow 3");
+                // build city
+                ChangeToCity();
+                audioManager.PlaySound("build");
+                PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+                string playerColor = playerManager.GetPlayerColor();
+                // get color of player to turn settlement into
+                switch (playerColor)
+                {
+                    case "red":
+                        this.gameObject.GetComponent<Renderer>().material = red;
+                        break;
+                    case "blue":
+                        this.gameObject.GetComponent<Renderer>().material = blue;
+                        break;
+                    case "white":
+                        this.gameObject.GetComponent<Renderer>().material = white;
+                        break;
+                    case "orange":
+                        this.gameObject.GetComponent<Renderer>().material = orange;
+                        break;
+                    default:
+                        Debug.LogError("Color ISSUE. Unacceptable string for color");
+                        this.gameObject.GetComponent<Renderer>().material = takenColour;
+                        break;
+                }
+                return;
+            }
+            else
+            {
+                warningText.WarningTextBox("You do not own this settlement");
+                return;
+            }
+        }
+
+
         //Can only interact with this point when the user has bought a settlement!
         if (this.gameObject.GetComponent<Renderer>().enabled)
         {
@@ -241,7 +295,6 @@ public class ChooseSettlement : MonoBehaviour
                         Debug.LogError("Color ISSUE. Unacceptable string for color");
                         this.gameObject.GetComponent<Renderer>().material = takenColour;
                         break;
-
                 }
 
                 if (turnManager.isSetUpPhase)
@@ -261,6 +314,33 @@ public class ChooseSettlement : MonoBehaviour
 
     private void OnMouseExit()
     {
+        if (inCityBuildMode && settlementTaken)
+        {
+            PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+            string playerColor = playerManager.GetPlayerColor();
+            // get color of player to turn settlement into
+            switch (playerColor)
+            {
+                case "red":
+                    this.gameObject.GetComponent<Renderer>().material = red;
+                    break;
+                case "blue":
+                    this.gameObject.GetComponent<Renderer>().material = blue;
+                    break;
+                case "white":
+                    this.gameObject.GetComponent<Renderer>().material = white;
+                    break;
+                case "orange":
+                    this.gameObject.GetComponent<Renderer>().material = orange;
+                    break;
+                default:
+                    Debug.LogError("Color ISSUE. Unacceptable string for color");
+                    this.gameObject.GetComponent<Renderer>().material = takenColour;
+                    break;
+            }
+        }
+
+
         if (!settlementTaken)
         {
             this.gameObject.GetComponent<Renderer>().material = origColour;
@@ -269,6 +349,11 @@ public class ChooseSettlement : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if (inCityBuildMode && settlementTaken)
+        {
+            this.gameObject.GetComponent<Renderer>().material = hoverOverColour;
+        }
+
         if (!settlementTaken)
         {
             this.gameObject.GetComponent<Renderer>().material = hoverOverColour;
