@@ -51,6 +51,7 @@ public class PlayerManager : MonoBehaviour
     public int playerNumber;
     private int RCfreeSpacePointer, DCfreeSpacePointer;
     public int playerVictoryPoints;
+    public int victoryPointCardsPlayed;
 
     [Header("Other")]
     [SerializeField] private TMP_Text[] rcQuantTxts, dcQuantTxts; //direct address of the 'quantity' text components for resource cards and dev cards, respectively
@@ -496,7 +497,7 @@ public class PlayerManager : MonoBehaviour
         {
             playerVictoryPoints += 2;
         }
-
+        playerVictoryPoints += victoryPointCardsPlayed;
     }
 
     public bool PlayerHasLongestRoad()
@@ -510,5 +511,9 @@ public class PlayerManager : MonoBehaviour
     }
 
 
+    public void PlayVictoryPointCard()
+    {
+        victoryPointCardsPlayed++;
+    }
 
 }
