@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7348916806901393208}
   - component: {fileID: 1339350718916092840}
   - component: {fileID: 9221791270410095142}
+  - component: {fileID: 1973086399223036221}
   m_Layer: 0
   m_Name: ColliderSheep
   m_TagString: Untagged
@@ -45,8 +46,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 0.20000042}
-  m_Center: {x: -2.6718867, y: 0.86693627, z: 2.6371418e-15}
+  m_Size: {x: 0.63380754, y: 1, z: 0.20000042}
+  m_Center: {x: -3.5052392, y: 1.5, z: 0}
 --- !u!114 &1339350718916092840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +77,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1973086399223036221
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608135934331851735}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7578627, y: 1, z: 0.20000042}
+  m_Center: {x: -1.7, y: 0.71329826, z: 0}
 --- !u!1 &1911008105183405968
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +202,7 @@ GameObject:
   - component: {fileID: 4661085546550838969}
   - component: {fileID: 3372216793986807601}
   - component: {fileID: 6720031978942285560}
+  - component: {fileID: 849216668900189730}
   m_Layer: 0
   m_Name: ColliderImproved
   m_TagString: Untagged
@@ -221,8 +236,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 4, z: 0.20000042}
-  m_Center: {x: 3.0988111, y: 0.23698442, z: -5.319888e-16}
+  m_Size: {x: 0.7, y: 0.7, z: 0.20000042}
+  m_Center: {x: 2.0088446, y: 0.7407085, z: 0}
 --- !u!114 &3372216793986807601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,3 +267,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &849216668900189730
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704924261014063254}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 0.7, z: 0.20000042}
+  m_Center: {x: 3.9, y: 1.6, z: 0}
