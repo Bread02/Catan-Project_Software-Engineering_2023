@@ -40,6 +40,7 @@ public class ChooseSettlement : MonoBehaviour
     public bool isGrainHarbor = false;
 
     public bool isCity = false;
+    public Mesh cityMesh;
 
 
     [Header("Audio")]
@@ -68,6 +69,10 @@ public class ChooseSettlement : MonoBehaviour
         FindAdjacentRoads();
     }
 
+    public void ChangeToCityMesh()
+    {
+        this.gameObject.GetComponent<MeshFilter>().mesh = cityMesh;
+    }
 
     // this is for BUILDING RULE ADHERENCE
     public void FindAdjacentSettlements()
@@ -117,6 +122,12 @@ public class ChooseSettlement : MonoBehaviour
         else if (!makeTradeScript.GetComponent<MakeTrade>().GetSettlementBought() && !settlementTaken)
         {
             this.gameObject.GetComponent<Renderer>().enabled = false;
+        }
+
+        // change all to city mesh
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            ChangeToCityMesh();
         }
 
         /*

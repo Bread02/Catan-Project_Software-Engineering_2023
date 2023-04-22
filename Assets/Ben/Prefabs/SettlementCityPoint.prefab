@@ -130,6 +130,9 @@ MonoBehaviour:
   isWoolHarbor: 0
   isOreHarbor: 0
   isGrainHarbor: 0
+  isCity: 0
+  cityMesh: {fileID: -5495902117074765545, guid: ec64ee58341a35c4b8adaf95960ed8ab,
+    type: 3}
   audioManager: {fileID: 0}
 --- !u!65 &5120114273680299554
 BoxCollider:
