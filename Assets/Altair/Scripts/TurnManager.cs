@@ -80,6 +80,7 @@ public class TurnManager : MonoBehaviour
     // Start is called before the first frame update
     // instantiate correct number of player managers.
     // instantiate players by their correct name.
+    
     void Awake()
     {
         FindObjects();
@@ -100,6 +101,7 @@ public class TurnManager : MonoBehaviour
 
         playerToPlay = 1;
         playersToSpawn = 4;
+
         int playerNumber = 1;
 
         for (int i = 1; i <= playersToSpawn; i++)
@@ -110,6 +112,9 @@ public class TurnManager : MonoBehaviour
             playerList[i - 1].SetPlayerNumber(playerNumber);
             playerNumber++;
         }
+
+
+
         AssignPlayerToColor();
         DisplayCurrentPlayerTurn();
 
@@ -121,7 +126,58 @@ public class TurnManager : MonoBehaviour
         playerDropZones.Add(player3DropZone);
         playerDropZones.Add(player4DropZone);
     }
+    
 
+    // In FINAL VERSION, this will be used and NOT awake method.
+    // this is triggered by the game data track to setup the game PROPERLY with the correct number of players.
+    // ONLY UNCOMMENT THIS IF YOU PLAN TO USE THIS INSTEAD AND FOR THE FINAL VERSION
+    /*
+    public void SetupGame(int numberOfPlayers)
+    {
+        FindObjects();
+
+        donateCardsObject.SetActive(false);
+
+        player1Camera.enabled = true;
+        player2Camera.enabled = false;
+
+        doNotRoll = true;
+        allPlayersBuiltStart = false;
+
+        finishedDiceRolling = false;
+        isTrading = true;
+        // when starting the game, the first player has not finished turn.
+        HideEndTurnButton();
+
+
+        playerToPlay = 1;
+        playersToSpawn = numberOfPlayers;
+
+        int playerNumber = 1;
+
+        for (int i = 1; i <= playersToSpawn; i++)
+        {
+            InstantiatePlayerHandLocations(i);
+            playerList.Add(playerHandPrefab.GetComponent<PlayerManager>());
+            //    playerHandPrefab.GetComponent<PlayerManager>().PlayerColor(;
+            playerList[i - 1].SetPlayerNumber(playerNumber);
+            playerNumber++;
+        }
+
+
+
+        AssignPlayerToColor();
+        DisplayCurrentPlayerTurn();
+
+        SetAllPlayerPositions();
+
+        //Add player dropZones to playerDropZones list
+        playerDropZones.Add(player1DropZone);
+        playerDropZones.Add(player2DropZone);
+        playerDropZones.Add(player3DropZone);
+        playerDropZones.Add(player4DropZone);
+    }
+    */
     private void Start()
     {
         loseCardsObject.SetActive(false);
@@ -166,6 +222,25 @@ public class TurnManager : MonoBehaviour
     Final version should allow the player to select their color.
 */
 
+
+    // THIS IS THE FINAL VERSION CONNECTED TO THE SETUP METHOD.
+    /*
+    public void AssignPlayerToColorFinal()
+    {
+        Debug.Log("Assigning player to color");
+        playerNumberColor = new Dictionary<int, string>();
+        playerNumberColor.Add(1, "blue");
+        playerNumberColor.Add(2, "orange");
+        playerNumberColor.Add(3, "red");
+        playerNumberColor.Add(4, "white");
+
+        playerList[0].PlayerColor("blue");
+        playerList[1].PlayerColor("orange");
+        playerList[2].PlayerColor("red");
+        playerList[3].PlayerColor("white");
+
+    }
+    */
     public void AssignPlayerToColor()
     {
         Debug.Log("Assigning player to color");

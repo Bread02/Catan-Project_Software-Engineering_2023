@@ -26938,13 +26938,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2286ba71b0757cb4c9dc4e6d798ab9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: click
-    audioClip: {fileID: 8300000, guid: cd5788548d7b7404dbc7d1bb7894bdc2, type: 3}
-    group: {fileID: 8094826823127731577, guid: 92aac9d448089eb499b2c2b95cdca2a7, type: 2}
-    loop: 0
-    volume: 0.4
-    audioSource: {fileID: 0}
 --- !u!4 &1738871992
 Transform:
   m_ObjectHideFlags: 0

@@ -108,6 +108,12 @@ public class BankManager : MonoBehaviour
                 turnManager.ReturnCurrentPlayer().IncrementKnightCardUsage();
             }
 
+            // victory point card played
+            if(cardType == "victoryPoints")
+            {
+
+            }
+
         }
         else //resource card played
         {
