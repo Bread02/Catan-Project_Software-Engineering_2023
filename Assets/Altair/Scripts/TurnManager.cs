@@ -303,6 +303,11 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Can now roll, new turn started. Finished waitforplayerbuild");
     }
 
+    public PlayerManager ReturnPlayerManagerByNumber(int number)
+    {
+        return playerList[number - 1];
+    }
+
     //For setup phase ONLY
     public void EndPlayerTurnReverseOrder()
     {

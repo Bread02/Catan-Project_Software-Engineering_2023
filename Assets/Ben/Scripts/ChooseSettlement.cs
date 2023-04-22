@@ -316,8 +316,7 @@ public class ChooseSettlement : MonoBehaviour
     {
         if (inCityBuildMode && settlementTaken)
         {
-            PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
-            string playerColor = playerManager.GetPlayerColor();
+            string playerColor = turnManager.ReturnPlayerManagerByNumber(playerClaimedBy).GetPlayerColor();
             // get color of player to turn settlement into
             switch (playerColor)
             {
