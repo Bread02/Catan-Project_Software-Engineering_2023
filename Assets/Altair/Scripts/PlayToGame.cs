@@ -15,6 +15,12 @@ public class PlayToGame : MonoBehaviour
     private Color player3Color;
     private Color player4Color;
 
+    [Header("Player Color")]
+    private int player1ColorInt;
+    private int player2ColorInt;
+    private int player3ColorInt;
+    private int player4ColorInt;
+
     // play to game needs this
     [Header("Player Name")]
     private string player1Name;
@@ -70,6 +76,11 @@ public class PlayToGame : MonoBehaviour
     public int Player4PortraitIcon { get => player4PortraitIcon; set => player4PortraitIcon = value; }
     public string GameMode { get => gameMode; set => gameMode = value; }
     public int TimeLimit { get => timeLimit; set => timeLimit = value; }
+    public int Player1ColorInt { get => player1ColorInt; set => player1ColorInt = value; }
+    public int Player2ColorInt { get => player2ColorInt; set => player2ColorInt = value; }
+    public int Player3ColorInt { get => player3ColorInt; set => player3ColorInt = value; }
+    public int Player4ColorInt { get => player4ColorInt; set => player4ColorInt = value; }
+
 
     // Start is called before the first frame update
     void Start()
@@ -97,6 +108,11 @@ public class PlayToGame : MonoBehaviour
         Player2Color = playMenu.Player2Color;
         Player3Color = playMenu.Player3Color;
         Player4Color = playMenu.Player4Color;
+
+        Player1ColorInt = playMenu.Player1ColorInt;
+        Player2ColorInt = playMenu.Player2ColorInt;
+        Player3ColorInt = playMenu.Player3ColorInt;
+        Player4ColorInt = playMenu.Player4ColorInt;
 
 
         Player1Name = playMenu.Player1Name;

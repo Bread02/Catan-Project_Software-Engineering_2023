@@ -136,8 +136,8 @@ public class PlayerDataTrack : MonoBehaviour
         }
 
 
-        List<Color> colorList = CheckColors();
-      //  turnManager.SetupGame(numberOfPlayers);
+        CheckColors();
+      //  turnManager.SetupGameFinal(numberOfPlayers, CheckColors());
 
 
     }
@@ -363,25 +363,34 @@ public class PlayerDataTrack : MonoBehaviour
     }
 
     // change player stat BG to correct color of player
-    List<Color> CheckColors()
+    List<int> CheckColors()
     {
-        player1Color = playToGame.Player1Color;
-        player2Color = playToGame.Player2Color;
-        player3Color = playToGame.Player3Color;
-        player4Color = playToGame.Player4Color;
+        // normal colors can be pulled across as normal
+         player1Color = playToGame.Player1Color;
+         player2Color = playToGame.Player2Color;
+         player3Color = playToGame.Player3Color;
+         player4Color = playToGame.Player4Color;
+
 
         // child 0 is the BG
+        // color list to int
+        Debug.Log("Setting stat color BGs");
         player1Stat.transform.GetChild(0).GetComponent<Image>().color = player1Color;
         player2Stat.transform.GetChild(0).GetComponent<Image>().color = player2Color;
         player3Stat.transform.GetChild(0).GetComponent<Image>().color = player3Color;
         player4Stat.transform.GetChild(0).GetComponent<Image>().color = player4Color;
 
+        int player1ColorInt = playToGame.Player1ColorInt;
+        int player2ColorInt = playToGame.Player2ColorInt;
+        int player3ColorInt = playToGame.Player3ColorInt;
+        int player4ColorInt = playToGame.Player4ColorInt;
+
         // send color info to turnmanager.
-        List<Color> playerColorList = new List<Color>();
-        playerColorList.Add(player1Color);
-        playerColorList.Add(player2Color);
-        playerColorList.Add(player3Color);
-        playerColorList.Add(player4Color);
+        List<int> playerColorList = new List<int>();
+        playerColorList.Add(player1ColorInt);
+        playerColorList.Add(player2ColorInt);
+        playerColorList.Add(player3ColorInt);
+        playerColorList.Add(player4ColorInt);
 
         return playerColorList;
 
@@ -406,11 +415,5 @@ public class PlayerDataTrack : MonoBehaviour
         }
 
         Debug.Log("ERRROR. game mode is : " + playToGame.GameMode);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

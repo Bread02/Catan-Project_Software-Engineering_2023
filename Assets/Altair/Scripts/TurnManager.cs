@@ -128,13 +128,13 @@ public class TurnManager : MonoBehaviour
         playerDropZones.Add(player3DropZone);
         playerDropZones.Add(player4DropZone);
     }
-    
-    
+
+
     // In FINAL VERSION, this will be used and NOT awake method.
     // this is triggered by the game data track to setup the game PROPERLY with the correct number of players.
     // ONLY UNCOMMENT THIS IF YOU PLAN TO USE THIS INSTEAD AND FOR THE FINAL VERSION
     /*
-    public void SetupGame(int numberOfPlayers, List<Color> colorList)
+    public void SetupGameFinal(int numberOfPlayers, List<int> colorInt)
     {
         FindObjects();
 
@@ -168,7 +168,8 @@ public class TurnManager : MonoBehaviour
 
 
 
-        AssignPlayerToColor();
+        AssignPlayerToColorFinal(colorInt);
+
         DisplayCurrentPlayerTurn();
 
         SetAllPlayerPositions();
@@ -180,6 +181,20 @@ public class TurnManager : MonoBehaviour
         playerDropZones.Add(player4DropZone);
     }
     */
+    // THIS IS THE FINAL VERSION CONNECTED TO THE SETUP METHOD.
+    /*
+    public void AssignPlayerToColorFinal(List<int> playerColor)
+    {
+        Debug.Log("Assigning player to color");
+        // grab 0 color
+        playerList[0].PlayerColorFinal(playerColor[0]);
+        playerList[1].PlayerColorFinal(playerColor[1]);
+        playerList[2].PlayerColorFinal(playerColor[2]);
+        playerList[3].PlayerColorFinal(playerColor[3]);
+    }
+
+    */
+
     private void Start()
     {
         loseCardsObject.SetActive(false);
@@ -220,46 +235,14 @@ public class TurnManager : MonoBehaviour
     Orange = player 2
     Red = player 3
     White = player 4
-
-    Final version should allow the player to select their color.
-*/
-
-
-    // THIS IS THE FINAL VERSION CONNECTED TO THE SETUP METHOD.
-    /*
-    public void AssignPlayerToColorFinal(List<Color> playerColor)
-    {
-        Debug.Log("Assigning player to color");
-        playerNumberColor = new Dictionary<int, string>();
-        playerNumberColor.Add(1, "blue");
-        playerNumberColor.Add(2, "orange");
-        playerNumberColor.Add(3, "red");
-        playerNumberColor.Add(4, "white");
-
-        // grab 0 color
-
-        playerList[0].PlayerColor("blue");
-        playerList[1].PlayerColor("orange");
-        playerList[2].PlayerColor("red");
-        playerList[3].PlayerColor("white");
-
-    }
     */
-
-    
     public void AssignPlayerToColor()
     {
         Debug.Log("Assigning player to color");
-        playerNumberColor = new Dictionary<int, string>();
-        playerNumberColor.Add(1, "blue");
-        playerNumberColor.Add(2, "orange");
-        playerNumberColor.Add(3, "red");
-        playerNumberColor.Add(4, "white");
-
-        playerList[0].PlayerColor("blue");
-        playerList[1].PlayerColor("orange");
-        playerList[2].PlayerColor("red");
-        playerList[3].PlayerColor("white");
+        playerList[0].PlayerColor(0);
+        playerList[1].PlayerColor(1);
+        playerList[2].PlayerColor(2);
+        playerList[3].PlayerColor(3);
     }
     
 
@@ -365,8 +348,10 @@ public class TurnManager : MonoBehaviour
 
     public PlayerManager ReturnCurrentPlayer()
     {
-    //    Debug.Log("player to play: " + playerToPlay);
-        return playerList[playerToPlay - 1];
+        //    Debug.Log("player to play: " + playerToPlay);
+          return playerList[playerToPlay - 1];
+     //   return playerList[playerToPlay];
+
     }
 
     public void DisplayCurrentPlayerTurn()

@@ -82,12 +82,15 @@ MonoBehaviour:
   playerOwnedCities: []
   playerOwnedRoads: []
   playerColor: 
-  red: {fileID: 0}
-  blue: {fileID: 0}
-  white: {fileID: 0}
-  orange: {fileID: 0}
+  red: {fileID: 2100000, guid: eb1b66a1e4b1342499248772ecc8ff6a, type: 2}
+  blue: {fileID: 2100000, guid: 942f5325970bf9a479b87095095c7e57, type: 2}
+  white: {fileID: 2100000, guid: 8b885fbe8f5941a4a844d08b189bdcad, type: 2}
+  orange: {fileID: 2100000, guid: 44012ed305fbf2b4fb278a0d51890559, type: 2}
+  ownsLargestArmy: 0
+  ownsLongestRoad: 0
   playerNumber: 0
   playerVictoryPoints: 0
+  victoryPointCardsPlayed: 0
   rcQuantTxts:
   - {fileID: 5584048189426163069}
   - {fileID: 5584048189767083140}

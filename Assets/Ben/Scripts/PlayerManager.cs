@@ -158,47 +158,26 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    public void PlayerColor(string color)
+    public void PlayerColor(int colors)
     {
         // color
-        switch (color)
+        switch (colors)
         {
-            case "red":
-                colorSelected = ColorSelected.red;
-                break;
-            case "blue":
+            case 0:
                 colorSelected = ColorSelected.blue;
                 break;
-            case "orange":
+            case 1:
                 colorSelected = ColorSelected.orange;
                 break;
-            case "white":
+            case 2:
+                colorSelected = ColorSelected.red;
+                break;
+            case 3:
                 colorSelected = ColorSelected.white;
                 break;
         }
     }
 
-    /*
-    public void PlayerColor(string color)
-    {
-        // color
-        switch (color)
-        {
-            case "red":
-                colorSelected = ColorSelected.red;
-                break;
-            case "blue":
-                colorSelected = ColorSelected.blue;
-                break;
-            case "orange":
-                colorSelected = ColorSelected.orange;
-                break;
-            case "white":
-                colorSelected = ColorSelected.white;
-                break;
-        }
-    }
-    */
     public string GetPlayerColor()
     {
         return colorSelected.ToString();

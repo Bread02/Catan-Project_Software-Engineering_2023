@@ -47,6 +47,13 @@ public class PlayMenu : MonoBehaviour
     private Color player3Color;
     private Color player4Color;
 
+    // PLAYER COLORS MUST BE CONVERTED TO INT TO BE TRANSFERRED ACROSS SCENES
+    [Header("Player Int")]
+    private int player1ColorInt;
+    private int player2ColorInt;
+    private int player3ColorInt;
+    private int player4ColorInt;
+
     // play to game needs this
     [Header("Player Name")]
     private string player1Name;
@@ -160,6 +167,10 @@ public class PlayMenu : MonoBehaviour
     public int Player2PortraitIconNumber { get => player2PortraitIconNumber; set => player2PortraitIconNumber = value; }
     public int Player3PortraitIconNumber { get => player3PortraitIconNumber; set => player3PortraitIconNumber = value; }
     public int Player4PortraitIconNumber { get => player4PortraitIconNumber; set => player4PortraitIconNumber = value; }
+    public int Player1ColorInt { get => player1ColorInt; set => player1ColorInt = value; }
+    public int Player2ColorInt { get => player2ColorInt; set => player2ColorInt = value; }
+    public int Player3ColorInt { get => player3ColorInt; set => player3ColorInt = value; }
+    public int Player4ColorInt { get => player4ColorInt; set => player4ColorInt = value; }
 
     private enum GameMode
         {
@@ -203,7 +214,6 @@ public class PlayMenu : MonoBehaviour
 
         ColorListCreate();
         IconListCreate();
-        DefaultPlayerColors();
 
         // standard is default mode
         ClickStandard();
@@ -219,6 +229,7 @@ public class PlayMenu : MonoBehaviour
         ClickEnableAI(4);
 
         DefaultPlayerIcons();
+        DefaultPlayerColors();
 
     }
 
@@ -254,18 +265,26 @@ public class PlayMenu : MonoBehaviour
 
     private void ColorListCreate()
     {
-        colorList.Add(blue);
-        colorList.Add(orange);
-        colorList.Add(red);
-        colorList.Add(white);
+        colorList.Add(blue); //0
+        colorList.Add(orange); // 1
+        colorList.Add(red); // 2
+        colorList.Add(white); // 3
     }
 
     private void DefaultPlayerColors()
     {
         Player1Color = blue;
+        Player1ColorInt = 0;
+
         Player2Color = orange;
+        Player2ColorInt = 1;
+
         Player3Color = red;
+        Player3ColorInt = 2;
+
+
         Player4Color = white;
+        Player4ColorInt = 3;
     }
 
     private void IconListCreate()
@@ -694,7 +713,6 @@ public class PlayMenu : MonoBehaviour
         switch (playerNumber)
         {
             case 1:
-                // get player color from list
                 for (int i = 0; i < IconList.Count; i++)
                 {
                     if (Player1PortraitIcon.sprite == IconList[i])
@@ -717,7 +735,6 @@ public class PlayMenu : MonoBehaviour
                 }
                 break;
             case 2:
-                // get player color from list
                 for (int i = 0; i < IconList.Count; i++)
                 {
                     if (Player2PortraitIcon.sprite == IconList[i])
@@ -740,7 +757,6 @@ public class PlayMenu : MonoBehaviour
                 }
                 break;
             case 3:
-                // get player color from list
                 for (int i = 0; i < IconList.Count; i++)
                 {
                     if (Player3PortraitIcon.sprite == IconList[i])
@@ -765,7 +781,6 @@ public class PlayMenu : MonoBehaviour
                 }
                 break;
             case 4:
-                // get player color from list
                 for (int i = 0; i < IconList.Count; i++)
                 {
                     if (Player4PortraitIcon.sprite == IconList[i])
@@ -812,6 +827,7 @@ public class PlayMenu : MonoBehaviour
                             Player1Color = colorList[0];
                             Debug.Log("Changing P1 Color");
                             player1ColorIcon.color = Player1Color;
+                            Player1ColorInt = 0;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -820,6 +836,7 @@ public class PlayMenu : MonoBehaviour
                             Player1Color = colorList[i + 1];
                             Debug.Log("Changing P1 Color");
                             player1ColorIcon.color = Player1Color;
+                            Player1ColorInt++;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -837,6 +854,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player2Color = colorList[0];
                             player2ColorIcon.color = Player2Color;
+                            Player2ColorInt = 0;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
 
@@ -846,6 +864,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player2Color = colorList[i + 1];
                             player2ColorIcon.color = Player2Color;
+                            Player2ColorInt++;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
 
@@ -864,6 +883,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player3Color = colorList[0];
                             player3ColorIcon.color = Player3Color;
+                            Player3ColorInt = 0;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -871,6 +891,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player3Color = colorList[i + 1];
                             player3ColorIcon.color = Player3Color;
+                            Player3ColorInt++;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -888,6 +909,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player4Color = colorList[0];
                             player4ColorIcon.color = Player4Color;
+                            Player4ColorInt = 0;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -895,6 +917,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player4Color = colorList[i + 1];
                             player4ColorIcon.color = Player4Color;
+                            Player4ColorInt++;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -920,6 +943,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player1Color = colorList[colorList.Count - 1];
                             player1ColorIcon.color = Player1Color;
+                            Player1ColorInt = 3;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -927,6 +951,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player1Color = colorList[i - 1];
                             player1ColorIcon.color = Player1Color;
+                            Player1ColorInt--;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -943,6 +968,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player2Color = colorList[colorList.Count - 1];
                             player2ColorIcon.color = Player2Color;
+                            Player2ColorInt = 3;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -950,6 +976,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player2Color = colorList[i - 1];
                             player2ColorIcon.color = Player2Color;
+                            Player2ColorInt--;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -966,6 +993,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player3Color = colorList[colorList.Count - 1];
                             player3ColorIcon.color = Player3Color;
+                            Player3ColorInt = 3;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -973,6 +1001,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player3Color = colorList[i - 1];
                             player3ColorIcon.color = Player3Color;
+                            Player3ColorInt--;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -989,6 +1018,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player4Color = colorList[colorList.Count - 1];
                             player4ColorIcon.color = Player4Color;
+                            Player4ColorInt = 3;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
@@ -996,6 +1026,7 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player4Color = colorList[i - 1];
                             player4ColorIcon.color = Player4Color;
+                            Player4ColorInt--;
                             playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }

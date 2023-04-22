@@ -7022,6 +7022,10 @@ MonoBehaviour:
   player2PortraitIcon: {fileID: 1257099928}
   player3PortraitIcon: {fileID: 1388162555}
   player4PortraitIcon: {fileID: 1094980551}
+  player1PortraitIconNumber: 0
+  player2PortraitIconNumber: 0
+  player3PortraitIconNumber: 0
+  player4PortraitIconNumber: 0
   colorEnabled: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   colorDisabled: {r: 1, g: 1, b: 1, a: 1}
   iconEnabled: {fileID: 21300000, guid: a5573a7011b0ea748af2283a20ca338d, type: 3}
