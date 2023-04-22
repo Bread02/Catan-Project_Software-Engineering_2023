@@ -9,10 +9,9 @@ public class PlayerDataTrack : MonoBehaviour
 {
     [Header ("ONLY ENABLE THIS CLASS IF COMING FROM PLAYMENU TO GAME.")]
 
-    public PlayToGame playToGame;
+    private PlayToGame playToGame;
     private TurnManager turnManager;
-
-    private List<Sprite> IconList = new List<Sprite>();
+    private AbridgedMode abridgedMode;
 
     [Header("Player Stat Board")]
     public GameObject player1Stat;
@@ -93,6 +92,7 @@ public class PlayerDataTrack : MonoBehaviour
     {
         playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+        abridgedMode = GameObject.Find("AbridgedUI").GetComponent<AbridgedMode>();
         GrabPlayToGameData();
     }
 
@@ -375,11 +375,23 @@ public class PlayerDataTrack : MonoBehaviour
 
     void CheckGameMode()
     {
+        Debug.Log("Checking game mode");
         if(playToGame.GameMode == "abridged")
         {
             // abridged mode on.
-
+            Debug.Log("Game mode is abridged");
+            abridgedMode.SetupAbridged(playToGame.TimeLimit);
+            return;
         }
+        if (playToGame.GameMode == "standard")
+        {
+            // abridged mode on.
+            Debug.Log("Game mode is standard");
+            abridgedMode.SetupAbridged(playToGame.TimeLimit);
+            return;
+        }
+
+        Debug.Log("ERRROR. game mode is : " + playToGame.GameMode);
     }
 
     // Update is called once per frame

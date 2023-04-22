@@ -46,6 +46,7 @@ public class PlayerManager : MonoBehaviour
     private int numberOfKnightCardsPlayed;
     private int longestSingleRoad;
     public bool ownsLargestArmy;
+    public bool ownsLongestRoad;
 
     [Header("Ints")]
     public int playerNumber;

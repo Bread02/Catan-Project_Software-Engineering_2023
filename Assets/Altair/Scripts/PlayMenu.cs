@@ -74,7 +74,7 @@ public class PlayMenu : MonoBehaviour
     private TimeLimit timeLimit;
     [SerializeField] private TextMeshProUGUI timeLimitText;
 
-    public int timeLimitInt;
+    public int timeLimitInt; // THIS IS IN SECONDS
     public string gameModeString;
 
     [Header("Player Color Icon")]
@@ -198,6 +198,7 @@ public class PlayMenu : MonoBehaviour
         // default time limit
         TimeLimit1 = TimeLimit.twenty;
         timeLimitText.text = "20:00";
+        timeLimitInt = 1200;
 
 
         ColorListCreate();
@@ -288,21 +289,24 @@ public class PlayMenu : MonoBehaviour
         {
             TimeLimit1 = TimeLimit.ten;
             timeLimitText.text = "10:00";
-            timeLimitInt = 10;
+            timeLimitInt = 600;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
         if (TimeLimit1 == TimeLimit.ten)
         {
             TimeLimit1 = TimeLimit.fifteen;
             timeLimitText.text = "15:00";
-            timeLimitInt = 15;
+            timeLimitInt = 900;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
         if (TimeLimit1 == TimeLimit.fifteen)
         {
             TimeLimit1 = TimeLimit.twenty;
             timeLimitText.text = "20:00";
-            timeLimitInt = 20;
+            timeLimitInt = 1200;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
@@ -310,7 +314,8 @@ public class PlayMenu : MonoBehaviour
         {
             TimeLimit1 = TimeLimit.twentyfive;
             timeLimitText.text = "25:00";
-            timeLimitInt = 25;
+            timeLimitInt = 1500;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
@@ -318,7 +323,8 @@ public class PlayMenu : MonoBehaviour
         {
             TimeLimit1 = TimeLimit.thirty;
             timeLimitText.text = "30:00";
-            timeLimitInt = 30;
+            timeLimitInt = 1800;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
@@ -326,7 +332,8 @@ public class PlayMenu : MonoBehaviour
         {
             TimeLimit1 = TimeLimit.thirtyfive;
             timeLimitText.text = "35:00";
-            timeLimitInt = 35;
+            timeLimitInt = 2100;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
@@ -334,7 +341,8 @@ public class PlayMenu : MonoBehaviour
         {
             TimeLimit1 = TimeLimit.forty;
             timeLimitText.text = "40:00";
-            timeLimitInt = 40;
+            timeLimitInt = 2400;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
     }
@@ -345,14 +353,16 @@ public class PlayMenu : MonoBehaviour
         {
             TimeLimit1 = TimeLimit.five;
             timeLimitText.text = "5:00";
-            timeLimitInt = 5;
+            timeLimitInt = 300;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
         if (TimeLimit1 == TimeLimit.fifteen)
         {
             TimeLimit1 = TimeLimit.ten;
             timeLimitText.text = "10:00";
-            timeLimitInt = 10;
+            timeLimitInt = 600;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
@@ -360,7 +370,8 @@ public class PlayMenu : MonoBehaviour
         {
             TimeLimit1 = TimeLimit.fifteen;
             timeLimitText.text = "15:00";
-            timeLimitInt = 15;
+            timeLimitInt = 900;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
@@ -368,7 +379,8 @@ public class PlayMenu : MonoBehaviour
         {
             TimeLimit1 = TimeLimit.twenty;
             timeLimitText.text = "20:00";
-            timeLimitInt = 20;
+            timeLimitInt = 1200;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
@@ -376,7 +388,8 @@ public class PlayMenu : MonoBehaviour
         {
             TimeLimit1 = TimeLimit.twentyfive;
             timeLimitText.text = "25:00";
-            timeLimitInt = 25;
+            timeLimitInt = 1500;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
@@ -384,14 +397,16 @@ public class PlayMenu : MonoBehaviour
         {
             TimeLimit1 = TimeLimit.thirty;
             timeLimitText.text = "30:00";
-            timeLimitInt = 30;
+            timeLimitInt = 1800;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
         if (TimeLimit1 == TimeLimit.forty)
         {
             TimeLimit1 = TimeLimit.thirtyfive;
             timeLimitText.text = "35:00";
-            timeLimitInt = 35;
+            timeLimitInt = 2100;
+            playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
     }
@@ -402,8 +417,8 @@ public class PlayMenu : MonoBehaviour
         abridgedButton.GetComponent<Image>().color = colorDisabled;
         standardButton.GetComponent<Image>().color = colorEnabled;
         gameModeInfo.GetComponent<TextMeshProUGUI>().text = gameModeInfoTextStandard;
-        gameModeString = "Standard";
-
+        gameModeString = "standard";
+        playToGame.SetMode(gameModeString, timeLimitInt);
     }
 
     public void ClickAbridged()
@@ -413,7 +428,8 @@ public class PlayMenu : MonoBehaviour
         abridgedButton.GetComponent<Image>().color = colorEnabled;
         standardButton.GetComponent<Image>().color = colorDisabled;
         gameModeInfo.GetComponent<TextMeshProUGUI>().text = gameModeInfoTextAbridged;
-        gameModeString = "Abridged";
+        gameModeString = "abridged";
+        playToGame.SetMode(gameModeString, timeLimitInt);
     }
     #endregion
 

@@ -6,8 +6,8 @@ using UnityEngine;
 // Checks which player has the largest army.
 public class LargestArmyCheck : MonoBehaviour
 {
-    public TurnManager turnManager;
-    public BankManager bankManager;
+    private TurnManager turnManager;
+    private BankManager bankManager;
 
     public List<PlayerManager> playersWithMoreThan2;
 

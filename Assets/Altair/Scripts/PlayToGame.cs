@@ -81,6 +81,12 @@ public class PlayToGame : MonoBehaviour
 
     }
 
+    public void SetMode(string gameModeString, int timeLimitInt)
+    {
+        GameMode = gameModeString;
+        TimeLimit = timeLimitInt;
+    }
+
     // called on clicking play.
     public void GetData(string gameModeString, int timeLimitInt)
     {
