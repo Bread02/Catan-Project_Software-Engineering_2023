@@ -79,9 +79,18 @@ public class TurnManager : MonoBehaviour
 
     public bool isSetUpPhase;
 
+    // if this is toggled. GAME ENDS on final player's turn.
+    public bool abridgedFinalTurn;
+
     // Start is called before the first frame update
     // instantiate correct number of player managers.
     // instantiate players by their correct name.
+
+    public void CheckAbridgedFinalPlayersTurn()
+    {
+
+    }
+
     
     void Awake()
     {
