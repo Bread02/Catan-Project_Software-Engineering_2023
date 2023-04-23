@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -353,7 +352,7 @@ public class PlayerManager : MonoBehaviour
 
             //create a parent object for card type - any future cards added that are the same card type
             GameObject cardTypeParentObj = Instantiate(new GameObject(), cardSpawnPoints[cardTag].transform);
-            cardTypeParentObj.gameObject.tag = cardTag;
+            cardTypeParentObj.tag = cardTag;
 
             for (int i = 0; i < amountAdded; i++) //for loop as multiple cards can be added in one call of method
             {

@@ -448,14 +448,17 @@ public class TradeManager : MonoBehaviour
 
         if (ownsBestHarbor)
         {
+            Debug.Log("Current player owns the best harbour for " + rcTypeToGiveToBank);
             IncOrDecValue(rcTypeToGiveToBank, -2);
         }
         else if (turnManager.ReturnCurrentPlayer().ownsImprovedHarbor)
         {
+            Debug.Log("Current player owns the 3:1 harbour");
             IncOrDecValue(rcTypeToGiveToBank, -3);
         }
         else
         {
+            Debug.Log("Current player must give 4 cards for the maritime trade");
             IncOrDecValue(rcTypeToGiveToBank, -4);
         }
 
