@@ -339,7 +339,7 @@ public class TurnManager : MonoBehaviour
             EndPlayerTurn();
         }
 
-
+        Debug.Log("Finished adding cards in reverse");
         tradeManager.inTradeMode = false;
         isTrading = false;
         helpText.SetHelpTextBoxOff();
