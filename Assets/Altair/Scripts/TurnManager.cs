@@ -91,10 +91,21 @@ public class TurnManager : MonoBehaviour
 
     public void AbridgedFinalPlayersTurn()
     {
-        if(ReturnCurrentPlayer().playerNumber == playersToSpawn)
+
+        Debug.Log("Final turn. Abridge check:");
+        Debug.Log("Current player:" + ReturnCurrentPlayer().playerNumber);
+        Debug.Log("playerstospawn" + playersToSpawn);
+
+
+        if (ReturnCurrentPlayer().playerNumber == playersToSpawn)
         {
+            Debug.Log("Final turn. On Final Player");
             // final turn
             finalTurn = true;
+
+            playerDataTrack.VictoryPoints();
+            winConditions.TriggerVictory(playerDataTrack.player1stPlace);
+            playerDataTrack.PlayerStatToVictoryScreen(playerDataTrack.player1stPlace.playerNumber);
 
         }
         // if on player 4, and play 4 clicks end turn. Game will end
@@ -102,6 +113,7 @@ public class TurnManager : MonoBehaviour
 
     public void SetAbridgedFinalTurn()
     {
+        Debug.Log("Final turn now set");
         abridgedFinalTurn = true;
     }
 
@@ -449,10 +461,10 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
-        // if abridged end turn, trigger game victory.
-        if(finalTurn)
+        // if set on final turn, check if the game ends
+        if(abridgedFinalTurn)
         {
-            winConditions.TriggerVictory(playerDataTrack.player1stPlace);
+            AbridgedFinalPlayersTurn();
         }
 
 

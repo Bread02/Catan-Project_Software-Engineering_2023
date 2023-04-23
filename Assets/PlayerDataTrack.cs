@@ -12,6 +12,14 @@ public class PlayerDataTrack : MonoBehaviour
     private TurnManager turnManager;
     private AbridgedMode abridgedMode;
 
+    [Header("Victory Points Text")]
+    private int p1VP;
+    private int p2VP;
+    private int p3VP;
+    private int p4VP;
+
+
+
     [Header("Player Stat Board")]
     public GameObject player1Stat;
     public GameObject player2Stat;
@@ -49,7 +57,7 @@ public class PlayerDataTrack : MonoBehaviour
     public bool isAbridged;
 
     // these are IDENTICAL to the playmenu icons due to integer conversion.
-    [Header("Player Icons")]
+    [Header("Player Icons - DO NOT CHANGE")]
     [SerializeField] private Sprite portraitIcon1;
     [SerializeField] private Sprite portraitIcon2;
     [SerializeField] private Sprite portraitIcon3;
@@ -127,7 +135,6 @@ public class PlayerDataTrack : MonoBehaviour
     void Start()
     {
         FindScripts();
-
         InvokeRepeating("VictoryPoints", 1f, 1f);
         GrabPlayToGameData();
     }
@@ -145,34 +152,34 @@ public class PlayerDataTrack : MonoBehaviour
         switch(winningPlayerNumber)
         {
             case 1:
-                victoryPlayerNameText = player1NameText;
+                victoryPlayerNameText.text = player1NameUI;
                 victoryPlayerPortraitIconUI = player1PortraitIconUI;
-                victoryPlayerColor = player1Color;
                 victoryPlayerAIUI = player1PlayerAIUI;
-                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = player1Color;
+                victoryPlayerVictoryPointsText.text = p1VP.ToString();
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player1Color;
                 break;
             case 2:
-                victoryPlayerNameText = player2NameText;
-                victoryPlayerPortraitIconUI = player2PortraitIconUI;
-                victoryPlayerColor = player2Color;
-                victoryPlayerAIUI = player2PlayerAIUI;
-                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = player2Color;
+                victoryPlayerNameText.text = player2NameUI;
+                victoryPlayerPortraitIconUI.sprite = player2PortraitIconUI.sprite;
+                victoryPlayerAIUI.sprite = player2PlayerAIUI.sprite;
+                victoryPlayerVictoryPointsText.text = p2VP.ToString();
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player2Color;
 
                 break;
             case 3:
-                victoryPlayerNameText = player3NameText;
-                victoryPlayerPortraitIconUI = player3PortraitIconUI;
-                victoryPlayerColor = player3Color;
-                victoryPlayerAIUI = player3PlayerAIUI;
-                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = player3Color;
+                victoryPlayerNameText.text = player3NameUI;
+                victoryPlayerPortraitIconUI.sprite = player3PortraitIconUI.sprite;
+                victoryPlayerAIUI.sprite = player3PlayerAIUI.sprite;
+                victoryPlayerVictoryPointsText.text = p3VP.ToString();
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player3Color;
 
                 break;
             case 4:
-                victoryPlayerNameText = player4NameText;
-                victoryPlayerPortraitIconUI = player4PortraitIconUI;
-                victoryPlayerColor = player4Color;
-                victoryPlayerAIUI = player4PlayerAIUI;
-                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = player4Color;
+                victoryPlayerNameText.text = player4NameUI;
+                victoryPlayerPortraitIconUI.sprite = player4PortraitIconUI.sprite;
+                victoryPlayerAIUI.sprite = player4PlayerAIUI.sprite;
+                victoryPlayerVictoryPointsText.text = p4VP.ToString();
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player4Color;
                 break;
         }
     }
@@ -489,7 +496,6 @@ public class PlayerDataTrack : MonoBehaviour
         {
             // abridged mode on.
             Debug.Log("Game mode is standard");
-            abridgedMode.SetupAbridged(playToGame.TimeLimit);
             return;
         }
 
@@ -511,6 +517,10 @@ public class PlayerDataTrack : MonoBehaviour
         int player3Points = playerManagers[2].playerVictoryPoints;
         int player4Points = playerManagers[3].playerVictoryPoints;
 
+         p1VP = playerManagers[0].playerVictoryPoints;
+        p2VP = playerManagers[1].playerVictoryPoints;
+        p3VP = playerManagers[2].playerVictoryPoints;
+        p4VP = playerManagers[3].playerVictoryPoints;
         // this list can be ordered differently with no issues
         List<PlayerManager> playerManagersRanked = new List<PlayerManager>();
         playerManagersRanked.Add(playerManagers[0]);
@@ -552,6 +562,78 @@ public class PlayerDataTrack : MonoBehaviour
         player2ndPlace = playerManagersRanked[playerManagersRanked.Count - 2];
         player3rdPlace = playerManagersRanked[playerManagersRanked.Count - 3];
         player4thPlace = playerManagersRanked[playerManagersRanked.Count - 4];
+
+        // now put the rankings on the GUI
+        if(player1stPlace.playerNumber == 1)
+        {
+            p1PlaceText.text = "1st";
+        }
+        if (player1stPlace.playerNumber == 2)
+        {
+            p2PlaceText.text = "1st";
+        }
+        if (player1stPlace.playerNumber == 3)
+        {
+            p3PlaceText.text = "1st";
+        }
+        if (player1stPlace.playerNumber == 4)
+        {
+            p4PlaceText.text = "1st";
+        }
+
+        //2nd
+        if (player2ndPlace.playerNumber == 1)
+        {
+            p1PlaceText.text = "2nd";
+        }
+        if (player2ndPlace.playerNumber == 2)
+        {
+            p2PlaceText.text = "2nd";
+        }
+        if (player2ndPlace.playerNumber == 3)
+        {
+            p3PlaceText.text = "2nd";
+        }
+        if (player2ndPlace.playerNumber == 4)
+        {
+            p4PlaceText.text = "2nd";
+        }
+
+        //3rd
+        if (player3rdPlace.playerNumber == 1)
+        {
+            p1PlaceText.text = "3rd";
+        }
+        if (player3rdPlace.playerNumber == 2)
+        {
+            p2PlaceText.text = "3rd";
+        }
+        if (player3rdPlace.playerNumber == 3)
+        {
+            p3PlaceText.text = "3rd";
+        }
+        if (player3rdPlace.playerNumber == 4)
+        {
+            p4PlaceText.text = "3rd";
+        }
+
+        //4th
+        if (player4thPlace.playerNumber == 1)
+        {
+            p1PlaceText.text = "4th";
+        }
+        if (player4thPlace.playerNumber == 2)
+        {
+            p2PlaceText.text = "4th";
+        }
+        if (player4thPlace.playerNumber == 3)
+        {
+            p3PlaceText.text = "4th";
+        }
+        if (player4thPlace.playerNumber == 4)
+        {
+            p4PlaceText.text = "4th";
+        }
 
     }
 }

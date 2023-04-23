@@ -8669,6 +8669,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: WinningPlayerStats
       objectReference: {fileID: 0}
+    - target: {fileID: 932376061326093313, guid: fc803754528a763408c2889012dd6800,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 77ef46ff51cdcfd4b95c3783f9811f43,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc803754528a763408c2889012dd6800, type: 3}
 --- !u!224 &540617564 stripped
@@ -8677,6 +8683,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 540617563}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &540617565 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 932376059788045301, guid: fc803754528a763408c2889012dd6800,
+    type: 3}
+  m_PrefabInstance: {fileID: 540617563}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &547506906
 GameObject:
   m_ObjectHideFlags: 0
@@ -25842,7 +25860,7 @@ MonoBehaviour:
   p2VictoryPointsText: {fileID: 824683582}
   p3VictoryPointsText: {fileID: 585163808}
   p4VictoryPointsText: {fileID: 1366514946}
-  victoryPlayerVictoryPointsText: {fileID: 0}
+  victoryPlayerVictoryPointsText: {fileID: 540617565}
   player1stPlace: {fileID: 0}
   player2ndPlace: {fileID: 0}
   player3rdPlace: {fileID: 0}
@@ -25855,15 +25873,15 @@ MonoBehaviour:
   playerWithMostVPs: {fileID: 0}
   abridgeTime: 0
   isAbridged: 0
-  portraitIcon1: {fileID: 21300000, guid: d2576fb1c75e5ab4992489a5fced6eae, type: 3}
-  portraitIcon2: {fileID: 21300000, guid: 8083e1ddc040a6d4abaaacc37c605384, type: 3}
-  portraitIcon3: {fileID: 21300000, guid: 4ff65b87daa236b4cb3ea32acf403e84, type: 3}
+  portraitIcon1: {fileID: 21300000, guid: 8083e1ddc040a6d4abaaacc37c605384, type: 3}
+  portraitIcon2: {fileID: 21300000, guid: 26ee5e8faee5baa4d8759f42db3636a6, type: 3}
+  portraitIcon3: {fileID: 21300000, guid: 6fcc94c675d50f84fab81935be240255, type: 3}
   portraitIcon4: {fileID: 21300000, guid: 5ac1028d332aa314a8737d5536e0bdfc, type: 3}
-  portraitIcon5: {fileID: 21300000, guid: 781c86cf732f0b44fbc117496cdcf794, type: 3}
-  portraitIcon6: {fileID: 21300000, guid: 1e19201bb71e096478f1eb1148b57e14, type: 3}
-  portraitIcon7: {fileID: 21300000, guid: 807a42a6197b83746a276937ea539570, type: 3}
-  portraitIcon8: {fileID: 21300000, guid: 95435a8613ecade4194e1a3507636c45, type: 3}
-  portraitIcon9: {fileID: 21300000, guid: 4b880f120b41ff94598ad15b37a4686d, type: 3}
+  portraitIcon5: {fileID: 21300000, guid: d2576fb1c75e5ab4992489a5fced6eae, type: 3}
+  portraitIcon6: {fileID: 21300000, guid: 95435a8613ecade4194e1a3507636c45, type: 3}
+  portraitIcon7: {fileID: 21300000, guid: 1e19201bb71e096478f1eb1148b57e14, type: 3}
+  portraitIcon8: {fileID: 21300000, guid: bdb46e87f4edef84e8268f09a3031d0a, type: 3}
+  portraitIcon9: {fileID: 21300000, guid: 807a42a6197b83746a276937ea539570, type: 3}
   portraitIcon10: {fileID: 21300000, guid: 5771b5cf761f9e04cada5e88c87fef67, type: 3}
   player1NameText: {fileID: 405488268}
   player2NameText: {fileID: 432667005}

@@ -46,7 +46,7 @@ public class WinConditions : MonoBehaviour
         // get the stat card from the winning player and display it.
         
 
-        victoryText.text = "Game forfitted. No one won.";
+        victoryText.text = "Player has most victory points! Conngratulations!";
     }
 
     // trigger forfit

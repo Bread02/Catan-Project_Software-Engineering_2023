@@ -62,15 +62,15 @@ public class MakeTrade : MonoBehaviour
         // DEBUG KEYS
         if(Input.GetKeyDown(KeyCode.Z))
         {
-            BuyRoad();
+            SetRoadBought(true);
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            BuyCity();
+            SetCityBought(true);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            BuySettlement();
+            SetSettlementBought(true);
         }
 
     }
