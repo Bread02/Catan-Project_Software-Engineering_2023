@@ -111,7 +111,30 @@ public class BankManager : MonoBehaviour
             // victory point card played
             if(cardType == "victoryPoints")
             {
+                // NEEDS IMPLEMENTING
+                // GRANTS THE PLAYER 1 VP
+            }
 
+            // Year of plenty card played
+            if (cardType == "yearOfPlenty")
+            {
+                // NEEDS IMPLEMENTING
+                // ALLOWS THE PLAYER TO TAKE ANY 2 RESOURCE CARDS FROM THE BANK
+            }
+
+            // Monopoly card played
+            if (cardType == "monopoly")
+            {
+                // NEEDS IMPLEMENTING
+                // All players must give 1 of the resource card the player asks for. e.g. ore, all players give 1 ore card.
+                // If player does not have ore card, they do not give anything.
+            }
+
+            // Road building card played
+            if (cardType == "roadBuilding")
+            {
+                // NEEDS IMPLEMENTING
+                // BUYS 2 ROADS FOR THE PLAYER TO BUILD ON THE MAP.
             }
 
         }
