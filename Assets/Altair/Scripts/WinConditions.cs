@@ -66,12 +66,12 @@ public class WinConditions : MonoBehaviour
     public void ReturnToMainMenu()
     {
         Debug.Log("Clicked Main Menu Button");
-      //  SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenuFinal");
     }
 
     public void PlayAgain()
     {
-
+        SceneManager.LoadScene("PlayMenu");
     }
 
 

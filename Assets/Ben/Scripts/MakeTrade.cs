@@ -56,6 +56,25 @@ public class MakeTrade : MonoBehaviour
         isSetUpPhase = x;
     }
 
+     void Update()
+    {
+
+        // DEBUG KEYS
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            BuyRoad();
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            BuyCity();
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            BuySettlement();
+        }
+
+    }
+
     public void BuyRoad()
     {
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("brick", -1);
