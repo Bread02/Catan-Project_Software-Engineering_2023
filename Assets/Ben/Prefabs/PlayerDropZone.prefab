@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 344638399581619666}
   - component: {fileID: 344638399581619662}
   m_Layer: 0
-  m_Name: Player1DropZone
+  m_Name: PlayerDropZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -25,6 +25,14 @@ public class PlayerDropZone : MonoBehaviour
         }
 
         string cardType = cardPlayed.tag;
+        if(cardType == "knight" || cardType == "roadBuilding" || cardType == "monopoly" || cardType == "yearOfPlenty" || cardType == "victoryPoints")
+        {
+            Debug.Log("You can't trade development cards!");
+            turnManager.ReturnCurrentPlayer().IncOrDecValue(cardType, -1, cardPlayed.gameObject);
+            turnManager.ReturnCurrentPlayer().IncOrDecValue(cardType, 1);
+            return;
+        }
+
         if(playerNumThatOwnsThisDropZone == turnManager.ReturnCurrentPlayer().playerNumber)
         {
             Debug.Log("You silly goose! You're trying to trade with yourself!");
@@ -35,9 +43,9 @@ public class PlayerDropZone : MonoBehaviour
         {
             domesTradeParentObj.DomesticTrade(turnManager.ReturnCurrentPlayer().playerNumber, playerNumThatOwnsThisDropZone);
             turnManager.ReturnCurrentPlayer().IncOrDecValue(cardType, -1, cardPlayed.gameObject);
-            Debug.Log("Removed " + cardType + "card from player " + turnManager.ReturnCurrentPlayer().playerNumber + "'s hand.");
+            Debug.Log("Removed " + cardType + " card from player " + turnManager.ReturnCurrentPlayer().playerNumber + "'s hand.");
             turnManager.playerList[playerNumThatOwnsThisDropZone - 1].IncOrDecValue(cardPlayed.tag, 1);
-            Debug.Log("Added " + cardType + "card to player " + playerNumThatOwnsThisDropZone + "'s hand.");
+            Debug.Log("Added " + cardType + " card to player " + playerNumThatOwnsThisDropZone + "'s hand.");
         }
     }
 }
