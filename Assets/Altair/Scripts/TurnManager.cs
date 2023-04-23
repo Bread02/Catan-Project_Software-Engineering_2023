@@ -221,6 +221,8 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
+        finalTurn = false;
+        abridgedFinalTurn = false;
         loseCardsObject.SetActive(false);
     }
 

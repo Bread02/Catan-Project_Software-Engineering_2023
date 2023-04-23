@@ -18,13 +18,15 @@ public class PlayerDataTrack : MonoBehaviour
     public GameObject player3Stat;
     public GameObject player4Stat;
 
-    public Transform playerStatVictoryLocation;
+    public GameObject victoryPlayerStat;
 
     [Header("Player Victory Points Text")]
     [SerializeField] private TextMeshProUGUI p1VictoryPointsText;
     [SerializeField] private TextMeshProUGUI p2VictoryPointsText;
     [SerializeField] private TextMeshProUGUI p3VictoryPointsText;
     [SerializeField] private TextMeshProUGUI p4VictoryPointsText;
+
+    [SerializeField] private TextMeshProUGUI victoryPlayerVictoryPointsText;
 
     // players ranked
     public PlayerManager player1stPlace;
@@ -66,6 +68,8 @@ public class PlayerDataTrack : MonoBehaviour
     private Color player3Color;
     private Color player4Color;
 
+    private Color victoryPlayerColor;
+
     // play to game needs this
     [Header("Player Name")]
     private string player1NameUI;
@@ -73,11 +77,15 @@ public class PlayerDataTrack : MonoBehaviour
     private string player3NameUI;
     private string player4NameUI;
 
+    private string victoryPlayerNameUI;
+
     [Header("Player Text")]
     [SerializeField] private TextMeshProUGUI player1NameText;
     [SerializeField] private TextMeshProUGUI player2NameText;
     [SerializeField] private TextMeshProUGUI player3NameText;
     [SerializeField] private TextMeshProUGUI player4NameText;
+
+    [SerializeField] private TextMeshProUGUI victoryPlayerNameText;
 
     // play to game needs this
     [Header("Player Enabled")]
@@ -100,6 +108,8 @@ public class PlayerDataTrack : MonoBehaviour
     [SerializeField] private Image player3PortraitIconUI;
     [SerializeField] private Image player4PortraitIconUI;
 
+    [SerializeField] private Image victoryPlayerPortraitIconUI;
+
     [Header("AI or Human Icon")]
     [SerializeField] private Sprite playerHumanIcon;
     [SerializeField] private Sprite playerAIIcon;
@@ -110,32 +120,59 @@ public class PlayerDataTrack : MonoBehaviour
     [SerializeField] private Image player3PlayerAIUI;
     [SerializeField] private Image player4PlayerAIUI;
 
+    [SerializeField] private Image victoryPlayerAIUI;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
-        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
-        abridgedMode = GameObject.Find("AbridgedUI").GetComponent<AbridgedMode>();
+        FindScripts();
 
         InvokeRepeating("VictoryPoints", 1f, 1f);
         GrabPlayToGameData();
     }
+
+    private void FindScripts()
+    {
+        playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
+        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+        abridgedMode = GameObject.Find("AbridgedUI").GetComponent<AbridgedMode>();
+    }
+
 
     public void PlayerStatToVictoryScreen(int winningPlayerNumber)
     {
         switch(winningPlayerNumber)
         {
             case 1:
-          //      playerStatVictoryLocation.position = player1Stat.transform.position;
+                victoryPlayerNameText = player1NameText;
+                victoryPlayerPortraitIconUI = player1PortraitIconUI;
+                victoryPlayerColor = player1Color;
+                victoryPlayerAIUI = player1PlayerAIUI;
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = player1Color;
                 break;
             case 2:
-         //       playerStatVictoryLocation.position = player2Stat.transform.position;
+                victoryPlayerNameText = player2NameText;
+                victoryPlayerPortraitIconUI = player2PortraitIconUI;
+                victoryPlayerColor = player2Color;
+                victoryPlayerAIUI = player2PlayerAIUI;
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = player2Color;
+
                 break;
             case 3:
-         //       playerStatVictoryLocation.position = player3Stat.transform.position;
+                victoryPlayerNameText = player3NameText;
+                victoryPlayerPortraitIconUI = player3PortraitIconUI;
+                victoryPlayerColor = player3Color;
+                victoryPlayerAIUI = player3PlayerAIUI;
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = player3Color;
+
                 break;
             case 4:
-         //       playerStatVictoryLocation.position = player4Stat.transform.position;
+                victoryPlayerNameText = player4NameText;
+                victoryPlayerPortraitIconUI = player4PortraitIconUI;
+                victoryPlayerColor = player4Color;
+                victoryPlayerAIUI = player4PlayerAIUI;
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = player4Color;
                 break;
         }
     }

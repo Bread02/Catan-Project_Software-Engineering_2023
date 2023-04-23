@@ -45,6 +45,11 @@ public class AbridgedMode : MonoBehaviour
         {
             CountDown();
         }
+
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            timeRemaining =- 30;
+        }
     }
 
     public void CountDown()
