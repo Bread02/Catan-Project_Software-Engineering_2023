@@ -325,6 +325,8 @@ public class TurnManager : MonoBehaviour
         //Must add cards in reverse order
         for(int i = playersToSpawn; i > 0; i--)
         {
+            ForcePlayerTurn(playerList[i - 1]);
+            playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
             string helpText2 = "Build your second settlement and adjacent road.";
             StartCoroutine(helpText.HelpTextBox(helpText2));
             helpText.SetHelpTextBoxActive();
@@ -336,6 +338,7 @@ public class TurnManager : MonoBehaviour
             makeTrade.SetRoadBought(true);
             yield return new WaitUntil(() => roadAndSettlementPlacedSetUpCounter == 2);
             roadAndSettlementPlacedSetUpCounter = 0;
+            ReturnCurrentPlayer().CheckIfNewCardsReverse();
             EndPlayerTurn();
         }
 

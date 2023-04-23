@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
 {
     [Header("Other Scripts")]
     private LargestArmyCheck largestArmyCheck;
+    private TerrainAssigner terrainAssigner; // needed for 2nd settlement placement
 
     [Header("Dictionaries")]
     protected Dictionary<string, int> pCardQuantities; //key = card type, value = quantity of card type in player's hand
@@ -109,6 +110,7 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("CountVictoryPoints", 1f, 1f);
+        terrainAssigner = GameObject.Find("TileHolder").GetComponent<TerrainAssigner>();
 
         // largestArmyCheck = GameObject.Find("LargestArmyCheck").GetComponent<LargestArmyCheck>(); - commented out because it throws error
 
@@ -478,7 +480,34 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    public void SetBuildingColors(string color)
+    // ONLY FOR OPENING SEQUENCE WHEN THE SECOND SETTLEMENT IS ADDED
+    // ALL TILES ARE CHECKED. NOT NUMBER SPECIFIC.
+    // SETTLEMENT WILL NEVER BE A CITY
+    // THERE WILL NEVER BE A ROBBER ON THE TILES EXCLUDING DESERT
+    public void CheckIfNewCardsReverse()
+    {
+        Debug.Log("Checking if new cards in reverse");
+        foreach (GameObject tiles1 in terrainAssigner.tileList)
+        {
+            if (playerOwnedSettlements[1].GetComponent<ChooseSettlement>().adjacentTiles.Contains(tiles1))
+            {
+                string terrainType = tiles1.GetComponent<TerrainHex>().terrain.ToString();
+                if (terrainType != "Desert")
+                {
+                    GameObject.Find("THE_BANK").GetComponent<BankManager>().IncOrDecValue(terrainType, -1);
+                    AddResourceCard(terrainType, 1);
+                    Debug.Log("Adding new player card");
+                }
+            }
+
+        }
+    }
+
+
+
+
+
+public void SetBuildingColors(string color)
     {
         if (color == "red")
         {
