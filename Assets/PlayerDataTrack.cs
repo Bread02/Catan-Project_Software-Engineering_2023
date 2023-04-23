@@ -11,6 +11,7 @@ public class PlayerDataTrack : MonoBehaviour
     private PlayToGame playToGame;
     private TurnManager turnManager;
     private AbridgedMode abridgedMode;
+    private WinConditions winConditions;
 
     [Header("Victory Points Text")]
     private int p1VP;
@@ -135,7 +136,7 @@ public class PlayerDataTrack : MonoBehaviour
     void Start()
     {
         FindScripts();
-        InvokeRepeating("VictoryPoints", 1f, 1f);
+        InvokeRepeating("VictoryPoints", 0.5f, 0.5f);
         GrabPlayToGameData();
     }
 
@@ -144,6 +145,7 @@ public class PlayerDataTrack : MonoBehaviour
         playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         abridgedMode = GameObject.Find("AbridgedUI").GetComponent<AbridgedMode>();
+        winConditions = GameObject.Find("WinConditionsAndScreen").GetComponent<WinConditions>();
     }
 
 
@@ -633,6 +635,13 @@ public class PlayerDataTrack : MonoBehaviour
         if (player4thPlace.playerNumber == 4)
         {
             p4PlaceText.text = "4th";
+        }
+
+        // if game is not abridged, and ANY player has 10 or more VPs. Trigger win.
+        if(player1stPlace.playerVictoryPoints >= 10)
+        {
+            winConditions.TriggerVictory(player1stPlace);
+            PlayerStatToVictoryScreen(player1stPlace.playerNumber);
         }
 
     }

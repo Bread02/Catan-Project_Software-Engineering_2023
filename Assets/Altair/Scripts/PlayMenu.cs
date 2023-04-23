@@ -262,9 +262,9 @@ public class PlayMenu : MonoBehaviour
         Player4PortraitIcon.sprite = portraitIcon2;
 
         Player1PortraitIconNumber = 0;
-        Player2PortraitIconNumber = 4;
-        Player3PortraitIconNumber = 6;
-        Player4PortraitIconNumber = 2;
+        Player2PortraitIconNumber = 3;
+        Player3PortraitIconNumber = 5;
+        Player4PortraitIconNumber = 1;
 
 
     }
