@@ -5,22 +5,22 @@ using UnityEngine.UI;
 using TMPro;
 public class AbridgedMode : MonoBehaviour
 {
+    private TurnManager turnManager;
 
     [Header("UI")]
     public TextMeshProUGUI timeRemainingText;
     public GameObject abridgedUI;
 
-    public bool isAbridgedMode;
-
     public float timeRemaining;
-
+    [Header("Bools")]
+    public bool isAbridgedMode;
     public bool isCountingDown;
 
     // Start is called before the first frame update
     void Awake()
     {
         abridgedUI.SetActive(false);
-
+        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
     }
 
     public void SetupAbridged(int totalTime)
@@ -56,7 +56,24 @@ public class AbridgedMode : MonoBehaviour
 
 
         timeRemainingText.text = minutes.ToString() +  ":" + seconds.ToString();
+
+        if(timeRemaining <= 0)
+        {
+            isCountingDown = false;
+            float minutes1 = Mathf.FloorToInt(timeRemaining / 60);
+            float seconds2 = Mathf.FloorToInt(timeRemaining % 60);
+
+
+            timeRemainingText.text = minutes1.ToString() + ":" + seconds2.ToString();
+
+            TimeRanOut();
+        }
     }
 
+    // time run out
+    private void TimeRanOut()
+    {
+        turnManager.SetAbridgedFinalTurn();
+    }
 
 }

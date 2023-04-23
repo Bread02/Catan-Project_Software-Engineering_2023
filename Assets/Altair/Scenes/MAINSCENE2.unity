@@ -22235,7 +22235,6 @@ MonoBehaviour:
   player3DropZone: {fileID: 1046691022}
   player4DropZone: {fileID: 1246144688}
   isSetUpPhase: 0
-  abridgedFinalTurn: 0
 --- !u!4 &1231299517
 Transform:
   m_ObjectHideFlags: 0
@@ -23655,8 +23654,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeRemainingText: {fileID: 635267257}
   abridgedUI: {fileID: 424147968}
-  isAbridgedMode: 0
   timeRemaining: 180
+  isAbridgedMode: 0
   isCountingDown: 0
 --- !u!1001 &1311743581
 PrefabInstance:

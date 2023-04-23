@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class WinConditions : MonoBehaviour
 {
+
+
     [Header("Player Victory Point Track")]
     private int player1VictoryPoints;
     private int player2VictoryPoints;
@@ -32,11 +34,23 @@ public class WinConditions : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.M))
         {
-            TriggerVictory();
+            TriggerForfit();
         }
     }
 
-    private void TriggerVictory()
+    public void TriggerVictory(PlayerManager winningPlayer)
+    {
+        victoryScreen.SetActive(true);
+        victoryTriggered = true;
+
+        // get the stat card from the winning player and display it.
+        
+
+        victoryText.text = "Game forfitted. No one won.";
+    }
+
+    // trigger forfit
+    private void TriggerForfit()
     {
         victoryScreen.SetActive(true);
         victoryTriggered = true;

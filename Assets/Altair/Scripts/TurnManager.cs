@@ -12,6 +12,8 @@ public class TurnManager : MonoBehaviour
     private Robber robber;
     private WarningText warningText;
     private HelpText helpText;
+    private WinConditions winConditions;
+    private PlayerDataTrack playerDataTrack;
 
     [Header("Ints")]
     public int playerToPlay;
@@ -80,20 +82,33 @@ public class TurnManager : MonoBehaviour
     public bool isSetUpPhase;
 
     // if this is toggled. GAME ENDS on final player's turn.
-    public bool abridgedFinalTurn;
+    private bool abridgedFinalTurn;
+    private bool finalTurn;
 
     // Start is called before the first frame update
     // instantiate correct number of player managers.
     // instantiate players by their correct name.
 
-    public void CheckAbridgedFinalPlayersTurn()
+    public void AbridgedFinalPlayersTurn()
     {
+        if(ReturnCurrentPlayer().playerNumber == playersToSpawn)
+        {
+            // final turn
+            finalTurn = true;
 
+        }
+        // if on player 4, and play 4 clicks end turn. Game will end
+    }
+
+    public void SetAbridgedFinalTurn()
+    {
+        abridgedFinalTurn = true;
     }
 
     
     void Awake()
     {
+        abridgedFinalTurn = false;
         FindObjects();
 
         donateCardsObject.SetActive(false);
@@ -217,6 +232,17 @@ public class TurnManager : MonoBehaviour
         robber = GameObject.Find("Robber").GetComponent<Robber>();
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
         helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
+        winConditions = GameObject.Find("WinConditionsAndScreen").GetComponent<WinConditions>();
+
+        try
+        {
+            playerDataTrack = GameObject.Find("PlayerDataTrack").GetComponent<PlayerDataTrack>();
+        }
+        catch (System.Exception)
+        {
+
+            Debug.Log("Player data track not found in scene");
+        }
     }
 
     public void InstantiatePlayerHandLocations(int playerNumber)
@@ -421,6 +447,13 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        // if abridged end turn, trigger game victory.
+        if(finalTurn)
+        {
+            winConditions.TriggerVictory(playerDataTrack.player1stPlace);
+        }
+
+
         finishedDiceRolling = false;
 
         turnNumber++;

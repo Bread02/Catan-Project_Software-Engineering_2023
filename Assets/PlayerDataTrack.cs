@@ -18,11 +18,20 @@ public class PlayerDataTrack : MonoBehaviour
     public GameObject player3Stat;
     public GameObject player4Stat;
 
+    public Transform playerStatVictoryLocation;
+
     [Header("Player Victory Points Text")]
     [SerializeField] private TextMeshProUGUI p1VictoryPointsText;
     [SerializeField] private TextMeshProUGUI p2VictoryPointsText;
     [SerializeField] private TextMeshProUGUI p3VictoryPointsText;
     [SerializeField] private TextMeshProUGUI p4VictoryPointsText;
+
+    // players ranked
+    public PlayerManager player1stPlace;
+    public PlayerManager player2ndPlace;
+    public PlayerManager player3rdPlace;
+    public PlayerManager player4thPlace;
+
 
     [SerializeField] private TextMeshProUGUI p1PlaceText;
     [SerializeField] private TextMeshProUGUI p2PlaceText;
@@ -30,6 +39,8 @@ public class PlayerDataTrack : MonoBehaviour
     [SerializeField] private TextMeshProUGUI p4PlaceText;
 
     public List<int> playerRankings = new List<int>();
+
+    public PlayerManager playerWithMostVPs;
 
     [Header("Abridged settings")]
     public int abridgeTime;
@@ -108,6 +119,25 @@ public class PlayerDataTrack : MonoBehaviour
 
         InvokeRepeating("VictoryPoints", 1f, 1f);
         GrabPlayToGameData();
+    }
+
+    public void PlayerStatToVictoryScreen(int winningPlayerNumber)
+    {
+        switch(winningPlayerNumber)
+        {
+            case 1:
+          //      playerStatVictoryLocation.position = player1Stat.transform.position;
+                break;
+            case 2:
+         //       playerStatVictoryLocation.position = player2Stat.transform.position;
+                break;
+            case 3:
+         //       playerStatVictoryLocation.position = player3Stat.transform.position;
+                break;
+            case 4:
+         //       playerStatVictoryLocation.position = player4Stat.transform.position;
+                break;
+        }
     }
 
     public void CheckEnabledPlayers()
@@ -431,6 +461,7 @@ public class PlayerDataTrack : MonoBehaviour
 
 
     // victory points. Grab from playermanager each player's VP's
+    // THIS  IS BASED ON A 4P SYSTEM.  ALLOW  LESS THAN 4.
     public void VictoryPoints()
     {
         // grab each game manager
@@ -443,9 +474,47 @@ public class PlayerDataTrack : MonoBehaviour
         int player3Points = playerManagers[2].playerVictoryPoints;
         int player4Points = playerManagers[3].playerVictoryPoints;
 
+        // this list can be ordered differently with no issues
+        List<PlayerManager> playerManagersRanked = new List<PlayerManager>();
+        playerManagersRanked.Add(playerManagers[0]);
+        playerManagersRanked.Add(playerManagers[1]);
+        playerManagersRanked.Add(playerManagers[2]);
+        playerManagersRanked.Add(playerManagers[3]);
+
+
+
         p1VictoryPointsText.text = player1Points.ToString();
         p2VictoryPointsText.text = player2Points.ToString();
         p3VictoryPointsText.text = player3Points.ToString();
         p4VictoryPointsText.text = player4Points.ToString();
+
+
+        FindWinningPlayer(playerManagersRanked);
+    }
+
+    // find who has most VP
+    // https://www.geeksforgeeks.org/bubble-sort/
+    public void FindWinningPlayer(List<PlayerManager> playerManagersRanked)
+    {
+        // bubble sort
+        for (int i = 0; i < playerManagersRanked.Count - 1; i++)
+        {
+            for (int j = 0; j < playerManagersRanked.Count - i - 1; j++)
+            {
+                if (playerManagersRanked[j].playerVictoryPoints > playerManagersRanked[j +  1].playerVictoryPoints)
+                {
+                    PlayerManager temp = playerManagersRanked[j];
+                    playerManagersRanked[j] = playerManagersRanked[j + 1];
+                    playerManagersRanked[j + 1] = temp;
+                }
+            }
+        }
+
+        // players ranked
+        player1stPlace = playerManagersRanked[playerManagersRanked.Count - 1];
+        player2ndPlace = playerManagersRanked[playerManagersRanked.Count - 2];
+        player3rdPlace = playerManagersRanked[playerManagersRanked.Count - 3];
+        player4thPlace = playerManagersRanked[playerManagersRanked.Count - 4];
+
     }
 }
