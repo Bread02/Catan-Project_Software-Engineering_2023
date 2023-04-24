@@ -11,6 +11,7 @@ public class ChooseBorder : MonoBehaviour
  //   private TerrainAssigner terrainAssigner;
     private TurnManager turnManager;
     private WarningText warningText;
+    private BankManager bankMang;
 
     [Header("Player Color")]
     public Material red;
@@ -45,6 +46,7 @@ public class ChooseBorder : MonoBehaviour
         turnManager.allRoadBuildSites.Add(this.gameObject);
         makeTradeScript = GameObject.FindGameObjectWithTag("MakeTrade");
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
+        bankMang = GameObject.Find("THE_BANK").GetComponent<BankManager>();
     }
 
     private void Start()
@@ -192,6 +194,14 @@ public class ChooseBorder : MonoBehaviour
                 if (turnManager.isSetUpPhase)
                 {
                     turnManager.roadAndSettlementPlacedSetUpCounter++;
+                }
+                else if (!bankMang.firstRoadPlacedInRB)
+                {
+                    bankMang.firstRoadPlacedInRB = true;
+                }
+                else if (!bankMang.secondRoadPlacedInRB)
+                {
+                    bankMang.secondRoadPlacedInRB = true;
                 }
             }
         }
