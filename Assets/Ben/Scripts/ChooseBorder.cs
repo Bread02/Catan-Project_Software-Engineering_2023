@@ -12,6 +12,8 @@ public class ChooseBorder : MonoBehaviour
     private TurnManager turnManager;
     private WarningText warningText;
 
+    public int playerClaimedBy;
+
     [Header("Player Color")]
     public Material red;
     public Material blue;
@@ -32,6 +34,7 @@ public class ChooseBorder : MonoBehaviour
     [Header("Audio")]
     public AudioManager audioManager;
 
+    private bool adjacentRoadOrSettlementCheck;
 
     // works out who currently has the longest road.
     public void CheckMaxRoadLength()
@@ -112,6 +115,8 @@ public class ChooseBorder : MonoBehaviour
     // Check if a player settlement is adjacent to this road OR another road is adjacent to this road (of same player), if YES, allow building.
     private void OnMouseDown()
     {
+        adjacentRoadOrSettlementCheck = false; // false until proven otherwise.
+
         //Can only interact with border when the user has bought a road!
         if (this.gameObject.GetComponent<Renderer>().enabled)
         {
@@ -140,6 +145,33 @@ public class ChooseBorder : MonoBehaviour
                 }
             }
 
+            // if not in setup phase, check an adjacent player owned road is present
+            if (turnManager.isSetUpPhase == false)
+            {
+                foreach (GameObject adjacentRoad in adjacentRoads)
+                {
+                    if (adjacentRoad.GetComponent<ChooseBorder>().playerClaimedBy == turnManager.playerToPlay)
+                    {
+                        adjacentRoadOrSettlementCheck = true;
+                    }
+                }
+
+                foreach(GameObject adjacentSettlement in adjacentSettlements)
+                {
+                    if (adjacentSettlement.GetComponent<ChooseSettlement>().playerClaimedBy == turnManager.playerToPlay)
+                    {
+                        adjacentRoadOrSettlementCheck = true;
+                    }
+                }
+
+                if (!adjacentRoadOrSettlementCheck)
+                {
+                    StartCoroutine(warningText.WarningTextBox("No adjacent road or settlement to build road"));
+                    return;
+                }
+            }
+
+
             if (!turnManager.allPlayersBuiltStart && adjacentRoadPresent)
             {
                 StartCoroutine(warningText.WarningTextBox("EACH SETTLEMENT NEEDS A STARTING ROAD"));
@@ -166,6 +198,8 @@ public class ChooseBorder : MonoBehaviour
 
                 //Play sound queue
                 audioManager.PlaySound("build");
+
+                playerClaimedBy = turnManager.playerToPlay;
 
                 // get color of player to turn settlement into
                 switch (playerColor)

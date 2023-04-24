@@ -339,7 +339,11 @@ public class TurnManager : MonoBehaviour
             yield return new WaitUntil(() => roadAndSettlementPlacedSetUpCounter == 2);
             roadAndSettlementPlacedSetUpCounter = 0;
             ReturnCurrentPlayer().CheckIfNewCardsReverse();
-            EndPlayerTurn();
+
+            if (ReturnCurrentPlayer().playerNumber != 1)
+            {
+                EndPlayerTurn();
+            }
         }
 
         Debug.Log("Finished adding cards in reverse");
