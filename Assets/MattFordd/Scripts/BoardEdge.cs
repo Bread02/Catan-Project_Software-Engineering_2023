@@ -5,12 +5,11 @@ using UnityEngine;
 public class BoardEdge : MonoBehaviour
 {
     private GameObject road;
-    public BoardGraph bg;
     private int[] hexes = new int[2];
-    private BoardVertex[] verticies = new BoardVertex[2];
+    private BoardVertex[] settlementVerticies = new BoardVertex[2];
     public bool isOnEdge;
 
-    public BoardEdge(KeyValuePair<string, GameObject> keyValuePair){
+    public BoardEdge(KeyValuePair<string, GameObject> keyValuePair, List<BoardVertex> verticies){
         string[] strlist = keyValuePair.Key.Split(",");
         for(int i = 0; i < strlist.Length - 1; i++){
             hexes[i] = int.Parse(strlist[i]);
@@ -24,9 +23,9 @@ public class BoardEdge : MonoBehaviour
 
         for(int j = 0; j < 2; j++){
             if(hexes[j] == -1){
-                verticies[j] = null;
+                settlementVerticies[j] = null;
             } else {
-                verticies[j] = bg.verticies[hexes[j]];
+                settlementVerticies[j] = verticies[hexes[j]];
             }
         }
     }
@@ -36,7 +35,7 @@ public class BoardEdge : MonoBehaviour
     }
 
     public BoardVertex[] getHexObjects(){
-        return verticies;
+        return settlementVerticies;
     }
     
 }

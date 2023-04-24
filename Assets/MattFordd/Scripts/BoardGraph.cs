@@ -11,6 +11,7 @@ public class BoardGraph : MonoBehaviour
     [Header("Board Game Objects")]
     [SerializeField] public List<GameObject> values;
 
+    [Header("Graph")]
     public List<BoardVertex> verticies = new List<BoardVertex>();
     public List<BoardEdge> edges = new List<BoardEdge>();
     public List<BoardSettlement> settlements = new List<BoardSettlement>();
@@ -23,9 +24,9 @@ public class BoardGraph : MonoBehaviour
                 case 'h':
                     AddHex(new KeyValuePair<string, GameObject>(key.Substring(1), values[i]));
                     break;
-                /*case 'r':
+                case 'r':
                     AddRoad(new KeyValuePair<string, GameObject>(key.Substring(1), values[i]));
-                    break;*/
+                    break;
                 case 's':
                     AddSettlement(new KeyValuePair<string, GameObject>(key.Substring(1), values[i]));
                     break;
@@ -35,10 +36,6 @@ public class BoardGraph : MonoBehaviour
             i++;
         }
         
-        //foreach(BoardVertex bv in verticies){
-            Debug.Log(verticies.Count);
-        //}
-        
     }
 
     void AddHex(KeyValuePair<string, GameObject> keyAndValue){
@@ -46,10 +43,14 @@ public class BoardGraph : MonoBehaviour
     }
 
     void AddRoad(KeyValuePair<string, GameObject> keyAndValue){
-        edges.Add(new BoardEdge(keyAndValue));
+        edges.Add(new BoardEdge(keyAndValue, verticies));
     }
 
     void AddSettlement(KeyValuePair<string, GameObject> keyAndValue){
-        settlements.Add(new BoardSettlement(keyAndValue));
+        settlements.Add(new BoardSettlement(keyAndValue, verticies));
+    }
+
+    public List<BoardVertex> getVertexArray(){
+        return verticies;
     }
 }

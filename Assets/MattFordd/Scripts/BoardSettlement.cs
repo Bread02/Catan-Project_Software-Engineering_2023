@@ -6,13 +6,14 @@ public class BoardSettlement : MonoBehaviour
 {
     private GameObject settlement;
     private int[] hexNumbers = new int[3];
-    public BoardGraph bg;
-    private BoardVertex[] verticies = new BoardVertex[3];
+    private BoardVertex[] roadVerticies = new BoardVertex[3];
     public bool isOnEdge;
 
-    public BoardSettlement(KeyValuePair<string, GameObject> keyValuePair){
+    public BoardSettlement(KeyValuePair<string, GameObject> keyValuePair, List<BoardVertex> verticies){
         string[] strlist = keyValuePair.Key.Split(",");
-        for(int i = 0; i < strlist.Length - 1; i++){
+        settlement = keyValuePair.Value;
+
+        for(int i = 0; i < strlist.Length; i++){
             hexNumbers[i] = int.Parse(strlist[i]);
         }
 
@@ -22,13 +23,16 @@ public class BoardSettlement : MonoBehaviour
             isOnEdge = false;
         }
 
+        // - - - - - - - - - - - - WORKS TO HERE - - - - - - - - - - - -
+
         for(int j = 0; j < 3; j++){
             if(hexNumbers[j] == -1){
-                verticies[j] = null;
+                roadVerticies[j] = null;
             } else {
-                verticies[j] = bg.verticies[hexNumbers[j]];
+                roadVerticies[j] = verticies[hexNumbers[j]];
             }
         }
+
     }
 
     public GameObject getSettlment(){
@@ -36,6 +40,6 @@ public class BoardSettlement : MonoBehaviour
     }
 
     public BoardVertex[] getHexObjects(){
-        return verticies;
+        return roadVerticies;
     }
 }
