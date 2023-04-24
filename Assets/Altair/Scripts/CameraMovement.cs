@@ -138,30 +138,44 @@ public class CameraMovement : MonoBehaviour
                 mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
             }
 
+            // if camera 2, flip.
             // scroll up
-            if (mousePosition.y < 40 && cameraTransform.position.z > lockZNegative)
+            switch (playerNumber)
             {
-                // if camera 2, flip.
-                switch (playerNumber)
-                {
-                    case 1:
+
+                case 1:
+                    if (mousePosition.y < 40 && cameraTransform.position.z > lockZNegative)
+                    {
                         mainCamera.transform.Translate(0, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                        break;
-                    case 2:
+                    }
+                    break;
+                case 2:
+                    if (mousePosition.y < 40 && cameraTransform.position.z < lockZPositive - 5)
+                    {
+                        Debug.Log("Scrolling up");
                         mainCamera.transform.Translate(0, 0, screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                        break;
-                    case 3:
+                    }
+                    break;
+
+                case 3:
+                    if (mousePosition.y < 40 && cameraTransform.position.z > lockZNegative)
+                    {
                         mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
-                        break;
-                    case 4:
-                        // this is 3 but flipped.
+                    }
+                    break;
+                case 4:
+                    // this is 3 but flipped.
+                    if (mousePosition.y < 40 && cameraTransform.position.z > lockZNegative)
+                    {
                         mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
-                        break;
-                }
+                    }
+                    break;
             }
+        
+    
 
-            // scroll down
-            if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.z < lockZPositive)
+        // scroll down
+        if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.z < lockZPositive)
             {
 
                 // if camera 2, flip.
@@ -171,7 +185,11 @@ public class CameraMovement : MonoBehaviour
                         mainCamera.transform.Translate(0, 0, screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
                         break;
                     case 2:
-                        mainCamera.transform.Translate(0, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
+                        Debug.Log("Scrolling down");
+                        if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.z > lockZNegative + 5)
+                        {
+                            mainCamera.transform.Translate(0, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
+                        }
                         break;
                     case 3:
                         // needs to go between Z and X

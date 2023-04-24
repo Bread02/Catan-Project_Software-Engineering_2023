@@ -6,23 +6,59 @@ public class AIAgent : PlayerManager
 {
 
     private Dictionary<string, int> AIResourceAccessibility = new Dictionary<string, int>();
-
     public Robber robber;
-    public TurnManager turnManager;
+    public BoardGraph graph;
+
+
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.A)){
+            List<GameObject> list = getHexOptions();
+            Debug.Log(list.Count);
+        }
+    }
 
     // used for robber movements to find which hexes have player settlments
     private List<GameObject> getHexOptions(){
+        
         List<GameObject> hexesToPlay = new List<GameObject>();
-
+        Dictionary<GameObject, int> hexValues = new Dictionary<GameObject, int>();
+        
         // find hex with the most players (+1 for opponent, -1 for yourself)
+        foreach(BoardSettlement settlement in graph.settlements){
+            Debug.Log(settlement.getHexNumbers());
+            if(settlement.getSettlment().GetComponent<ChooseSettlement>().settlementTaken == true){
+                foreach(BoardVertex v in settlement.getHexObjects()){
+                    if((v != null) && (v.getHexTile() != robber.occupiedHex)){
+                        if(settlement.GetComponent<ChooseSettlement>() != null){
+                            Debug.Log("HERE");
+                            if(settlement.GetComponent<ChooseSettlement>().playerClaimedBy != playerNumber){
+                                Debug.Log("PLUS");
+                                hexValues[v.getHexTile()] += 1;
+                            } else {
+                                Debug.Log("MINUS");
+                                hexValues[v.getHexTile()] += -1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
+        foreach(KeyValuePair<GameObject, int> entry in hexValues){
+            if(entry.Value > 0){
+                hexesToPlay.Add(entry.Key);
+            }
+        }
+
+        //sort the list for best solution
+        
         return hexesToPlay;
     }
 
     // used to find all the avaliable places the AI can build a road
     private List<GameObject> getRoadBuildingOptions(){
         List<GameObject> avaliableRoadSpaces = new List<GameObject>();
-
+        
 
 
         return avaliableRoadSpaces;
