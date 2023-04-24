@@ -46,7 +46,7 @@ public class WinConditions : MonoBehaviour
         // get the stat card from the winning player and display it.
         
 
-        victoryText.text = "Game forfitted. No one won.";
+        victoryText.text = "Congratulations! \n \n Player has the most victory points!";
     }
 
     // trigger forfit
@@ -66,12 +66,12 @@ public class WinConditions : MonoBehaviour
     public void ReturnToMainMenu()
     {
         Debug.Log("Clicked Main Menu Button");
-      //  SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenuFinal");
     }
 
     public void PlayAgain()
     {
-
+        SceneManager.LoadScene("PlayMenu");
     }
 
 

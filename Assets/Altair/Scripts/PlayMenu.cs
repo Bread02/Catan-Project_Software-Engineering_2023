@@ -196,7 +196,7 @@ public class PlayMenu : MonoBehaviour
         Player2Name = player2NameText.text;
         Player3Name = player3NameText.text;
         Player4Name = player4NameText.text;
-
+        playToGame.GetData(gameModeString, timeLimitInt);
     }
 
 
@@ -219,6 +219,16 @@ public class PlayMenu : MonoBehaviour
         ClickStandard();
 
         // default settings
+        Invoke("EnablePlayers", 0.01f) ;
+
+        DefaultPlayerIcons();
+        DefaultPlayerColors();
+
+    }
+
+ 
+    public void EnablePlayers()
+    {
         ClickEnablePlayer(1);
         ClickEnableAI(1);
         ClickEnablePlayer(2);
@@ -227,10 +237,6 @@ public class PlayMenu : MonoBehaviour
         ClickEnableAI(3);
         ClickEnablePlayer(4);
         ClickEnableAI(4);
-
-        DefaultPlayerIcons();
-        DefaultPlayerColors();
-
     }
 
     private void Start()
@@ -255,10 +261,10 @@ public class PlayMenu : MonoBehaviour
         Player3PortraitIcon.sprite = portraitIcon6;
         Player4PortraitIcon.sprite = portraitIcon2;
 
-        Player1PortraitIconNumber = 1;
-        Player2PortraitIconNumber = 4;
-        Player3PortraitIconNumber = 6;
-        Player4PortraitIconNumber = 2;
+        Player1PortraitIconNumber = 0;
+        Player2PortraitIconNumber = 3;
+        Player3PortraitIconNumber = 5;
+        Player4PortraitIconNumber = 1;
 
 
     }
@@ -478,6 +484,7 @@ public class PlayMenu : MonoBehaviour
                     Player1Enabled = false;
                     player1EnabledIcon.sprite = iconDisabled;
                     playerInfo1.SetActive(false);
+                    playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
                 else
@@ -485,6 +492,7 @@ public class PlayMenu : MonoBehaviour
                     Player1Enabled = true;
                     player1EnabledIcon.sprite = iconEnabled;
                     playerInfo1.SetActive(true);
+                    playToGame.GetData(gameModeString, timeLimitInt);
 
                     return;
                 }
@@ -495,6 +503,7 @@ public class PlayMenu : MonoBehaviour
                     Player2Enabled = false;
                     player2EnabledIcon.sprite = iconDisabled;
                     playerInfo2.SetActive(false);
+                    playToGame.GetData(gameModeString, timeLimitInt);
 
                     return;
                 }
@@ -503,6 +512,7 @@ public class PlayMenu : MonoBehaviour
                     Player2Enabled = true;
                     player2EnabledIcon.sprite = iconEnabled;
                     playerInfo2.SetActive(true);
+                    playToGame.GetData(gameModeString, timeLimitInt);
 
                     return;
                 }
@@ -513,6 +523,8 @@ public class PlayMenu : MonoBehaviour
                     Player3Enabled = false;
                     player3EnabledIcon.sprite = iconDisabled;
                     playerInfo3.SetActive(false);
+                    playToGame.GetData(gameModeString, timeLimitInt);
+
                     return;
                 }
                 else
@@ -520,6 +532,7 @@ public class PlayMenu : MonoBehaviour
                     Player3Enabled = true;
                     player3EnabledIcon.sprite = iconEnabled;
                     playerInfo3.SetActive(true);
+                    playToGame.GetData(gameModeString, timeLimitInt);
 
                     return;
                 }
@@ -530,6 +543,7 @@ public class PlayMenu : MonoBehaviour
                     Player4Enabled = false;
                     player4EnabledIcon.sprite = iconDisabled;
                     playerInfo4.SetActive(false);
+                    playToGame.GetData(gameModeString, timeLimitInt);
 
                     return;
                 }
@@ -538,6 +552,7 @@ public class PlayMenu : MonoBehaviour
                     Player4Enabled = true;
                     player4EnabledIcon.sprite = iconEnabled;
                     playerInfo4.SetActive(true);
+                    playToGame.GetData(gameModeString, timeLimitInt);
 
                     return;
                 }
@@ -556,12 +571,14 @@ public class PlayMenu : MonoBehaviour
                 {
                     Player1AI = false;
                     player1AIIcon.sprite = iconDisabled;
+                    playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
                 else
                 {
                     Player1AI = true;
                     player1AIIcon.sprite = iconEnabled;
+                    playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
                 break;
@@ -570,12 +587,14 @@ public class PlayMenu : MonoBehaviour
                 {
                     Player2AI = false;
                     player2AIIcon.sprite = iconDisabled;
+                    playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
                 else
                 {
                     Player2AI = true;
                     player2AIIcon.sprite = iconEnabled;
+                    playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
                 break;
@@ -584,12 +603,14 @@ public class PlayMenu : MonoBehaviour
                 {
                     Player3AI = false;
                     player3AIIcon.sprite = iconDisabled;
+                    playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
                 else
                 {
                     Player3AI = true;
                     player3AIIcon.sprite = iconEnabled;
+                    playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
             case 4:
@@ -597,12 +618,14 @@ public class PlayMenu : MonoBehaviour
                 {
                     Player4AI = false;
                     player4AIIcon.sprite = iconDisabled;
+                    playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
                 else
                 {
                     Player4AI = true;
                     player4AIIcon.sprite = iconEnabled;
+                    playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
                 break;
@@ -626,6 +649,7 @@ public class PlayMenu : MonoBehaviour
                             Debug.Log("cahging icon back to 0");
                             Player1PortraitIcon.sprite = IconList[0];
                             Player1PortraitIconNumber = 0;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                         else
@@ -633,6 +657,7 @@ public class PlayMenu : MonoBehaviour
                             Debug.Log("cahging icon ++");
                             Player1PortraitIcon.sprite = IconList[i + 1];
                             Player1PortraitIconNumber++;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                     }
@@ -649,12 +674,14 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player2PortraitIcon.sprite = IconList[0];
                             Player2PortraitIconNumber = 0;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                         else
                         {
                             Player2PortraitIcon.sprite = IconList[i + 1];
                             Player2PortraitIconNumber++;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                     }
@@ -671,12 +698,14 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player3PortraitIcon.sprite = IconList[0];
                             Player3PortraitIconNumber = 0;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                         else
                         {
                             Player3PortraitIcon.sprite = IconList[i + 1];
                             Player3PortraitIconNumber++;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                     }
@@ -693,12 +722,14 @@ public class PlayMenu : MonoBehaviour
                         {
                             Player4PortraitIcon.sprite = IconList[0];
                             Player4PortraitIconNumber = 0;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                         else
                         {
                             Player4PortraitIcon.sprite = IconList[i + 1];
                             Player4PortraitIconNumber++;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                     }
@@ -720,15 +751,15 @@ public class PlayMenu : MonoBehaviour
                         if (i == 0)
                         {
                             Player1PortraitIcon.sprite = IconList[IconList.Count - 1];
-                            playToGame.GetData(gameModeString, timeLimitInt);
                             Player1PortraitIconNumber = 9;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                         else
                         {
                             Player1PortraitIcon.sprite = IconList[i - 1];
-                            playToGame.GetData(gameModeString, timeLimitInt);
                             Player1PortraitIconNumber--;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                     }
@@ -742,15 +773,15 @@ public class PlayMenu : MonoBehaviour
                         if (i == 0)
                         {
                             Player2PortraitIcon.sprite = IconList[IconList.Count - 1];
-                            playToGame.GetData(gameModeString, timeLimitInt);
                             Player2PortraitIconNumber = 9;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                         else
                         {
                             Player2PortraitIcon.sprite = IconList[i - 1];
-                            playToGame.GetData(gameModeString, timeLimitInt);
                             Player2PortraitIconNumber--;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
                         }
                     }
@@ -764,16 +795,16 @@ public class PlayMenu : MonoBehaviour
                         if (i == 0)
                         {
                             Player3PortraitIcon.sprite = IconList[IconList.Count - 1];
-                            playToGame.GetData(gameModeString, timeLimitInt);
                             Player3PortraitIconNumber = 9;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
 
                         }
                         else
                         {
                             Player3PortraitIcon.sprite = IconList[i - 1];
-                            playToGame.GetData(gameModeString, timeLimitInt);
                             Player3PortraitIconNumber--;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
 
                         }
@@ -788,16 +819,16 @@ public class PlayMenu : MonoBehaviour
                         if (i == 0)
                         {
                             Player4PortraitIcon.sprite = IconList[IconList.Count - 1];
-                            playToGame.GetData(gameModeString, timeLimitInt);
                             Player4PortraitIconNumber = 9;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
 
                         }
                         else
                         {
                             Player4PortraitIcon.sprite = IconList[i - 1];
-                            playToGame.GetData(gameModeString, timeLimitInt);
                             Player4PortraitIconNumber--;
+                            playToGame.GetData(gameModeString, timeLimitInt);
                             return;
 
                         }

@@ -80,6 +80,7 @@ public class TurnManager : MonoBehaviour
     public GameObject player4DropZone;
 
     public bool isSetUpPhase;
+    public bool isSetUpPart2;
 
     // if this is toggled. GAME ENDS on final player's turn.
     private bool abridgedFinalTurn;
@@ -91,10 +92,21 @@ public class TurnManager : MonoBehaviour
 
     public void AbridgedFinalPlayersTurn()
     {
-        if(ReturnCurrentPlayer().playerNumber == playersToSpawn)
+
+        Debug.Log("Final turn. Abridge check:");
+        Debug.Log("Current player:" + ReturnCurrentPlayer().playerNumber);
+        Debug.Log("playerstospawn" + playersToSpawn);
+
+
+        if (ReturnCurrentPlayer().playerNumber == playersToSpawn)
         {
+            Debug.Log("Final turn. On Final Player");
             // final turn
             finalTurn = true;
+
+            playerDataTrack.VictoryPoints();
+            winConditions.TriggerVictory(playerDataTrack.player1stPlace);
+            playerDataTrack.PlayerStatToVictoryScreen(playerDataTrack.player1stPlace.playerNumber);
 
         }
         // if on player 4, and play 4 clicks end turn. Game will end
@@ -102,6 +114,7 @@ public class TurnManager : MonoBehaviour
 
     public void SetAbridgedFinalTurn()
     {
+        Debug.Log("Final turn now set");
         abridgedFinalTurn = true;
     }
 
@@ -221,6 +234,8 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
+        finalTurn = false;
+        abridgedFinalTurn = false;
         loseCardsObject.SetActive(false);
     }
 
@@ -292,6 +307,7 @@ public class TurnManager : MonoBehaviour
     {
         isSetUpPhase = true;
         bool isRoundOne = true;
+        
         for (int i = 0; i < playersToSpawn; i++)
         {
             string helpText1 = "Build your first settlement and adjacent road.";
@@ -311,6 +327,9 @@ public class TurnManager : MonoBehaviour
         //Must add cards in reverse order
         for(int i = playersToSpawn; i > 0; i--)
         {
+            isSetUpPart2 = true;
+            ForcePlayerTurn(playerList[i - 1]);
+            playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
             string helpText2 = "Build your second settlement and adjacent road.";
             StartCoroutine(helpText.HelpTextBox(helpText2));
             helpText.SetHelpTextBoxActive();
@@ -322,10 +341,15 @@ public class TurnManager : MonoBehaviour
             makeTrade.SetRoadBought(true);
             yield return new WaitUntil(() => roadAndSettlementPlacedSetUpCounter == 2);
             roadAndSettlementPlacedSetUpCounter = 0;
-            EndPlayerTurn();
+            ReturnCurrentPlayer().CheckIfNewCardsReverse();
+
+            if (ReturnCurrentPlayer().playerNumber != 1)
+            {
+                EndPlayerTurn();
+            }
         }
 
-
+        Debug.Log("Finished adding cards in reverse");
         tradeManager.inTradeMode = false;
         isTrading = false;
         helpText.SetHelpTextBoxOff();
@@ -447,10 +471,10 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
-        // if abridged end turn, trigger game victory.
-        if(finalTurn)
+        // if set on final turn, check if the game ends
+        if(abridgedFinalTurn)
         {
-            winConditions.TriggerVictory(playerDataTrack.player1stPlace);
+            AbridgedFinalPlayersTurn();
         }
 
 

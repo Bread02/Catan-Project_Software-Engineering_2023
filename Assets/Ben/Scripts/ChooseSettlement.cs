@@ -43,6 +43,8 @@ public class ChooseSettlement : MonoBehaviour
     public Mesh cityMesh;
     public bool inCityBuildMode;
 
+    public bool adjacentRoadCheck;
+
 
     [Header("Audio")]
     public AudioManager audioManager;
@@ -51,6 +53,7 @@ public class ChooseSettlement : MonoBehaviour
     {
         FindOtherScripts();
         turnManager.allSettlementBuildSites.Add(this.gameObject);
+
     }
 
     private void FindOtherScripts()
@@ -173,8 +176,11 @@ public class ChooseSettlement : MonoBehaviour
 
 
     // check the settlement is not already taken, and check there are no adjacent built settlements.
+    // IF NOT IN OPENING SEQUENCE THE SETTLEMENT MUST BE BUILT ON A ROAD.
     private void OnMouseDown()
     {
+        adjacentRoadCheck = false; // false until proven.
+
         Debug.Log("Choose settlement mouse down");
         // In the case of cities, do this alternate option
         if(settlementTaken && inCityBuildMode)
@@ -217,6 +223,24 @@ public class ChooseSettlement : MonoBehaviour
             }
         }
 
+
+        // if not in setup phase, check an adjacent player owned road is present
+        if (turnManager.isSetUpPhase == false)
+        {
+            foreach(GameObject adjacentRoad in adjacentRoads)
+            {
+                if(adjacentRoad.GetComponent<ChooseBorder>().playerClaimedBy == turnManager.playerToPlay)
+                {
+                    adjacentRoadCheck = true;
+                }
+            }
+
+            if (!adjacentRoadCheck)
+            {
+                StartCoroutine(warningText.WarningTextBox("No adjacent road to build settlement"));
+                return;
+            }
+        }
 
         //Can only interact with this point when the user has bought a settlement!
         if (this.gameObject.GetComponent<Renderer>().enabled)

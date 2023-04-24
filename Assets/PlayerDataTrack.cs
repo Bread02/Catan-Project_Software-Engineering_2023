@@ -11,6 +11,15 @@ public class PlayerDataTrack : MonoBehaviour
     private PlayToGame playToGame;
     private TurnManager turnManager;
     private AbridgedMode abridgedMode;
+    private WinConditions winConditions;
+
+    [Header("Victory Points Text")]
+    private int p1VP;
+    private int p2VP;
+    private int p3VP;
+    private int p4VP;
+
+
 
     [Header("Player Stat Board")]
     public GameObject player1Stat;
@@ -18,13 +27,15 @@ public class PlayerDataTrack : MonoBehaviour
     public GameObject player3Stat;
     public GameObject player4Stat;
 
-    public Transform playerStatVictoryLocation;
+    public GameObject victoryPlayerStat;
 
     [Header("Player Victory Points Text")]
     [SerializeField] private TextMeshProUGUI p1VictoryPointsText;
     [SerializeField] private TextMeshProUGUI p2VictoryPointsText;
     [SerializeField] private TextMeshProUGUI p3VictoryPointsText;
     [SerializeField] private TextMeshProUGUI p4VictoryPointsText;
+
+    [SerializeField] private TextMeshProUGUI victoryPlayerVictoryPointsText;
 
     // players ranked
     public PlayerManager player1stPlace;
@@ -47,7 +58,7 @@ public class PlayerDataTrack : MonoBehaviour
     public bool isAbridged;
 
     // these are IDENTICAL to the playmenu icons due to integer conversion.
-    [Header("Player Icons")]
+    [Header("Player Icons - DO NOT CHANGE")]
     [SerializeField] private Sprite portraitIcon1;
     [SerializeField] private Sprite portraitIcon2;
     [SerializeField] private Sprite portraitIcon3;
@@ -66,6 +77,8 @@ public class PlayerDataTrack : MonoBehaviour
     private Color player3Color;
     private Color player4Color;
 
+    private Color victoryPlayerColor;
+
     // play to game needs this
     [Header("Player Name")]
     private string player1NameUI;
@@ -73,11 +86,15 @@ public class PlayerDataTrack : MonoBehaviour
     private string player3NameUI;
     private string player4NameUI;
 
+    private string victoryPlayerNameUI;
+
     [Header("Player Text")]
     [SerializeField] private TextMeshProUGUI player1NameText;
     [SerializeField] private TextMeshProUGUI player2NameText;
     [SerializeField] private TextMeshProUGUI player3NameText;
     [SerializeField] private TextMeshProUGUI player4NameText;
+
+    [SerializeField] private TextMeshProUGUI victoryPlayerNameText;
 
     // play to game needs this
     [Header("Player Enabled")]
@@ -100,6 +117,8 @@ public class PlayerDataTrack : MonoBehaviour
     [SerializeField] private Image player3PortraitIconUI;
     [SerializeField] private Image player4PortraitIconUI;
 
+    [SerializeField] private Image victoryPlayerPortraitIconUI;
+
     [Header("AI or Human Icon")]
     [SerializeField] private Sprite playerHumanIcon;
     [SerializeField] private Sprite playerAIIcon;
@@ -110,32 +129,59 @@ public class PlayerDataTrack : MonoBehaviour
     [SerializeField] private Image player3PlayerAIUI;
     [SerializeField] private Image player4PlayerAIUI;
 
+    [SerializeField] private Image victoryPlayerAIUI;
+
+
     // Start is called before the first frame update
     void Start()
+    {
+        FindScripts();
+        InvokeRepeating("VictoryPoints", 0.5f, 0.5f);
+        GrabPlayToGameData();
+    }
+
+    private void FindScripts()
     {
         playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         abridgedMode = GameObject.Find("AbridgedUI").GetComponent<AbridgedMode>();
-
-        InvokeRepeating("VictoryPoints", 1f, 1f);
-        GrabPlayToGameData();
+        winConditions = GameObject.Find("WinConditionsAndScreen").GetComponent<WinConditions>();
     }
+
 
     public void PlayerStatToVictoryScreen(int winningPlayerNumber)
     {
         switch(winningPlayerNumber)
         {
             case 1:
-          //      playerStatVictoryLocation.position = player1Stat.transform.position;
+                victoryPlayerNameText.text = player1NameUI;
+                victoryPlayerPortraitIconUI = player1PortraitIconUI;
+                victoryPlayerAIUI = player1PlayerAIUI;
+                victoryPlayerVictoryPointsText.text = p1VP.ToString();
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player1Color;
                 break;
             case 2:
-         //       playerStatVictoryLocation.position = player2Stat.transform.position;
+                victoryPlayerNameText.text = player2NameUI;
+                victoryPlayerPortraitIconUI.sprite = player2PortraitIconUI.sprite;
+                victoryPlayerAIUI.sprite = player2PlayerAIUI.sprite;
+                victoryPlayerVictoryPointsText.text = p2VP.ToString();
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player2Color;
+
                 break;
             case 3:
-         //       playerStatVictoryLocation.position = player3Stat.transform.position;
+                victoryPlayerNameText.text = player3NameUI;
+                victoryPlayerPortraitIconUI.sprite = player3PortraitIconUI.sprite;
+                victoryPlayerAIUI.sprite = player3PlayerAIUI.sprite;
+                victoryPlayerVictoryPointsText.text = p3VP.ToString();
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player3Color;
+
                 break;
             case 4:
-         //       playerStatVictoryLocation.position = player4Stat.transform.position;
+                victoryPlayerNameText.text = player4NameUI;
+                victoryPlayerPortraitIconUI.sprite = player4PortraitIconUI.sprite;
+                victoryPlayerAIUI.sprite = player4PlayerAIUI.sprite;
+                victoryPlayerVictoryPointsText.text = p4VP.ToString();
+                victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player4Color;
                 break;
         }
     }
@@ -452,7 +498,6 @@ public class PlayerDataTrack : MonoBehaviour
         {
             // abridged mode on.
             Debug.Log("Game mode is standard");
-            abridgedMode.SetupAbridged(playToGame.TimeLimit);
             return;
         }
 
@@ -474,6 +519,10 @@ public class PlayerDataTrack : MonoBehaviour
         int player3Points = playerManagers[2].playerVictoryPoints;
         int player4Points = playerManagers[3].playerVictoryPoints;
 
+         p1VP = playerManagers[0].playerVictoryPoints;
+        p2VP = playerManagers[1].playerVictoryPoints;
+        p3VP = playerManagers[2].playerVictoryPoints;
+        p4VP = playerManagers[3].playerVictoryPoints;
         // this list can be ordered differently with no issues
         List<PlayerManager> playerManagersRanked = new List<PlayerManager>();
         playerManagersRanked.Add(playerManagers[0]);
@@ -515,6 +564,85 @@ public class PlayerDataTrack : MonoBehaviour
         player2ndPlace = playerManagersRanked[playerManagersRanked.Count - 2];
         player3rdPlace = playerManagersRanked[playerManagersRanked.Count - 3];
         player4thPlace = playerManagersRanked[playerManagersRanked.Count - 4];
+
+        // now put the rankings on the GUI
+        if(player1stPlace.playerNumber == 1)
+        {
+            p1PlaceText.text = "1st";
+        }
+        if (player1stPlace.playerNumber == 2)
+        {
+            p2PlaceText.text = "1st";
+        }
+        if (player1stPlace.playerNumber == 3)
+        {
+            p3PlaceText.text = "1st";
+        }
+        if (player1stPlace.playerNumber == 4)
+        {
+            p4PlaceText.text = "1st";
+        }
+
+        //2nd
+        if (player2ndPlace.playerNumber == 1)
+        {
+            p1PlaceText.text = "2nd";
+        }
+        if (player2ndPlace.playerNumber == 2)
+        {
+            p2PlaceText.text = "2nd";
+        }
+        if (player2ndPlace.playerNumber == 3)
+        {
+            p3PlaceText.text = "2nd";
+        }
+        if (player2ndPlace.playerNumber == 4)
+        {
+            p4PlaceText.text = "2nd";
+        }
+
+        //3rd
+        if (player3rdPlace.playerNumber == 1)
+        {
+            p1PlaceText.text = "3rd";
+        }
+        if (player3rdPlace.playerNumber == 2)
+        {
+            p2PlaceText.text = "3rd";
+        }
+        if (player3rdPlace.playerNumber == 3)
+        {
+            p3PlaceText.text = "3rd";
+        }
+        if (player3rdPlace.playerNumber == 4)
+        {
+            p4PlaceText.text = "3rd";
+        }
+
+        //4th
+        if (player4thPlace.playerNumber == 1)
+        {
+            p1PlaceText.text = "4th";
+        }
+        if (player4thPlace.playerNumber == 2)
+        {
+            p2PlaceText.text = "4th";
+        }
+        if (player4thPlace.playerNumber == 3)
+        {
+            p3PlaceText.text = "4th";
+        }
+        if (player4thPlace.playerNumber == 4)
+        {
+            p4PlaceText.text = "4th";
+        }
+
+        // if game is not abridged, and ANY player has 10 or more VPs. Trigger win.
+        if(player1stPlace.playerVictoryPoints >= 10)
+        {
+            winConditions.TriggerVictory(player1stPlace);
+            PlayerStatToVictoryScreen(player1stPlace.playerNumber);
+        }
 
     }
 }

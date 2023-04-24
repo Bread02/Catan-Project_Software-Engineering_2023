@@ -45,6 +45,11 @@ public class AbridgedMode : MonoBehaviour
         {
             CountDown();
         }
+
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            timeRemaining = 3;
+        }
     }
 
     public void CountDown()
@@ -64,7 +69,7 @@ public class AbridgedMode : MonoBehaviour
             float seconds2 = Mathf.FloorToInt(timeRemaining % 60);
 
 
-            timeRemainingText.text = minutes1.ToString() + ":" + seconds2.ToString();
+            timeRemainingText.text = "Time up!";
 
             TimeRanOut();
         }
