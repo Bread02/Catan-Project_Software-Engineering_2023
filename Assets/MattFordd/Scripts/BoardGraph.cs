@@ -16,7 +16,7 @@ public class BoardGraph : MonoBehaviour
     public List<BoardEdge> edges = new List<BoardEdge>();
     public List<BoardSettlement> settlements = new List<BoardSettlement>();
 
-    void Start()
+    void Awake()
     {
         int i = 0;
         foreach(string key in keys){

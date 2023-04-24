@@ -6,7 +6,7 @@ public class BoardSettlement : MonoBehaviour
 {
     private GameObject settlement;
     private int[] hexNumbers = new int[3];
-    private BoardVertex[] roadVerticies = new BoardVertex[3];
+    private BoardVertex[] settlementVerticies = new BoardVertex[3];
     public bool isOnEdge;
 
     public BoardSettlement(KeyValuePair<string, GameObject> keyValuePair, List<BoardVertex> verticies){
@@ -23,13 +23,11 @@ public class BoardSettlement : MonoBehaviour
             isOnEdge = false;
         }
 
-        // - - - - - - - - - - - - WORKS TO HERE - - - - - - - - - - - -
-
         for(int j = 0; j < 3; j++){
             if(hexNumbers[j] == -1){
-                roadVerticies[j] = null;
+                settlementVerticies[j] = null;
             } else {
-                roadVerticies[j] = verticies[hexNumbers[j]];
+                settlementVerticies[j] = verticies[hexNumbers[j]];
             }
         }
 
@@ -40,6 +38,10 @@ public class BoardSettlement : MonoBehaviour
     }
 
     public BoardVertex[] getHexObjects(){
-        return roadVerticies;
+        return settlementVerticies;
+    }
+
+    public int[] getHexNumbers(){
+        return hexNumbers;
     }
 }
