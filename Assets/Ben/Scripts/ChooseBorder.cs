@@ -36,6 +36,8 @@ public class ChooseBorder : MonoBehaviour
 
     private bool adjacentRoadOrSettlementCheck;
 
+    private bool adjacentSettlementCheckOpening;
+
     // works out who currently has the longest road.
     public void CheckMaxRoadLength()
     {
@@ -116,6 +118,7 @@ public class ChooseBorder : MonoBehaviour
     private void OnMouseDown()
     {
         adjacentRoadOrSettlementCheck = false; // false until proven otherwise.
+        adjacentSettlementCheckOpening = false; // false until proven otherwise
 
         //Can only interact with border when the user has bought a road!
         if (this.gameObject.GetComponent<Renderer>().enabled)
@@ -172,10 +175,30 @@ public class ChooseBorder : MonoBehaviour
             }
 
 
-            if (!turnManager.allPlayersBuiltStart && adjacentRoadPresent)
+            // if setup part 2, ensure the new road is connected to the player's 2nd settlement
+            if (!turnManager.allPlayersBuiltStart && turnManager.isSetUpPart2)
             {
-                StartCoroutine(warningText.WarningTextBox("EACH SETTLEMENT NEEDS A STARTING ROAD"));
-                return;
+                // check adjacent settlements if any of them are the player's second.
+                foreach(GameObject settlement in adjacentSettlements)
+                {
+                    // if it is players'
+                    if(settlement.GetComponent<ChooseSettlement>().playerClaimedBy == turnManager.playerToPlay)
+                    {
+                        PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+                        // if it is the player's second
+                        if(settlement == playerManager.playerOwnedSettlements[1])
+                        {
+                            adjacentSettlementCheckOpening = true;
+                            
+                        }
+                    }
+                }
+
+                if(!adjacentSettlementCheckOpening)
+                {
+                    StartCoroutine(warningText.WarningTextBox("EACH SETTLEMENT NEEDS A STARTING ROAD"));
+                    return;
+                }
             }
 
             if (!adjacentRoadPresent && !adjacentSettlementPresent)

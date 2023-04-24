@@ -80,6 +80,7 @@ public class TurnManager : MonoBehaviour
     public GameObject player4DropZone;
 
     public bool isSetUpPhase;
+    public bool isSetUpPart2;
 
     // if this is toggled. GAME ENDS on final player's turn.
     private bool abridgedFinalTurn;
@@ -306,6 +307,7 @@ public class TurnManager : MonoBehaviour
     {
         isSetUpPhase = true;
         bool isRoundOne = true;
+        
         for (int i = 0; i < playersToSpawn; i++)
         {
             string helpText1 = "Build your first settlement and adjacent road.";
@@ -325,6 +327,7 @@ public class TurnManager : MonoBehaviour
         //Must add cards in reverse order
         for(int i = playersToSpawn; i > 0; i--)
         {
+            isSetUpPart2 = true;
             ForcePlayerTurn(playerList[i - 1]);
             playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
             string helpText2 = "Build your second settlement and adjacent road.";
