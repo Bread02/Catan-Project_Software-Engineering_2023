@@ -579,4 +579,30 @@ public void SetBuildingColors(string color)
             return 0;
         }
     }
+
+    public void ShowResourceCardsOnly()
+    {
+        foreach (GameObject dcSpawnPoint in DCspawnPoints)
+        {
+            dcSpawnPoint.SetActive(false);
+        }
+
+        foreach (GameObject rcSpawnPoint in RCspawnPoints)
+        {
+            rcSpawnPoint.SetActive(true);
+        }
+    }
+
+    public void ShowDevelopmentCardsOnly()
+    {
+        foreach(GameObject rcSpawnPoint in RCspawnPoints)
+        {
+            rcSpawnPoint.SetActive(false);
+        }
+
+        foreach (GameObject dcSpawnPoint in DCspawnPoints)
+        {
+            dcSpawnPoint.SetActive(true);
+        }
+    }
 }

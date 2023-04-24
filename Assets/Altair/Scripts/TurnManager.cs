@@ -54,6 +54,7 @@ public class TurnManager : MonoBehaviour
     public GameObject playerHandPrefab;
     public GameObject loseCardsObject;
     public GameObject donateCardsObject;
+    public GameObject toggleCardsInPlayerHand;
 
     [Header("Player Cameras")]
     public Camera player1Camera;
@@ -151,8 +152,6 @@ public class TurnManager : MonoBehaviour
             playerList[i - 1].SetPlayerNumber(playerNumber);
             playerNumber++;
         }
-
-
 
         AssignPlayerToColor();
         DisplayCurrentPlayerTurn();
@@ -305,6 +304,7 @@ public class TurnManager : MonoBehaviour
     // player builds 2 roads and 2 settlements when they start.
     IEnumerator WaitForPlayerBuild()
     {
+        toggleCardsInPlayerHand.SetActive(false);
         isSetUpPhase = true;
         bool isRoundOne = true;
         
@@ -360,6 +360,7 @@ public class TurnManager : MonoBehaviour
         doNotRoll = false;
         isSetUpPhase = false;
         Debug.Log("Can now roll, new turn started. Finished waitforplayerbuild");
+        toggleCardsInPlayerHand.SetActive(true);
     }
 
     public PlayerManager ReturnPlayerManagerByNumber(int number)
