@@ -19,8 +19,6 @@ public class PlayerDataTrack : MonoBehaviour
     private int p3VP;
     private int p4VP;
 
-
-
     [Header("Player Stat Board")]
     public GameObject player1Stat;
     public GameObject player2Stat;

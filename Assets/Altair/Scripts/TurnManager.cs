@@ -15,10 +15,15 @@ public class TurnManager : MonoBehaviour
     private WinConditions winConditions;
     private PlayerDataTrack playerDataTrack;
 
+    [Header("Stat BG to Light Up on Turn")]
+    public GameObject p1StatBG;
+    public GameObject p2StatBG;
+    public GameObject p3StatBG;
+    public GameObject p4StatBG;
+
     [Header("Ints")]
     public int playerToPlay;
     public int playersToSpawn;
-
 
     [Header("Lists")]
     public List<PlayerManager> playerList = new List<PlayerManager>();
@@ -307,7 +312,7 @@ public class TurnManager : MonoBehaviour
         {
             isSetUpPart2 = true;
             ForcePlayerTurn(playerList[i - 1]);
-            playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
+          //  playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
             string helpText2 = "Build your second settlement and adjacent road.";
             StartCoroutine(helpText.HelpTextBox(helpText2));
             helpText.SetHelpTextBoxActive();
@@ -399,7 +404,7 @@ public class TurnManager : MonoBehaviour
             playerToPlay++;
         }
 
-        playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
+    //    playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
 
         // reset dice
         if (allPlayersBuiltStart)
@@ -437,12 +442,24 @@ public class TurnManager : MonoBehaviour
                 player2Camera.enabled = false;
                 player3Camera.enabled = false;
                 player4Camera.enabled = false;
+
+                // highlight stat bg
+                p1StatBG.SetActive(true);
+                p2StatBG.SetActive(false);
+                p3StatBG.SetActive(false);
+                p4StatBG.SetActive(false);
                 break;
             case 2:
                 player1Camera.enabled = false;
                 player2Camera.enabled = true;
                 player3Camera.enabled = false;
                 player4Camera.enabled = false;
+
+                // highlight stat bg
+                p1StatBG.SetActive(false);
+                p2StatBG.SetActive(true);
+                p3StatBG.SetActive(false);
+                p4StatBG.SetActive(false);
                 break;
             case 3:
                 player1Camera.enabled = false;
@@ -450,17 +467,31 @@ public class TurnManager : MonoBehaviour
                 player3Camera.enabled = true;
                 player4Camera.enabled = false;
 
+                // highlight stat bg
+                p1StatBG.SetActive(false);
+                p2StatBG.SetActive(false);
+                p3StatBG.SetActive(true);
+                p4StatBG.SetActive(false);
                 break;
             case 4:
                 player1Camera.enabled = false;
                 player2Camera.enabled = false;
                 player3Camera.enabled = false;
                 player4Camera.enabled = true;
+
+                // highlight stat bg
+                p1StatBG.SetActive(false);
+                p2StatBG.SetActive(false);
+                p3StatBG.SetActive(false);
+                p4StatBG.SetActive(true);
                 break;
             default:
                 Debug.LogError("ERROR. CANNOT FIND CORRECT CAMERA FOR PLAYER");
                 break;
         }
+
+        // highlight player's stat BG
+
 
     }
 
@@ -468,13 +499,13 @@ public class TurnManager : MonoBehaviour
     #region Turn  Button
     public void DisplayEndTurnButton()
     {
-        Debug.Log("Displaying end turn button");
+     //   Debug.Log("Displaying end turn button");
         endTurnButton.SetActive(true);
     }
 
     public void HideEndTurnButton()
     {
-        Debug.Log("Hiding end turn button");
+   //     Debug.Log("Hiding end turn button");
         endTurnButton.SetActive(false);
     }
     #endregion
