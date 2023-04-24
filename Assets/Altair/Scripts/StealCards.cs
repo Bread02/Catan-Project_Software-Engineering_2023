@@ -29,6 +29,7 @@ public class StealCards : MonoBehaviour
     }
 
     // finds the players with a settlement adjacent to the tile of the robber.
+    // ALSO MAKE SURE THE BUTTON DOES NOT APPEAR FOR THE PLAYER'S TURN.
     public void FindAdjacentSettlementPlayers()
     {
         // find adjacent settlements and who owns this.
@@ -41,16 +42,28 @@ public class StealCards : MonoBehaviour
             switch (playerOwned)
             {
                 case 1:
-                    player1StealFromButton.SetActive(true);
+                    if (turnManager.ReturnCurrentPlayer().playerNumber != 1)
+                    {
+                        player1StealFromButton.SetActive(true);
+                    }
                     break;
                 case 2:
-                    player2StealFromButton.SetActive(true);
+                    if (turnManager.ReturnCurrentPlayer().playerNumber != 2)
+                    {
+                        player2StealFromButton.SetActive(true);
+                    }
                     break;
                 case 3:
-                    player3StealFromButton.SetActive(true);
+                    if (turnManager.ReturnCurrentPlayer().playerNumber != 3)
+                    {
+                        player3StealFromButton.SetActive(true);
+                    }
                     break;
                 case 4:
-                    player4StealFromButton.SetActive(true);
+                    if (turnManager.ReturnCurrentPlayer().playerNumber != 4)
+                    {
+                        player4StealFromButton.SetActive(true);
+                    }
                     break;
             }
         }
