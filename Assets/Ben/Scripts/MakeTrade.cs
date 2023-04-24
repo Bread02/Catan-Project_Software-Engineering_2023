@@ -38,7 +38,8 @@ public class MakeTrade : MonoBehaviour
     public bool GetSettlementBought() { return settlementBought; }
 
     public bool GetCityBought() { return cityBought; }
-     public void SetCityBought(bool cityBoughtBool)
+
+    public void SetCityBought(bool cityBoughtBool)
     {
         tradeMang.SetActive(true);
         cityBought = cityBoughtBool;

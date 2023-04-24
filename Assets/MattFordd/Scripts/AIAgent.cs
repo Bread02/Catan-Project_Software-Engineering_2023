@@ -4,24 +4,80 @@ using UnityEngine;
 
 public class AIAgent : PlayerManager
 {
+
+    private Dictionary<string, int> AIResourceAccessibility = new Dictionary<string, int>();
+    public Robber robber;
+    public BoardGraph graph;
+
+
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.A)){
+            List<GameObject> list = getHexOptions();
+            Debug.Log(list.Count);
+        }
+    }
+
     // used for robber movements to find which hexes have player settlments
     private List<GameObject> getHexOptions(){
-        return null;
+        
+        List<GameObject> hexesToPlay = new List<GameObject>();
+        Dictionary<GameObject, int> hexValues = new Dictionary<GameObject, int>();
+        
+        // find hex with the most players (+1 for opponent, -1 for yourself)
+        foreach(BoardSettlement settlement in graph.settlements){
+            Debug.Log(settlement.getHexNumbers());
+            if(settlement.getSettlment().GetComponent<ChooseSettlement>().settlementTaken == true){
+                foreach(BoardVertex v in settlement.getHexObjects()){
+                    if((v != null) && (v.getHexTile() != robber.occupiedHex)){
+                        if(settlement.GetComponent<ChooseSettlement>() != null){
+                            Debug.Log("HERE");
+                            if(settlement.GetComponent<ChooseSettlement>().playerClaimedBy != playerNumber){
+                                Debug.Log("PLUS");
+                                hexValues[v.getHexTile()] += 1;
+                            } else {
+                                Debug.Log("MINUS");
+                                hexValues[v.getHexTile()] += -1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach(KeyValuePair<GameObject, int> entry in hexValues){
+            if(entry.Value > 0){
+                hexesToPlay.Add(entry.Key);
+            }
+        }
+
+        //sort the list for best solution
+        
+        return hexesToPlay;
     }
 
     // used to find all the avaliable places the AI can build a road
     private List<GameObject> getRoadBuildingOptions(){
-        return null;
+        List<GameObject> avaliableRoadSpaces = new List<GameObject>();
+        
+
+
+        return avaliableRoadSpaces;
     }
 
     // used to find all the avaliable places the AI can build a settlment
     private List<GameObject> getSettlmentBuildingOptions(){
-        return null;
+        List<GameObject> avaliableSettlementSpaces = new List<GameObject>();
+
+        return avaliableSettlementSpaces;
     }
 
     // used to find all the avaliable places the AI can upgrade to a city
     private List<GameObject> getCityBuildingOptions(){
-        return null;
+        return playerOwnedSettlements;
+    }
+
+    private float getPercentageOfActiveSettlments(){
+        return 0f;
     }
 
     // gets all avaliable actions for the AI to choose from
@@ -59,7 +115,11 @@ public class AIAgent : PlayerManager
             options.Add("playDevelopmentCard");
         }
 
-        
+
+        /*
+        *   NOTES:
+        *       - check if its possible to do a maritime trade for the cards needed to buy a road / settlement / city / development card
+        */
 
         return options;
     }
@@ -94,7 +154,7 @@ public class AIAgent : PlayerManager
         List<string> options = getAvaliableActions();
         
         if(options.Count == 0){
-            //end turn
+            //end turn?
         } else {
             //selects a random option
             string chosenOption = options[(Random.Range(0, options.Count))];
@@ -112,12 +172,16 @@ public class AIAgent : PlayerManager
                 case "buyDevelopmentCard":
                     // buy development card
                 case "playDevelopmentCard":
+                    //play specific card
                     switch (chooseDevelopmentCardToPlay()){
                         case "monopoly":
                             //play monopoly
                             break;
                         case "knight":
-                            //play knight
+                            //play knight card
+                            robber.TriggerRobberMovementKnight();
+                            IncrementKnightCardUsage();
+                            IncOrDecValue("knight", -1);
                             break;
                         case "roadBuilding":
                             //play road building
@@ -130,8 +194,12 @@ public class AIAgent : PlayerManager
                 default:
                     break;
             }
+
         }
 
-
+        /*
+        * GIVES A 33% CHANCE THAT THE AI WILL PERFORM ANOTHER ACTION BEFORE ENDING THE TURN (could adjust throughout?)
+        */ 
+        
     }
 }

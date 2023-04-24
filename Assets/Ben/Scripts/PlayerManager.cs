@@ -568,4 +568,15 @@ public void SetBuildingColors(string color)
         victoryPointCardsPlayed++;
     }
 
+    public int GetCardTypeQuantity(string cardType)
+    {
+        if (pCardQuantities.ContainsKey(cardType))
+        {
+            return pCardQuantities[cardType];
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
