@@ -30,6 +30,7 @@ public class StealCards : MonoBehaviour
 
     // finds the players with a settlement adjacent to the tile of the robber.
     // ALSO MAKE SURE THE BUTTON DOES NOT APPEAR FOR THE PLAYER'S TURN.
+    // To steal from a player. the player must also have at least ONE resource card.
     public void FindAdjacentSettlementPlayers()
     {
         // find adjacent settlements and who owns this.
@@ -44,25 +45,37 @@ public class StealCards : MonoBehaviour
                 case 1:
                     if (turnManager.ReturnCurrentPlayer().playerNumber != 1)
                     {
-                        player1StealFromButton.SetActive(true);
+                        if (turnManager.playerList[0].ReturnNumberOfRCCards() > 0)
+                        {
+                            player1StealFromButton.SetActive(true);
+                        }
                     }
                     break;
                 case 2:
                     if (turnManager.ReturnCurrentPlayer().playerNumber != 2)
                     {
-                        player2StealFromButton.SetActive(true);
+                        if (turnManager.playerList[1].ReturnNumberOfRCCards() > 0)
+                        {
+                            player2StealFromButton.SetActive(true);
+                        }
                     }
                     break;
                 case 3:
                     if (turnManager.ReturnCurrentPlayer().playerNumber != 3)
                     {
-                        player3StealFromButton.SetActive(true);
+                        if (turnManager.playerList[2].ReturnNumberOfRCCards() > 0)
+                        {
+                            player3StealFromButton.SetActive(true);
+                        }
                     }
                     break;
                 case 4:
                     if (turnManager.ReturnCurrentPlayer().playerNumber != 4)
                     {
-                        player4StealFromButton.SetActive(true);
+                        if (turnManager.playerList[3].ReturnNumberOfRCCards() > 0)
+                        {
+                            player4StealFromButton.SetActive(true);
+                        }
                     }
                     break;
             }
