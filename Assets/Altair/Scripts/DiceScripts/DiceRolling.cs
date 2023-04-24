@@ -84,6 +84,7 @@ public class DiceRolling : MonoBehaviour
                 playerManager.CheckIfNewCards(tiles);
             }
             turnManager.finishedDiceRolling = true;
+            turnManager.DisplayEndTurnButton();
         }
         else
         {
@@ -125,6 +126,7 @@ public class DiceRolling : MonoBehaviour
         }
         if(!yellowRolled && !redRolled)
         {
+            turnManager.HideEndTurnButton();
             //diceRollText.text = "Rolled: ?";
         }
 

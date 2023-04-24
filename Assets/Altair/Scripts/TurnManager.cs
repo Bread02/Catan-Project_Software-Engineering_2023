@@ -236,6 +236,7 @@ public class TurnManager : MonoBehaviour
     // if dice rolling is false, and trade is false, show button.
     public void Update()
     {
+        /*
         if (finishedDiceRolling && !isTrading)
         {
             DisplayEndTurnButton();
@@ -244,7 +245,7 @@ public class TurnManager : MonoBehaviour
         {
             HideEndTurnButton();
         }
-
+        */
         // force next player turn
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -467,11 +468,13 @@ public class TurnManager : MonoBehaviour
     #region Turn  Button
     public void DisplayEndTurnButton()
     {
+        Debug.Log("Displaying end turn button");
         endTurnButton.SetActive(true);
     }
 
     public void HideEndTurnButton()
     {
+        Debug.Log("Hiding end turn button");
         endTurnButton.SetActive(false);
     }
     #endregion

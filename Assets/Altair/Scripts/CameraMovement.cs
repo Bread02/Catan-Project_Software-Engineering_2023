@@ -146,8 +146,6 @@ public class CameraMovement : MonoBehaviour
                     // if mouse position < 20x scroll left
                     if (mousePosition.x < 40 && cameraTransform.position.z < lockZPositive)
                     {
-                        Debug.Log("Scrolling 1");
-
                         mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
                     }
                     break;
@@ -180,7 +178,6 @@ public class CameraMovement : MonoBehaviour
                     // if mouse position is > screen resolution - 20, scroll right.
                     if (mousePosition.x > (Screen.width - 40) && cameraTransform.position.z > lockZNegative)
                     {
-                        Debug.Log("Scrolling 2");
                         mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
                     }
                     break;
@@ -208,7 +205,6 @@ public class CameraMovement : MonoBehaviour
                 case 2:
                     if (mousePosition.y < 40 && cameraTransform.position.z < lockZPositive - 5)
                     {
-                        Debug.Log("Scrolling up");
                         mainCamera.transform.Translate(0, 0, screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
                     }
                     break;
@@ -216,7 +212,6 @@ public class CameraMovement : MonoBehaviour
                 case 3:
                     if (mousePosition.y < 40 && cameraTransform.position.x > lockXNegative)
                     {
-                        Debug.Log("Scrolling down");
                         mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
                     }
                     break;
@@ -245,7 +240,6 @@ public class CameraMovement : MonoBehaviour
                 case 2:
                     if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.z > lockZNegative + 5)
                     {
-                        Debug.Log("Scrolling down");
                         mainCamera.transform.Translate(0, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
                     }
                     break;
@@ -254,7 +248,6 @@ public class CameraMovement : MonoBehaviour
                     //
                     if (mousePosition.y > (Screen.height - 40)  && cameraTransform.position.x < lockXPositive)
                     {
-                        Debug.Log("Scrolling up");
                         mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
                     }
                     break;

@@ -53,7 +53,7 @@ public class DonateCardsObject : MonoBehaviour
         playerDonatingTo.IncOrDecValue(cardType, +1, cardPlayed.gameObject);
 
         // one donated, trigger turn manager to go back to player who played robber.
-        stealCards.FinishTheft();
+        stealCards.FinishTheft(true);
 
         StartCoroutine(ChangeColour());
     }

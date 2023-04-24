@@ -8,6 +8,7 @@ public class StealCards : MonoBehaviour
     private TurnManager turnManager;
     private Robber robber;
     private HelpText helpText;
+    private DiceRolling diceRolling;
 
     [Header("GameObjects")]
     public GameObject donateCardsObject;
@@ -25,6 +26,7 @@ public class StealCards : MonoBehaviour
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         robber = GameObject.Find("Robber").GetComponent<Robber>();
         helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
+        diceRolling = GameObject.Find("DiceRolling").GetComponent<DiceRolling>();
 
     }
 
@@ -33,6 +35,8 @@ public class StealCards : MonoBehaviour
     // To steal from a player. the player must also have at least ONE resource card.
     public void FindAdjacentSettlementPlayers()
     {
+        bool canSteal = false; // false until proven
+
         // find adjacent settlements and who owns this.
         List<GameObject> adjacentSettlements = robber.occupiedHex.GetComponent<TerrainHex>().adjacentSettlements;
 
@@ -48,6 +52,7 @@ public class StealCards : MonoBehaviour
                         if (turnManager.playerList[0].ReturnNumberOfRCCards() > 0)
                         {
                             player1StealFromButton.SetActive(true);
+                            canSteal = true;
                         }
                     }
                     break;
@@ -57,6 +62,7 @@ public class StealCards : MonoBehaviour
                         if (turnManager.playerList[1].ReturnNumberOfRCCards() > 0)
                         {
                             player2StealFromButton.SetActive(true);
+                            canSteal = true;
                         }
                     }
                     break;
@@ -66,6 +72,7 @@ public class StealCards : MonoBehaviour
                         if (turnManager.playerList[2].ReturnNumberOfRCCards() > 0)
                         {
                             player3StealFromButton.SetActive(true);
+                            canSteal = true;
                         }
                     }
                     break;
@@ -75,13 +82,23 @@ public class StealCards : MonoBehaviour
                         if (turnManager.playerList[3].ReturnNumberOfRCCards() > 0)
                         {
                             player4StealFromButton.SetActive(true);
+                            canSteal = true;
                         }
                     }
                     break;
             }
         }
 
-        StartCoroutine(helpText.HelpTextBox("Choose the player you want to steal from."));
+        if(canSteal == true)
+        {
+            StartCoroutine(helpText.HelpTextBox("Choose the player you want to steal from."));
+        }
+        else
+        {
+            // if cannot steal anything, continue turn.
+            FinishTheft(false);
+        }
+
     }
 
     public void ClickPlayerToStealFrom(int playerToStealFrom)
@@ -116,11 +133,31 @@ public class StealCards : MonoBehaviour
         Debug.Log("Set player donating to");
     }
 
-    public void FinishTheft()
+    // if dice not yet rolled, roll dice.
+    public void FinishTheft(bool didSteal)
     {
         turnManager.ForcePlayerTurn(turnManager.playerWhoRolledSeven);
         RemovePlayerTheftOptions();
-        StartCoroutine(helpText.HelpTextBox("Continue round."));
+
+        if(!diceRolling.redRolled)
+        {
+            diceRolling.TimeToRollDice();
+            Debug.Log("Time to roll dice");
+        }
+        else
+        {
+            Debug.Log("Displaying End Turn Button");
+            turnManager.DisplayEndTurnButton();
+        }
+
+        if (didSteal)
+        {
+            StartCoroutine(helpText.HelpTextBox("Theft complete. Continue your round."));
+        }
+        else
+        {
+            StartCoroutine(helpText.HelpTextBox("No cards to steal. Continue your round."));
+        }
 
     }
 
