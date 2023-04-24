@@ -19,6 +19,8 @@ public class TurnManager : MonoBehaviour
     public int playerToPlay;
     public int playersToSpawn;
 
+
+    [Header("Lists")]
     public List<PlayerManager> playerList = new List<PlayerManager>();
     public List<GameObject> playerDropZones = new List<GameObject>();
 
@@ -36,6 +38,15 @@ public class TurnManager : MonoBehaviour
     private bool playerOneBuilt;
 
     public TextMeshProUGUI playerTurnText;
+
+    [Header("Start  Up Bools")]
+    public bool isSetUpPhase;
+    public bool isSetUpPart2;
+
+    // if this is toggled. GAME ENDS on final player's turn.
+    [Header("Abridged Bools")]
+    private bool abridgedFinalTurn;
+    private bool finalTurn;
 
     [Header("Lists of All Objects")]
     public List<GameObject> allSettlementBuildSites;
@@ -79,46 +90,11 @@ public class TurnManager : MonoBehaviour
     public GameObject player3DropZone;
     public GameObject player4DropZone;
 
-    public bool isSetUpPhase;
-    public bool isSetUpPart2;
-
-    // if this is toggled. GAME ENDS on final player's turn.
-    private bool abridgedFinalTurn;
-    private bool finalTurn;
-
     // Start is called before the first frame update
     // instantiate correct number of player managers.
     // instantiate players by their correct name.
 
-    public void AbridgedFinalPlayersTurn()
-    {
-
-        Debug.Log("Final turn. Abridge check:");
-        Debug.Log("Current player:" + ReturnCurrentPlayer().playerNumber);
-        Debug.Log("playerstospawn" + playersToSpawn);
-
-
-        if (ReturnCurrentPlayer().playerNumber == playersToSpawn)
-        {
-            Debug.Log("Final turn. On Final Player");
-            // final turn
-            finalTurn = true;
-
-            playerDataTrack.VictoryPoints();
-            winConditions.TriggerVictory(playerDataTrack.player1stPlace);
-            playerDataTrack.PlayerStatToVictoryScreen(playerDataTrack.player1stPlace.playerNumber);
-
-        }
-        // if on player 4, and play 4 clicks end turn. Game will end
-    }
-
-    public void SetAbridgedFinalTurn()
-    {
-        Debug.Log("Final turn now set");
-        abridgedFinalTurn = true;
-    }
-
-    
+  
     void Awake()
     {
         abridgedFinalTurn = false;
@@ -152,8 +128,6 @@ public class TurnManager : MonoBehaviour
             playerNumber++;
         }
 
-
-
         AssignPlayerToColor();
         DisplayCurrentPlayerTurn();
 
@@ -167,6 +141,7 @@ public class TurnManager : MonoBehaviour
     }
 
 
+    #region  SETUP FINAL VERSION. KEEP DISABLED UNTIL NEEDED.
     // In FINAL VERSION, this will be used and NOT awake method.
     // this is triggered by the game data track to setup the game PROPERLY with the correct number of players.
     // ONLY UNCOMMENT THIS IF YOU PLAN TO USE THIS INSTEAD AND FOR THE FINAL VERSION
@@ -231,6 +206,24 @@ public class TurnManager : MonoBehaviour
     }
 
     */
+    #endregion
+
+
+    /*
+    For testing purposes
+    Blue = Player 1
+    Orange = player 2
+    Red = player 3
+    White = player 4
+    */
+    public void AssignPlayerToColor()
+    {
+        Debug.Log("Assigning player to color");
+        playerList[0].PlayerColor(0);
+        playerList[1].PlayerColor(1);
+        playerList[2].PlayerColor(2);
+        playerList[3].PlayerColor(3);
+    }
 
     private void Start()
     {
@@ -239,25 +232,24 @@ public class TurnManager : MonoBehaviour
         loseCardsObject.SetActive(false);
     }
 
-    private void FindObjects()
+    // if dice rolling is false, and trade is false, show button.
+    public void Update()
     {
-        diceRolling = GameObject.Find("DiceRolling").GetComponent<DiceRolling>();
-        tradeManager = GameObject.Find("THE_TRADE_GUI").GetComponent<TradeManager>();
-        makeTrade = GameObject.Find("EMPTY_OBJ_MakeTrade").GetComponent<MakeTrade>();
-        robber = GameObject.Find("Robber").GetComponent<Robber>();
-        warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
-        helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
-        winConditions = GameObject.Find("WinConditionsAndScreen").GetComponent<WinConditions>();
-
-        try
+        if (finishedDiceRolling && !isTrading)
         {
-            playerDataTrack = GameObject.Find("PlayerDataTrack").GetComponent<PlayerDataTrack>();
+            DisplayEndTurnButton();
         }
-        catch (System.Exception)
+        else
         {
-
-            Debug.Log("Player data track not found in scene");
+            HideEndTurnButton();
         }
+
+        // force next player turn
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            EndPlayerTurn();
+        }
+
     }
 
     public void InstantiatePlayerHandLocations(int playerNumber)
@@ -278,23 +270,6 @@ public class TurnManager : MonoBehaviour
                 break;
         }
     }
-
-    /*
-    For testing purposes
-    Blue = Player 1
-    Orange = player 2
-    Red = player 3
-    White = player 4
-    */
-    public void AssignPlayerToColor()
-    {
-        Debug.Log("Assigning player to color");
-        playerList[0].PlayerColor(0);
-        playerList[1].PlayerColor(1);
-        playerList[2].PlayerColor(2);
-        playerList[3].PlayerColor(3);
-    }
-    
 
     // before ANY dice rolling can commence, players must all select the road and settlement locations they want to start at.
     public void SetAllPlayerPositions()
@@ -389,26 +364,6 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Player to play: " + playerToPlay);
     }
 
-    // if dice rolling is false, and trade is false, show button.
-    public void Update()
-    {
-        if (finishedDiceRolling && !isTrading)
-        {
-            DisplayEndTurnButton();
-        }
-        else
-        {
-            HideEndTurnButton();
-        }
-
-        // force next player turn
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            EndPlayerTurn();
-        }
-
-    }
-
 
     public PlayerManager ReturnCurrentPlayer()
     {
@@ -416,57 +371,6 @@ public class TurnManager : MonoBehaviour
           return playerList[playerToPlay - 1];
      //   return playerList[playerToPlay];
 
-    }
-
-    public void DisplayCurrentPlayerTurn()
-    {
-     //   playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
-
-
-        // display correct camera
-        switch (playerToPlay)
-        {
-            case 1:
-                player1Camera.enabled = true;
-                player2Camera.enabled = false;
-                player3Camera.enabled = false;
-                player4Camera.enabled = false;
-                break;
-            case 2:
-                player1Camera.enabled = false;
-                player2Camera.enabled = true;
-                player3Camera.enabled = false;
-                player4Camera.enabled = false;
-                break;
-            case 3:
-                player1Camera.enabled = false;
-                player2Camera.enabled = false;
-                player3Camera.enabled = true;
-                player4Camera.enabled = false;
-
-                break;
-            case 4:
-                player1Camera.enabled = false;
-                player2Camera.enabled = false;
-                player3Camera.enabled = false;
-                player4Camera.enabled = true;
-                break;
-            default:
-                Debug.LogError("ERROR. CANNOT FIND CORRECT CAMERA FOR PLAYER");
-                break;
-        }
-
-    }
-
-    // to end the turn, the player must not be in trade mode and must have rolled dice.
-    public void DisplayEndTurnButton()
-    {
-        endTurnButton.SetActive(true);
-    }
-
-    public void HideEndTurnButton()
-    {
-        endTurnButton.SetActive(false);
     }
 
     public void EndPlayerTurn()
@@ -515,4 +419,111 @@ public class TurnManager : MonoBehaviour
         DisplayCurrentPlayerTurn();
         Debug.Log("Player to play: " + playerToPlay);
     }
+
+    public void DisplayCurrentPlayerTurn()
+    {
+        //   playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
+
+
+        // display correct camera
+        switch (playerToPlay)
+        {
+            case 1:
+                player1Camera.enabled = true;
+                player2Camera.enabled = false;
+                player3Camera.enabled = false;
+                player4Camera.enabled = false;
+                break;
+            case 2:
+                player1Camera.enabled = false;
+                player2Camera.enabled = true;
+                player3Camera.enabled = false;
+                player4Camera.enabled = false;
+                break;
+            case 3:
+                player1Camera.enabled = false;
+                player2Camera.enabled = false;
+                player3Camera.enabled = true;
+                player4Camera.enabled = false;
+
+                break;
+            case 4:
+                player1Camera.enabled = false;
+                player2Camera.enabled = false;
+                player3Camera.enabled = false;
+                player4Camera.enabled = true;
+                break;
+            default:
+                Debug.LogError("ERROR. CANNOT FIND CORRECT CAMERA FOR PLAYER");
+                break;
+        }
+
+    }
+
+    // to end the turn, the player must not be in trade mode and must have rolled dice.
+    #region Turn  Button
+    public void DisplayEndTurnButton()
+    {
+        endTurnButton.SetActive(true);
+    }
+
+    public void HideEndTurnButton()
+    {
+        endTurnButton.SetActive(false);
+    }
+    #endregion
+
+    #region ABRIDGED MODE
+    public void AbridgedFinalPlayersTurn()
+    {
+
+        Debug.Log("Final turn. Abridge check:");
+        Debug.Log("Current player:" + ReturnCurrentPlayer().playerNumber);
+        Debug.Log("playerstospawn" + playersToSpawn);
+
+
+        if (ReturnCurrentPlayer().playerNumber == playersToSpawn)
+        {
+            Debug.Log("Final turn. On Final Player");
+            // final turn
+            finalTurn = true;
+
+            playerDataTrack.VictoryPoints();
+            winConditions.TriggerVictory(playerDataTrack.player1stPlace);
+            playerDataTrack.PlayerStatToVictoryScreen(playerDataTrack.player1stPlace.playerNumber);
+
+        }
+        // if on player 4, and play 4 clicks end turn. Game will end
+    }
+
+    public void SetAbridgedFinalTurn()
+    {
+        Debug.Log("Final turn now set");
+        abridgedFinalTurn = true;
+    }
+
+    #endregion
+
+    #region  Find  Objects
+    private void FindObjects()
+    {
+        diceRolling = GameObject.Find("DiceRolling").GetComponent<DiceRolling>();
+        tradeManager = GameObject.Find("THE_TRADE_GUI").GetComponent<TradeManager>();
+        makeTrade = GameObject.Find("EMPTY_OBJ_MakeTrade").GetComponent<MakeTrade>();
+        robber = GameObject.Find("Robber").GetComponent<Robber>();
+        warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
+        helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
+        winConditions = GameObject.Find("WinConditionsAndScreen").GetComponent<WinConditions>();
+
+        try
+        {
+            playerDataTrack = GameObject.Find("PlayerDataTrack").GetComponent<PlayerDataTrack>();
+        }
+        catch (System.Exception)
+        {
+
+            Debug.Log("Player data track not found in scene");
+        }
+    }
+    #endregion
 }
