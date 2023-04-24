@@ -81,7 +81,7 @@ public class CameraMovement : MonoBehaviour
         lockXPositive = 10;
         lockZNegative = -10;
         lockZPositive = 10;
-        lockYZoomIn = 0;
+        lockYZoomIn = 3;
         lockYZoomOut = 10;
     }
 
@@ -107,15 +107,15 @@ public class CameraMovement : MonoBehaviour
     private void Zooming()
     {
         // zoom in
-        if ((Input.GetAxis("Mouse ScrollWheel") < 0f && cameraTransform.position.y > lockYZoomIn))
+        if ((Input.GetAxis("Mouse ScrollWheel") < 0f && cameraTransform.position.y < lockYZoomOut))
         {
-            mainCamera.transform.Translate(0, Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.unscaledDeltaTime, 0, Space.World);
+            mainCamera.transform.Translate(0, -Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.unscaledDeltaTime, 0, Space.World);
         }
 
         // zoom out
-        if ((Input.GetAxis("Mouse ScrollWheel") > 0f && cameraTransform.position.y < lockYZoomOut))
+        if ((Input.GetAxis("Mouse ScrollWheel") > 0f && cameraTransform.position.y > lockYZoomIn))
         {
-            mainCamera.transform.Translate(0, Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.unscaledDeltaTime, 0, Space.World);
+            mainCamera.transform.Translate(0, -Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.unscaledDeltaTime, 0, Space.World);
         }
     }
 
@@ -126,17 +126,73 @@ public class CameraMovement : MonoBehaviour
         {
             Vector3 mousePosition = Input.mousePosition;
 
-            // if mouse position < 20x scroll left
-            if (mousePosition.x < 40 && cameraTransform.position.x > lockXNegative)
+            switch (playerNumber)
             {
-                mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+                case 1:
+                    // if mouse position < 20x scroll left
+                    if (mousePosition.x < 40 && cameraTransform.position.x > lockXNegative)
+                    {
+                        mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+                    }
+                    break;
+                case 2:
+                    // if mouse position < 20x scroll left
+                    if (mousePosition.x < 40 && cameraTransform.position.x < lockXPositive)
+                    {
+                        mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+                    }
+                    break;
+                case 3:
+                    // if mouse position < 20x scroll left
+                    if (mousePosition.x < 40 && cameraTransform.position.z < lockZPositive)
+                    {
+                        Debug.Log("Scrolling 1");
+
+                        mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+                    }
+                    break;
+                case 4:
+                    // if mouse position < 20x scroll left
+                    if (mousePosition.x < 40 && cameraTransform.position.z > lockZNegative)
+                    {
+                        mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+                    }
+                    break;
             }
 
-            // if mouse position is > screen resolution - 20, scroll right.
-            if (mousePosition.x > (Screen.width - 40) && cameraTransform.position.x < lockXPositive)
+            switch (playerNumber)
             {
-                mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+                case 1:
+                    // if mouse position is > screen resolution - 20, scroll right.
+                    if (mousePosition.x > (Screen.width - 40) && cameraTransform.position.x < lockXPositive)
+                    {
+                        mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+                    }
+                    break;
+                case 2:
+                    // if mouse position is > screen resolution - 20, scroll right.
+                    if (mousePosition.x > (Screen.width - 40) && cameraTransform.position.x > lockXNegative)
+                    {
+                        mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+                    }
+                    break;
+                case 3:
+                    // if mouse position is > screen resolution - 20, scroll right.
+                    if (mousePosition.x > (Screen.width - 40) && cameraTransform.position.z > lockZNegative)
+                    {
+                        Debug.Log("Scrolling 2");
+                        mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+                    }
+                    break;
+                case 4:
+                    // if mouse position is > screen resolution - 20, scroll right.
+                    if (mousePosition.x > (Screen.width - 40) && cameraTransform.position.z < lockZPositive)
+                    {
+                        mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.Self);
+                    }
+                    break;
             }
+
 
             // if camera 2, flip.
             // scroll up
@@ -158,51 +214,61 @@ public class CameraMovement : MonoBehaviour
                     break;
 
                 case 3:
-                    if (mousePosition.y < 40 && cameraTransform.position.z > lockZNegative)
+                    if (mousePosition.y < 40 && cameraTransform.position.x > lockXNegative)
                     {
+                        Debug.Log("Scrolling down");
                         mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
                     }
                     break;
                 case 4:
                     // this is 3 but flipped.
-                    if (mousePosition.y < 40 && cameraTransform.position.z > lockZNegative)
+                    if (mousePosition.y < 40 && cameraTransform.position.x < lockXPositive)
                     {
                         mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
                     }
                     break;
             }
-        
-    
 
-        // scroll down
-        if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.z < lockZPositive)
+
+
+            // if camera 2, flip.
+            switch (playerNumber)
             {
 
-                // if camera 2, flip.
-                switch (playerNumber)
-                {
-                    case 1:
+                case 1:
+                    // scroll down
+                    if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.z < lockZPositive)
+                    {
                         mainCamera.transform.Translate(0, 0, screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                        break;
-                    case 2:
+                    }
+                    break;
+                case 2:
+                    if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.z > lockZNegative + 5)
+                    {
                         Debug.Log("Scrolling down");
-                        if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.z > lockZNegative + 5)
-                        {
-                            mainCamera.transform.Translate(0, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
-                        }
-                        break;
-                    case 3:
-                        // needs to go between Z and X
+                        mainCamera.transform.Translate(0, 0, -screenScrollSpeed * Time.unscaledDeltaTime, Space.World);
+                    }
+                    break;
+                case 3:
+                    // needs to go between Z and X
+                    //
+                    if (mousePosition.y > (Screen.height - 40)  && cameraTransform.position.x < lockXPositive)
+                    {
+                        Debug.Log("Scrolling up");
                         mainCamera.transform.Translate(screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
-                        break;
-                    case 4:
+                    }
+                    break;
+                case 4:
+                    if (mousePosition.y > (Screen.height - 40) && cameraTransform.position.x > lockXNegative)
+                    {
                         // this is 3 but flipped.
                         mainCamera.transform.Translate(-screenScrollSpeed * Time.unscaledDeltaTime, 0, 0, Space.World);
-                        break;
-                }
+                    }
+                    break;
             }
         }
     }
+
 
     /*
     private void MouseDragScroll()
