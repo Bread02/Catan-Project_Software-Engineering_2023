@@ -201,7 +201,7 @@ public class BankManager : MonoBehaviour
         monopolyPanel.SetActive(false);
         foreach (PlayerManager player in turnManager.playerList)
         {
-            if (player.playerNumber != turnManager.ReturnCurrentPlayer().playerNumber)
+            if (player.playerNumber != turnManager.ReturnCurrentPlayer().playerNumber && player.GetCardTypeQuantity(rcType) > 0)
             {
                 //Is NOT the player whose turn it currently is (i.e. the player who player the monopoly card)
                 //Then remove card from opponent's hand and add to hand of player who played monopoly card

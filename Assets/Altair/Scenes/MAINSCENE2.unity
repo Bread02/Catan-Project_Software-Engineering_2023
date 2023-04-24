@@ -16903,7 +16903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42695872cf74f8345a4cd79819e4ca5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  makeTrade: {fileID: 0}
+  makeTrade: {fileID: 671809152}
   bankGuiTxt: {fileID: 1193699047}
   tradeGUImang: {fileID: 430811048}
   whiteMat: {fileID: 2100000, guid: 48f0fe399d6755e479e33fcd88b26caa, type: 2}
@@ -31954,7 +31954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1654391558
 Transform:
   m_ObjectHideFlags: 0
