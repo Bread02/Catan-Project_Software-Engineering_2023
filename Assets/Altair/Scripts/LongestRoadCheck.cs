@@ -10,6 +10,7 @@ public class LongestRoadCheck : MonoBehaviour
     public PlayerManager playerWithLongestRoad;
     private TurnManager turnManager;
 
+    private bool hasBeenGivenToAPlayer;
 
     [Header("Largest Army Points")]
     public Transform P0Point;
@@ -20,12 +21,61 @@ public class LongestRoadCheck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hasBeenGivenToAPlayer = false;
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         longestRoadCard.transform.position = P0Point.position; // start at no players.
-
     }
 
+    private void Update()
+    {
+        int currentLongestRoad = 0, playerNumWhoOwnsCurrentLongestRoad = 0;
+        foreach(GameObject roadPoint in GameObject.FindGameObjectsWithTag("RoadPoint"))
+        {
+            int rpFurthDist = roadPoint.GetComponent<ChooseBorder>().furthestDistanceFromASettlement;
+            if (rpFurthDist > currentLongestRoad)
+            {
+                currentLongestRoad = rpFurthDist;
+                playerNumWhoOwnsCurrentLongestRoad = roadPoint.GetComponent<ChooseBorder>().playerClaimedBy;
+            }
+        }
+        //ONLY if longest road is at least 5, then give longest road card to player with longest road
+        if(currentLongestRoad >= 5)
+        {
+            switch (playerNumWhoOwnsCurrentLongestRoad)
+            {
+                case 1:
+                    longestRoadCard.transform.position = P1Point.position;
+                    longestRoadCard.transform.rotation = P1Point.rotation;
+                    break;
+                case 2:
+                    longestRoadCard.transform.position = P2Point.position;
+                    longestRoadCard.transform.rotation = P2Point.rotation;
+                    break;
+                case 3:
+                    longestRoadCard.transform.position = P3Point.position;
+                    longestRoadCard.transform.rotation = P3Point.rotation;
+                    break;
+                case 4:
+                    longestRoadCard.transform.position = P4Point.position;
+                    longestRoadCard.transform.rotation = P4Point.rotation;
+                    break;
+            }
+            if(!hasBeenGivenToAPlayer)
+            {
+                playerWithLongestRoad = turnManager.playerList[playerNumWhoOwnsCurrentLongestRoad - 1];
+                playerWithLongestRoad.playerVictoryPoints += 2;
+                hasBeenGivenToAPlayer = true;
+            }
+            else
+            {
+                playerWithLongestRoad.playerVictoryPoints -= 2;
+                playerWithLongestRoad = turnManager.playerList[playerNumWhoOwnsCurrentLongestRoad - 1];
+                playerWithLongestRoad.playerVictoryPoints += 2;
+            }
+        }
+    }
 
+    /*
     public void SetAllPlayersToFalse()
     {
         for (int i = 0; i < turnManager.playerList.Count; i++)
@@ -60,5 +110,5 @@ public class LongestRoadCheck : MonoBehaviour
                 longestRoadCard.transform.position = P4Point.position;
                 break;
         }
-    }
+    }*/ //Commented out because not sure if needed anymore - anyway I (Ben) aren't using them
 }
