@@ -81,7 +81,6 @@ public class MakeTrade : MonoBehaviour
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("brick", -1);
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("lumber", -1);
         roadBought = true;
-        bankMang.SetActive(false);
         tradeMang.SetActive(false); //removes trade GUI to make it easier to see board
         Debug.Log("You bought a road!");
     }
@@ -93,7 +92,6 @@ public class MakeTrade : MonoBehaviour
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("wool", -1);
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("grain", -1);
         settlementBought = true;
-        bankMang.SetActive(false);
         tradeMang.SetActive(false); //removes trade GUI to make it easier to see board
         Debug.Log("You bought a settlement!");
     }
@@ -103,7 +101,6 @@ public class MakeTrade : MonoBehaviour
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("ore", -3);
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("grain", -2);
         cityBought = true;
-        bankMang.SetActive(false);
         tradeMang.SetActive(false); //removes trade GUI to make it easier to see board
         helpText.HelpTextBox("Choose a settlement to build your city on");
      //   turnManager.

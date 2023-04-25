@@ -27,7 +27,6 @@ TagManager:
   - MakeTrade
   - Furniture
   - CityPoint
-  - RoadPoint
   layers:
   - Default
   - TransparentFX
