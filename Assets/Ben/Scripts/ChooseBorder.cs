@@ -39,6 +39,8 @@ public class ChooseBorder : MonoBehaviour
 
     private bool adjacentSettlementCheckOpening;
 
+    public int furthestDistanceFromASettlement; //0 indicates the border has not been 'chosen' by a player.
+
     // works out who currently has the longest road.
     public void CheckMaxRoadLength()
     {
@@ -56,6 +58,8 @@ public class ChooseBorder : MonoBehaviour
 
     private void Start()
     {
+        playerClaimedBy = 0;
+        furthestDistanceFromASettlement = 0;
         FindAdjacentSettlements();
         FindAdjacentRoads();
         borderTaken = false;
@@ -215,7 +219,6 @@ public class ChooseBorder : MonoBehaviour
 
                 if (!borderTaken)
                 {
-                    borderTaken = true;
                     makeTradeScript.GetComponent<MakeTrade>().SetRoadBought(false);
 
                     PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
@@ -253,18 +256,49 @@ public class ChooseBorder : MonoBehaviour
                     if (turnManager.isSetUpPhase)
                     {
                         turnManager.roadAndSettlementPlacedSetUpCounter++;
+                        bool placedSecondRoadNextToFirst = false;
+                        foreach (GameObject adjacentRoad in adjacentRoads)
+                        {
+                            if (adjacentRoad.GetComponent<ChooseBorder>().borderTaken)
+                            {
+                                furthestDistanceFromASettlement = 2;
+                                placedSecondRoadNextToFirst = true;
+                            }
+                        }
+                        if (!placedSecondRoadNextToFirst)
+                        {
+                            furthestDistanceFromASettlement = 1;
+                        }
                     }
-                    else if (!bankMang.firstRoadPlacedInRB)
+                    else
                     {
-                        bankMang.firstRoadPlacedInRB = true;
+                        //Must find out longest distance from settlement.
+                        foreach (GameObject adjacentRoad in adjacentRoads)
+                        {
+                            ChooseBorder adjRoadBorderScript = adjacentRoad.GetComponent<ChooseBorder>();
+                            int tempFurthestDistance = furthestDistanceFromASettlement;
+                            if (adjRoadBorderScript.furthestDistanceFromASettlement > tempFurthestDistance)
+                            {
+                                tempFurthestDistance = adjRoadBorderScript.furthestDistanceFromASettlement + 1;
+                            }
+                            furthestDistanceFromASettlement = tempFurthestDistance;
+                        }
+
+                        if (!bankMang.firstRoadPlacedInRB)
+                        {
+                            bankMang.firstRoadPlacedInRB = true;
+                        }
+                        else if (!bankMang.secondRoadPlacedInRB)
+                        {
+                            bankMang.secondRoadPlacedInRB = true;
+                        }
                     }
-                    else if (!bankMang.secondRoadPlacedInRB)
-                    {
-                        bankMang.secondRoadPlacedInRB = true;
-                    }
+
+                    borderTaken = true;
                 }
             }
         }
+        Debug.Log("This road has a distance of " + furthestDistanceFromASettlement + ", to the furthest possibe settlement.");
     }
 
     private void OnMouseExit()
