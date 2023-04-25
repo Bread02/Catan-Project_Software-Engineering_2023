@@ -51,7 +51,10 @@ public class PlayerManager : MonoBehaviour
     [Header("Ints")]
     public int playerNumber;
     private int RCfreeSpacePointer, DCfreeSpacePointer;
+
+    [Header("Victory Points")]
     public int playerVictoryPoints;
+    public int playerTrueVictoryPoints;
     public int victoryPointCardsPlayed;
 
     [Header("Other")]
@@ -548,7 +551,12 @@ public void SetBuildingColors(string color)
         {
             playerVictoryPoints += 2;
         }
-        playerVictoryPoints += victoryPointCardsPlayed;
+
+        // set true points equal to victory points.
+        playerTrueVictoryPoints = playerVictoryPoints;
+
+        // Now add the VP cards to the hidden victory points.
+        playerTrueVictoryPoints += victoryPointCardsPlayed;
     }
 
     public int ReturnVictoryPoints()

@@ -134,7 +134,7 @@ public class TurnManager : MonoBehaviour
             playerNumber++;
         }
 
-     //   AssignPlayerToColor(null); // COMMENT THIS OUT IF SETUPO GAME FINAL IS USED
+        AssignPlayerToColor(null); // COMMENT THIS OUT IF SETUPO GAME FINAL IS USED
         DisplayCurrentPlayerTurn();
 
         SetAllPlayerPositions();
@@ -220,6 +220,7 @@ public class TurnManager : MonoBehaviour
             playerList[1].PlayerColor(playerColor[1]);
             playerList[2].PlayerColor(playerColor[2]);
             playerList[3].PlayerColor(playerColor[3]);
+            Debug.Log("Put colors in v2");
             return;
         }
         else
@@ -229,6 +230,7 @@ public class TurnManager : MonoBehaviour
             playerList[1].PlayerColor(1);
             playerList[2].PlayerColor(2);
             playerList[3].PlayerColor(3);
+            Debug.Log("Put colors in");
         }
 
     }
