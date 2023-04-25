@@ -168,15 +168,19 @@ public class PlayerManager : MonoBehaviour
         {
             case 0:
                 colorSelected = ColorSelected.blue;
+                playerColor = "blue";
                 break;
             case 1:
                 colorSelected = ColorSelected.orange;
+                playerColor = "orange";
                 break;
             case 2:
                 colorSelected = ColorSelected.red;
+                playerColor = "red";
                 break;
             case 3:
                 colorSelected = ColorSelected.white;
+                playerColor = "white";
                 break;
         }
     }

@@ -134,7 +134,7 @@ public class TurnManager : MonoBehaviour
             playerNumber++;
         }
 
-        AssignPlayerToColor();
+     //   AssignPlayerToColor(null); // COMMENT THIS OUT IF SETUPO GAME FINAL IS USED
         DisplayCurrentPlayerTurn();
 
         SetAllPlayerPositions();
@@ -151,15 +151,16 @@ public class TurnManager : MonoBehaviour
     // In FINAL VERSION, this will be used and NOT awake method.
     // this is triggered by the game data track to setup the game PROPERLY with the correct number of players.
     // ONLY UNCOMMENT THIS IF YOU PLAN TO USE THIS INSTEAD AND FOR THE FINAL VERSION
-    /*
+    
     public void SetupGameFinal(int numberOfPlayers, List<int> colorInt)
     {
+        Debug.Log("Setup final");
         FindObjects();
 
         donateCardsObject.SetActive(false);
 
-        player1Camera.enabled = true;
-        player2Camera.enabled = false;
+     //   player1Camera.enabled = true;
+     //   player2Camera.enabled = false;
 
         doNotRoll = true;
         allPlayersBuiltStart = false;
@@ -186,7 +187,7 @@ public class TurnManager : MonoBehaviour
 
 
 
-        AssignPlayerToColorFinal(colorInt);
+        AssignPlayerToColor(colorInt);
 
         DisplayCurrentPlayerTurn();
 
@@ -198,20 +199,8 @@ public class TurnManager : MonoBehaviour
         playerDropZones.Add(player3DropZone);
         playerDropZones.Add(player4DropZone);
     }
-    */
-    // THIS IS THE FINAL VERSION CONNECTED TO THE SETUP METHOD.
-    /*
-    public void AssignPlayerToColorFinal(List<int> playerColor)
-    {
-        Debug.Log("Assigning player to color");
-        // grab 0 color
-        playerList[0].PlayerColorFinal(playerColor[0]);
-        playerList[1].PlayerColorFinal(playerColor[1]);
-        playerList[2].PlayerColorFinal(playerColor[2]);
-        playerList[3].PlayerColorFinal(playerColor[3]);
-    }
-
-    */
+    
+    
     #endregion
 
 
@@ -222,13 +211,26 @@ public class TurnManager : MonoBehaviour
     Red = player 3
     White = player 4
     */
-    public void AssignPlayerToColor()
+    public void AssignPlayerToColor(List<int> playerColor)
     {
         Debug.Log("Assigning player to color");
-        playerList[0].PlayerColor(0);
-        playerList[1].PlayerColor(1);
-        playerList[2].PlayerColor(2);
-        playerList[3].PlayerColor(3);
+        if(playerColor != null)
+        {
+            playerList[0].PlayerColor(playerColor[0]);
+            playerList[1].PlayerColor(playerColor[1]);
+            playerList[2].PlayerColor(playerColor[2]);
+            playerList[3].PlayerColor(playerColor[3]);
+            return;
+        }
+        else
+        {
+            // default
+            playerList[0].PlayerColor(0);
+            playerList[1].PlayerColor(1);
+            playerList[2].PlayerColor(2);
+            playerList[3].PlayerColor(3);
+        }
+
     }
 
     private void Start()

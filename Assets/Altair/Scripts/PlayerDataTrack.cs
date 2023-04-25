@@ -225,7 +225,8 @@ public class PlayerDataTrack : MonoBehaviour
 
 
         CheckColors();
-      //  turnManager.SetupGameFinal(numberOfPlayers, CheckColors());
+
+     //   turnManager.SetupGameFinal(numberOfPlayers, CheckColors());
     }
 
     private void NumberToIcons(int player1Num, int player2Num, int player3Num, int player4Num)
@@ -449,7 +450,7 @@ public class PlayerDataTrack : MonoBehaviour
     }
 
     // change player stat BG to correct color of player
-    List<int> CheckColors()
+    public List<int> CheckColors()
     {
         // normal colors can be pulled across as normal
          player1Color = playToGame.Player1Color;
@@ -461,10 +462,10 @@ public class PlayerDataTrack : MonoBehaviour
         // child 0 is the BG
         // color list to int
         Debug.Log("Setting stat color BGs");
-        player1Stat.transform.GetChild(0).GetComponent<Image>().color = player1Color;
-        player2Stat.transform.GetChild(0).GetComponent<Image>().color = player2Color;
-        player3Stat.transform.GetChild(0).GetComponent<Image>().color = player3Color;
-        player4Stat.transform.GetChild(0).GetComponent<Image>().color = player4Color;
+        player1Stat.transform.GetChild(1).GetComponent<Image>().color = player1Color;
+        player2Stat.transform.GetChild(1).GetComponent<Image>().color = player2Color;
+        player3Stat.transform.GetChild(1).GetComponent<Image>().color = player3Color;
+        player4Stat.transform.GetChild(1).GetComponent<Image>().color = player4Color;
 
         int player1ColorInt = playToGame.Player1ColorInt;
         int player2ColorInt = playToGame.Player2ColorInt;
@@ -479,7 +480,6 @@ public class PlayerDataTrack : MonoBehaviour
         playerColorList.Add(player4ColorInt);
 
         return playerColorList;
-
     }
 
     void CheckGameMode()
