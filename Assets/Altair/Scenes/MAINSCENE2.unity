@@ -2486,7 +2486,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!1 &119339031 stripped
 GameObject:
@@ -3816,7 +3822,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &196139775 stripped
 Transform:
@@ -6133,7 +6145,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &293383010 stripped
 Transform:
@@ -7174,7 +7192,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &339246373 stripped
 Transform:
@@ -7552,7 +7576,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &384076428 stripped
 Transform:
@@ -11615,7 +11645,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &567867115 stripped
 Transform:
@@ -14077,7 +14113,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &619296110 stripped
 Transform:
@@ -14709,7 +14751,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &644818696 stripped
 Transform:
@@ -15185,7 +15233,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!1 &669282681 stripped
 GameObject:
@@ -16553,7 +16607,7 @@ RectTransform:
   m_GameObject: {fileID: 731053550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.7526948, y: 2.7526948, z: 2.7526948}
+  m_LocalScale: {x: 2, y: 2.7526948, z: 2.7526948}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1039071601}
@@ -16561,7 +16615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -800, y: -307.71173}
+  m_AnchoredPosition: {x: -840, y: -307.71173}
   m_SizeDelta: {x: 117.219, y: 90.5531}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &731053552
@@ -24658,7 +24712,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &1060237053 stripped
 Transform:
@@ -25653,7 +25713,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &1092042198 stripped
 Transform:
@@ -28666,7 +28732,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &1200248927 stripped
 Transform:
@@ -32806,7 +32878,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &1368504721 stripped
 Transform:
@@ -33919,7 +33997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1417870484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38643,7 +38721,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!1 &1617473784 stripped
 GameObject:
@@ -40827,7 +40911,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &1692668512 stripped
 Transform:
@@ -43617,7 +43707,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &1809206842 stripped
 Transform:
@@ -47077,7 +47173,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &2042407703 stripped
 Transform:
@@ -49222,7 +49324,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!1 &2132200860 stripped
 GameObject:
@@ -49816,7 +49924,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6881611140634911786, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3102714808622017375, guid: 670a178e8aa029a42978125342f20f38, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!1 &978180400819313149 stripped
 GameObject:
