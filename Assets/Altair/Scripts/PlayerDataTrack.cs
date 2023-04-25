@@ -7,7 +7,7 @@ using System;
 // ONLY ENABLE THIS CLASS IF COMING FROM PLAYMENU TO GAME.
 public class PlayerDataTrack : MonoBehaviour
 {
-    [Header ("ONLY ENABLE THIS CLASS IF COMING FROM PLAYMENU TO GAME.")]
+    [Header("ONLY ENABLE THIS CLASS IF COMING FROM PLAYMENU TO GAME.")]
     private PlayToGame playToGame;
     private TurnManager turnManager;
     private AbridgedMode abridgedMode;
@@ -149,20 +149,22 @@ public class PlayerDataTrack : MonoBehaviour
 
     public void PlayerStatToVictoryScreen(int winningPlayerNumber)
     {
-        switch(winningPlayerNumber)
+        switch (winningPlayerNumber)
         {
             case 1:
                 victoryPlayerNameText.text = player1NameUI;
                 victoryPlayerPortraitIconUI = player1PortraitIconUI;
                 victoryPlayerAIUI = player1PlayerAIUI;
-                victoryPlayerVictoryPointsText.text = p1VP.ToString();
+
+                // winning is by TRUE victory points. We now reveal who has won.
+                victoryPlayerVictoryPointsText.text = player1stPlace.playerTrueVictoryPoints.ToString();
                 victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player1Color;
                 break;
             case 2:
                 victoryPlayerNameText.text = player2NameUI;
                 victoryPlayerPortraitIconUI.sprite = player2PortraitIconUI.sprite;
                 victoryPlayerAIUI.sprite = player2PlayerAIUI.sprite;
-                victoryPlayerVictoryPointsText.text = p2VP.ToString();
+                victoryPlayerVictoryPointsText.text = player1stPlace.playerTrueVictoryPoints.ToString();
                 victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player2Color;
 
                 break;
@@ -170,15 +172,14 @@ public class PlayerDataTrack : MonoBehaviour
                 victoryPlayerNameText.text = player3NameUI;
                 victoryPlayerPortraitIconUI.sprite = player3PortraitIconUI.sprite;
                 victoryPlayerAIUI.sprite = player3PlayerAIUI.sprite;
-                victoryPlayerVictoryPointsText.text = p3VP.ToString();
+                victoryPlayerVictoryPointsText.text = player1stPlace.playerTrueVictoryPoints.ToString();
                 victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player3Color;
-
                 break;
             case 4:
                 victoryPlayerNameText.text = player4NameUI;
                 victoryPlayerPortraitIconUI.sprite = player4PortraitIconUI.sprite;
                 victoryPlayerAIUI.sprite = player4PlayerAIUI.sprite;
-                victoryPlayerVictoryPointsText.text = p4VP.ToString();
+                victoryPlayerVictoryPointsText.text = player1stPlace.playerTrueVictoryPoints.ToString();
                 victoryPlayerStat.transform.GetChild(0).GetComponent<Image>().color = playToGame.Player4Color;
                 break;
         }
@@ -193,7 +194,7 @@ public class PlayerDataTrack : MonoBehaviour
         player4Enabled = playToGame.Player4Enabled;
 
         int numberOfPlayers = 0;
-        if(player1Enabled)
+        if (player1Enabled)
         {
             numberOfPlayers++;
         }
@@ -226,7 +227,7 @@ public class PlayerDataTrack : MonoBehaviour
 
         CheckColors();
 
-   //     turnManager.SetupGameFinal(numberOfPlayers, CheckColors());
+        turnManager.SetupGameFinal(numberOfPlayers, CheckColors());
     }
 
     private void NumberToIcons(int player1Num, int player2Num, int player3Num, int player4Num)
@@ -236,7 +237,7 @@ public class PlayerDataTrack : MonoBehaviour
             case 0:
                 player1PortraitIconUI.sprite = portraitIcon1;
                 break;
-                case 1:
+            case 1:
                 player1PortraitIconUI.sprite = portraitIcon2;
                 break;
             case 2:
@@ -453,10 +454,10 @@ public class PlayerDataTrack : MonoBehaviour
     public List<int> CheckColors()
     {
         // normal colors can be pulled across as normal
-         player1Color = playToGame.Player1Color;
-         player2Color = playToGame.Player2Color;
-         player3Color = playToGame.Player3Color;
-         player4Color = playToGame.Player4Color;
+        player1Color = playToGame.Player1Color;
+        player2Color = playToGame.Player2Color;
+        player3Color = playToGame.Player3Color;
+        player4Color = playToGame.Player4Color;
 
 
         // child 0 is the BG
@@ -485,7 +486,7 @@ public class PlayerDataTrack : MonoBehaviour
     void CheckGameMode()
     {
         Debug.Log("Checking game mode");
-        if(playToGame.GameMode == "abridged")
+        if (playToGame.GameMode == "abridged")
         {
             // abridged mode on.
             Debug.Log("Game mode is abridged");
@@ -517,16 +518,16 @@ public class PlayerDataTrack : MonoBehaviour
         int player3Points = playerManagers[2].playerVictoryPoints;
         int player4Points = playerManagers[3].playerVictoryPoints;
 
-         p1VP = playerManagers[0].playerVictoryPoints;
+        p1VP = playerManagers[0].playerVictoryPoints;
         p2VP = playerManagers[1].playerVictoryPoints;
         p3VP = playerManagers[2].playerVictoryPoints;
         p4VP = playerManagers[3].playerVictoryPoints;
         // this list can be ordered differently with no issues
         List<PlayerManager> playerManagersRanked = new List<PlayerManager>();
-        playerManagersRanked.Add(playerManagers[0]);
-        playerManagersRanked.Add(playerManagers[1]);
-        playerManagersRanked.Add(playerManagers[2]);
         playerManagersRanked.Add(playerManagers[3]);
+        playerManagersRanked.Add(playerManagers[2]);
+        playerManagersRanked.Add(playerManagers[1]);
+        playerManagersRanked.Add(playerManagers[0]);
 
 
 
@@ -548,7 +549,7 @@ public class PlayerDataTrack : MonoBehaviour
         {
             for (int j = 0; j < playerManagersRanked.Count - i - 1; j++)
             {
-                if (playerManagersRanked[j].playerVictoryPoints > playerManagersRanked[j +  1].playerVictoryPoints)
+                if (playerManagersRanked[j].playerVictoryPoints > playerManagersRanked[j + 1].playerVictoryPoints)
                 {
                     PlayerManager temp = playerManagersRanked[j];
                     playerManagersRanked[j] = playerManagersRanked[j + 1];
@@ -557,6 +558,8 @@ public class PlayerDataTrack : MonoBehaviour
             }
         }
 
+        // if abridged mode, whoever order by player number.
+
         // players ranked
         player1stPlace = playerManagersRanked[playerManagersRanked.Count - 1];
         player2ndPlace = playerManagersRanked[playerManagersRanked.Count - 2];
@@ -564,7 +567,7 @@ public class PlayerDataTrack : MonoBehaviour
         player4thPlace = playerManagersRanked[playerManagersRanked.Count - 4];
 
         // now put the rankings on the GUI
-        if(player1stPlace.playerNumber == 1)
+        if (player1stPlace.playerNumber == 1)
         {
             p1PlaceText.text = "1st";
         }
@@ -635,12 +638,12 @@ public class PlayerDataTrack : MonoBehaviour
             p4PlaceText.text = "4th";
         }
 
-        // if game is not abridged, and ANY player has 10 or more VPs. Trigger win.
-        if(player1stPlace.playerVictoryPoints >= 10)
+
+        // if game is on standard mode. first to 10 true VPs wins.
+        if (player1stPlace.playerTrueVictoryPoints >= 10 && playToGame.GameMode == "standard")
         {
             winConditions.TriggerVictory(player1stPlace);
             PlayerStatToVictoryScreen(player1stPlace.playerNumber);
         }
-
     }
 }
