@@ -9,6 +9,7 @@ public class LongestRoadCheck : MonoBehaviour
     // current largest player
     public PlayerManager playerWithLongestRoad;
     private TurnManager turnManager;
+    private int sizeOfLongestRoad;
 
     private bool hasBeenGivenToAPlayer;
 
@@ -21,6 +22,7 @@ public class LongestRoadCheck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sizeOfLongestRoad = 5;
         hasBeenGivenToAPlayer = false;
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         longestRoadCard.transform.position = P0Point.position; // start at no players.
@@ -38,8 +40,8 @@ public class LongestRoadCheck : MonoBehaviour
                 playerNumWhoOwnsCurrentLongestRoad = roadPoint.GetComponent<ChooseBorder>().playerClaimedBy;
             }
         }
-        //ONLY if longest road is at least 5, then give longest road card to player with longest road
-        if(currentLongestRoad >= 5)
+
+        if(currentLongestRoad > sizeOfLongestRoad)
         {
             switch (playerNumWhoOwnsCurrentLongestRoad)
             {
@@ -72,6 +74,7 @@ public class LongestRoadCheck : MonoBehaviour
                 playerWithLongestRoad = turnManager.playerList[playerNumWhoOwnsCurrentLongestRoad - 1];
                 playerWithLongestRoad.playerVictoryPoints += 2;
             }
+            sizeOfLongestRoad = currentLongestRoad;
         }
     }
 

@@ -329,10 +329,7 @@ public class ChooseSettlement : MonoBehaviour
                     {
                         turnManager.roadAndSettlementPlacedSetUpCounter++;
                     }
-                    else
-                    {
-                        bankMang.gameObject.SetActive(true); //bank object would've been disabled from the BuySettlement() method
-                    }
+                    bankMang.gameObject.SetActive(true); //bank object would've been disabled from the BuySettlement() method
                     makeTradeScript.GetComponent<MakeTrade>().SetSettlementBought(false);
 
                     foreach (GameObject adjacentTile in adjacentTiles)
@@ -341,7 +338,6 @@ public class ChooseSettlement : MonoBehaviour
                     }
                 }
             }
-        
     }
 
     private void OnMouseExit()
