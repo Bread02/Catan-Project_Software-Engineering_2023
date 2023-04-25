@@ -6989,18 +6989,18 @@ MonoBehaviour:
   gameModeInfo: {fileID: 817949008}
   abridgedButton: {fileID: 1039555988}
   standardButton: {fileID: 1545463493}
-  portraitIcon1: {fileID: 21300000, guid: 20b1ece1c18fef04e8565af98579869e, type: 3}
-  portraitIcon2: {fileID: 21300000, guid: b86a781c3bba2b44684c2e782c399c21, type: 3}
-  portraitIcon3: {fileID: 21300000, guid: 2dc093f7346367148b2888724b6b58b2, type: 3}
+  portraitIcon1: {fileID: 21300000, guid: c05055d2434902749b6e5bc1a938e768, type: 3}
+  portraitIcon2: {fileID: 21300000, guid: 20b1ece1c18fef04e8565af98579869e, type: 3}
+  portraitIcon3: {fileID: 21300000, guid: 253da54b65168b8418753dea5dddc4af, type: 3}
   portraitIcon4: {fileID: 21300000, guid: 1d6d860d8cefa254d8caaa20281783c1, type: 3}
-  portraitIcon5: {fileID: 21300000, guid: c05055d2434902749b6e5bc1a938e768, type: 3}
-  portraitIcon6: {fileID: 21300000, guid: f7d23aa489851614fba39715f9dbaaf1, type: 3}
-  portraitIcon7: {fileID: 21300000, guid: 8ce605ae1780aa945bb8fb2aedd0775c, type: 3}
-  portraitIcon8: {fileID: 21300000, guid: ce356a056af751240a1a428bdc31661e, type: 3}
-  portraitIcon9: {fileID: 21300000, guid: e1e63ce1772ce0d499290c856a470117, type: 3}
+  portraitIcon5: {fileID: 21300000, guid: e38e30894fe37d54f8f65e18e5ac7cad, type: 3}
+  portraitIcon6: {fileID: 21300000, guid: 8ce605ae1780aa945bb8fb2aedd0775c, type: 3}
+  portraitIcon7: {fileID: 21300000, guid: e1e63ce1772ce0d499290c856a470117, type: 3}
+  portraitIcon8: {fileID: 21300000, guid: f7d23aa489851614fba39715f9dbaaf1, type: 3}
+  portraitIcon9: {fileID: 21300000, guid: 602817c1a85633347b9232505056e809, type: 3}
   portraitIcon10: {fileID: 21300000, guid: 9b61c7cac1a87174d9a221d8db16ede9, type: 3}
-  blue: {r: 0, g: 0.46255493, b: 1, a: 1}
-  orange: {r: 1, g: 0.65705234, b: 0, a: 1}
+  blue: {r: 0, g: 0.37722206, b: 1, a: 1}
+  orange: {r: 1, g: 0.6852015, b: 0, a: 1}
   red: {r: 1, g: 0, b: 0, a: 1}
   white: {r: 1, g: 1, b: 1, a: 1}
   timeLimitText: {fileID: 92761661}
@@ -7022,12 +7022,8 @@ MonoBehaviour:
   player2PortraitIcon: {fileID: 1257099928}
   player3PortraitIcon: {fileID: 1388162555}
   player4PortraitIcon: {fileID: 1094980551}
-  player1PortraitIconNumber: 0
-  player2PortraitIconNumber: 0
-  player3PortraitIconNumber: 0
-  player4PortraitIconNumber: 0
-  colorEnabled: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
-  colorDisabled: {r: 1, g: 1, b: 1, a: 1}
+  colorEnabled: {r: 1, g: 1, b: 1, a: 1}
+  colorDisabled: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   iconEnabled: {fileID: 21300000, guid: a5573a7011b0ea748af2283a20ca338d, type: 3}
   iconDisabled: {fileID: 21300000, guid: 38a55d603ea07d041be9de34ac852e33, type: 3}
   playerInfo1: {fileID: 1296715840}
@@ -26844,7 +26840,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -4531650346666057430, guid: 92aac9d448089eb499b2c2b95cdca2a7,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 180f1e54c98460a48814b921112a42d6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 55d0af5b3c51e6948a33caa0845b8042, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.4
   m_Pitch: 1
