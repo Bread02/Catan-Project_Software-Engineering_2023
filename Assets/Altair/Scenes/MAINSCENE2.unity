@@ -15585,10 +15585,6 @@ MonoBehaviour:
   screenScrollSpeed: 5
   cameraDragging: 1
   middleMouseButtonDragging: 1
-  oldPos: {x: 0, y: 0, z: 0}
-  newCameraPosition2: {x: 0, y: 0, z: 0}
-  dragSpeed: 0
-  pos10: {x: 0, y: 0, z: 0}
   disableScroll: 0
   playerNumber: 4
 --- !u!1001 &676056188
@@ -35452,10 +35448,6 @@ MonoBehaviour:
   screenScrollSpeed: 5
   cameraDragging: 1
   middleMouseButtonDragging: 1
-  oldPos: {x: 0, y: 0, z: 0}
-  newCameraPosition2: {x: 0, y: 0, z: 0}
-  dragSpeed: 0
-  pos10: {x: 0, y: 0, z: 0}
   disableScroll: 0
   playerNumber: 2
 --- !u!1 &1485100976
@@ -36009,7 +36001,7 @@ PrefabInstance:
     - target: {fileID: 8700609566844634713, guid: d0c16b12b01c61447aed619711213e1e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 310
       objectReference: {fileID: 0}
     - target: {fileID: 8700609566844634713, guid: d0c16b12b01c61447aed619711213e1e,
         type: 3}
@@ -36344,7 +36336,7 @@ PrefabInstance:
     - target: {fileID: 8700609568147881848, guid: d0c16b12b01c61447aed619711213e1e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8700609568147881852, guid: d0c16b12b01c61447aed619711213e1e,
         type: 3}
@@ -39390,10 +39382,6 @@ MonoBehaviour:
   screenScrollSpeed: 5
   cameraDragging: 1
   middleMouseButtonDragging: 1
-  oldPos: {x: 0, y: 0, z: 0}
-  newCameraPosition2: {x: 0, y: 0, z: 0}
-  dragSpeed: 0
-  pos10: {x: 0, y: 0, z: 0}
   disableScroll: 0
   playerNumber: 1
 --- !u!1 &1657740643
@@ -46374,10 +46362,6 @@ MonoBehaviour:
   screenScrollSpeed: 5
   cameraDragging: 1
   middleMouseButtonDragging: 1
-  oldPos: {x: 0, y: 0, z: 0}
-  newCameraPosition2: {x: 0, y: 0, z: 0}
-  dragSpeed: 0
-  pos10: {x: 0, y: 0, z: 0}
   disableScroll: 0
   playerNumber: 3
 --- !u!1001 &1976273930
