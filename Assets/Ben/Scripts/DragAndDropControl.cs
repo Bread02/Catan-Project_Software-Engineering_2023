@@ -15,14 +15,11 @@ public class DragAndDropControl : MonoBehaviour
 
     private int playerNumWhoOwnsThisCard;
 
-    private WarningText warningText;
-
     void Start()
     {
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         board = GameObject.FindGameObjectWithTag("GameBoard").GetComponent<GameBoardManager>();
         rigidbody = GetComponent<Rigidbody>();
-        warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
     }
 
     public void SetPlayerNumWhoOwnsThisCard(int playerNum)
@@ -37,11 +34,7 @@ public class DragAndDropControl : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if(this.gameObject.tag == "victoryPoints")
-        {
-            StartCoroutine(warningText.WarningTextBox("Victory Point cards cannot be controlled!"));
-        }
-        else if (turnManager.ReturnCurrentPlayer().playerNumber == playerNumWhoOwnsThisCard)
+        if (turnManager.ReturnCurrentPlayer().playerNumber == playerNumWhoOwnsThisCard)
         {
             rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 
