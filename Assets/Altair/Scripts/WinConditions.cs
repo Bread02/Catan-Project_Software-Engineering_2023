@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class WinConditions : MonoBehaviour
 {
-
+    private LoadScene loadScene;
 
     [Header("Player Victory Point Track")]
     private int player1VictoryPoints;
@@ -24,6 +24,8 @@ public class WinConditions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        loadScene = GameObject.Find("LoadingBar").GetComponent<LoadScene>();
+
         victoryScreen.SetActive(false);
         victoryTriggered = false;
     }
@@ -65,13 +67,12 @@ public class WinConditions : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        Debug.Log("Clicked Main Menu Button");
-        SceneManager.LoadScene("MainMenuFinal");
+        StartCoroutine(loadScene.LoadSceneCoroutine("MainMenuFinal"));
     }
 
     public void PlayAgain()
     {
-        SceneManager.LoadScene("PlayMenu");
+        StartCoroutine(loadScene.LoadSceneCoroutine("PlayMenu"));
     }
 
 

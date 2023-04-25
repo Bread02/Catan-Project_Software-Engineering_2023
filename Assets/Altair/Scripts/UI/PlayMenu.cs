@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayMenu : MonoBehaviour
 {
     private PlayToGame playToGame;
+    private LoadScene loadScene;
 
     [Header("Game Mode Text")]
     private string gameModeInfoTextStandard = "The classic Settlers experience.";
@@ -203,6 +204,7 @@ public class PlayMenu : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        loadScene = GameObject.Find("LoadingBar").GetComponent<LoadScene>();
         playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
         InvokeRepeating("ReadPlayerName", 0.5f, 0.5f);
 
@@ -462,13 +464,13 @@ public class PlayMenu : MonoBehaviour
 
     public void ClickBackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenuFinal");
+        StartCoroutine(loadScene.LoadSceneCoroutine("MainMenuFinal"));
     }
 
     // click play button, loads the next scene, pulls all information in this scene that player has inputted across.
     public void ClickPlay()
     {
-        SceneManager.LoadScene("MAINSCENE2");
+        StartCoroutine(loadScene.LoadSceneCoroutine("MAINSCENE2"));
     }
     #endregion
 

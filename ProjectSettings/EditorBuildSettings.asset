@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: 9b5cdb8db86f0da46a95d985117d920a
   - enabled: 1
     path: Assets/Altair/Scenes/PlayMenu.unity
-    guid: 7389996ee04c7bf43a584a4ee314b86c
+    guid: 403afe644c5acc14090239010930db1e
   - enabled: 1
     path: Assets/Altair/Scenes/MAINSCENE2.unity
     guid: b82f358f433fecf4ca3dc28e6b6380d7

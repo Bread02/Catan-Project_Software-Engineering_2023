@@ -89,7 +89,6 @@ public class PlayToGame : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         playMenu = GameObject.Find("PlayMenuManager").GetComponent<PlayMenu>();
-
     }
 
     public void SetMode(string gameModeString, int timeLimitInt)

@@ -8,6 +8,13 @@ public class PauseMenu : MonoBehaviour
     public static bool paused = false;
     public GameObject pauseUI;
 
+    [SerializeField] private LoadScene loadScene;
+
+    private void Start()
+    {
+        loadScene = GameObject.Find("LoadingBar").GetComponent<LoadScene>();
+    }
+
     public void PauseGame(){
         paused = true;
         pauseUI.SetActive(true);
@@ -23,6 +30,7 @@ public class PauseMenu : MonoBehaviour
     public void MainMenu(){
         Time.timeScale = 1f;
         paused = false;
+        StartCoroutine(loadScene.LoadSceneCoroutine("MainMenuFinal"));
         SceneManager.LoadScene(0);
     }
 }
