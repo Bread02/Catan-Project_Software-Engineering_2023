@@ -133,6 +133,8 @@ MonoBehaviour:
   isCity: 0
   cityMesh: {fileID: -5495902117074765545, guid: ec64ee58341a35c4b8adaf95960ed8ab,
     type: 3}
+  inCityBuildMode: 0
+  adjacentRoadCheck: 0
   audioManager: {fileID: 0}
 --- !u!65 &5120114273680299554
 BoxCollider:

@@ -55,7 +55,12 @@ public class PlayerManager : MonoBehaviour
     [Header("Victory Points")]
     public int playerVictoryPoints;
     public int playerTrueVictoryPoints;
+
+
     public int victoryPointCardsPlayed;
+
+    public int victoryPointCardsHeld;
+
 
     [Header("Other")]
     [SerializeField] private TMP_Text[] rcQuantTxts, dcQuantTxts; //direct address of the 'quantity' text components for resource cards and dev cards, respectively
@@ -556,7 +561,21 @@ public void SetBuildingColors(string color)
         playerTrueVictoryPoints = playerVictoryPoints;
 
         // Now add the VP cards to the hidden victory points.
-        playerTrueVictoryPoints += victoryPointCardsPlayed;
+        // count number of VP cards
+
+        int VPCards = 0;
+        string VPAmount = "0";
+        foreach (var keysvalue in dcQuantityTextsDict)
+        {
+            if (keysvalue.Key == "victoryPoints")
+            {
+                VPAmount = keysvalue.Value.text.ToString();
+            }
+        }
+
+        VPCards = int.Parse(VPAmount);
+
+        playerTrueVictoryPoints += VPCards;
     }
 
     public int ReturnVictoryPoints()
