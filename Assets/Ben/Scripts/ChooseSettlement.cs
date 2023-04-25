@@ -182,8 +182,6 @@ public class ChooseSettlement : MonoBehaviour
     private void OnMouseDown()
     {
         // check the player is not clicking a UI.
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
             adjacentRoadCheck = false; // false until proven.
 
             Debug.Log("Choose settlement mouse down");
@@ -343,7 +341,7 @@ public class ChooseSettlement : MonoBehaviour
                     }
                 }
             }
-        }
+        
     }
 
     private void OnMouseExit()

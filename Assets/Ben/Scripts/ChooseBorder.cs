@@ -123,8 +123,6 @@ public class ChooseBorder : MonoBehaviour
     // Check if a player settlement is adjacent to this road OR another road is adjacent to this road (of same player), if YES, allow building.
     private void OnMouseDown()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
             adjacentRoadOrSettlementCheck = false; // false until proven otherwise.
             adjacentSettlementCheckOpening = false; // false until proven otherwise
 
@@ -297,7 +295,7 @@ public class ChooseBorder : MonoBehaviour
                     borderTaken = true;
                 }
             }
-        }
+        
         Debug.Log("This road has a distance of " + furthestDistanceFromASettlement + ", to the furthest possibe settlement.");
     }
 
