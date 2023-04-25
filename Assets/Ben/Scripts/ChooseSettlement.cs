@@ -12,6 +12,7 @@ public class ChooseSettlement : MonoBehaviour
     private TurnManager turnManager;
     private WarningText warningText;
     private GameObject makeTradeScript;
+    private BankManager bankMang;
 
     // 0 if unclaimed
     public int playerClaimedBy;
@@ -62,10 +63,13 @@ public class ChooseSettlement : MonoBehaviour
         terrainAssigner = GameObject.Find("TileHolder").GetComponent<TerrainAssigner>();
         makeTradeScript = GameObject.FindGameObjectWithTag("MakeTrade");
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
+        bankMang = GameObject.Find("THE_BANK").GetComponent<BankManager>();
+
     }
 
     private void Start()
     {
+        playerClaimedBy = 0;
         settlementTaken = false;
         //game object must be active first so it can be found. Set active as this is the trade GUI and should only show when trade starts.
         AdjacentTiles();
@@ -214,6 +218,8 @@ public class ChooseSettlement : MonoBehaviour
                         this.gameObject.GetComponent<Renderer>().material = takenColour;
                         break;
                 }
+
+                bankMang.gameObject.SetActive(true); //bank object would've been disabled from the BuyCity() method
                 return;
             }
             else
@@ -323,8 +329,11 @@ public class ChooseSettlement : MonoBehaviour
 
                 if (turnManager.isSetUpPhase)
                 {
-                    Debug.Log("siiiu");
                     turnManager.roadAndSettlementPlacedSetUpCounter++;
+                }
+                else
+                {
+                    bankMang.gameObject.SetActive(true); //bank object would've been disabled from the BuySettlement() method
                 }
                 makeTradeScript.GetComponent<MakeTrade>().SetSettlementBought(false);
 
