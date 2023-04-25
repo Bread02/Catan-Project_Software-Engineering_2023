@@ -41,7 +41,7 @@ public class LargestArmyCheck : MonoBehaviour
     // check if any player has largest army
     // if any player has 3 or more army cards, give them the award.
     // If more than 1 player has 3 or more cards, award to player with most cards, or player who got achievement first.
-    public void CheckLongestArmy()
+    public void CheckLargestArmy()
     {
         // Find players with more than 2
         for (int i = 0; i < turnManager.playerList.Count; i++)
@@ -69,7 +69,7 @@ public class LargestArmyCheck : MonoBehaviour
             playerWithBiggestArmy = playersWithMoreThan2[0];
             playerWithBiggestArmy.SetLargestArmy(true);
             MoveLargestArmyCard();
-            Debug.Log("Player now has ;argest army");
+            Debug.Log("Player now has largest army");
             return;
         }
 

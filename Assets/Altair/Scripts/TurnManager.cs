@@ -384,6 +384,9 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        //Ensures that if player whose turn it is has their development cards shown, the cards are switched back to showing resource cards
+        ReturnCurrentPlayer().ShowResourceCardsOnly();
+
         // if set on final turn, check if the game ends
         if(abridgedFinalTurn)
         {

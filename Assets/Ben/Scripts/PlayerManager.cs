@@ -112,7 +112,7 @@ public class PlayerManager : MonoBehaviour
         InvokeRepeating("CountVictoryPoints", 1f, 1f);
         terrainAssigner = GameObject.Find("TileHolder").GetComponent<TerrainAssigner>();
 
-        // largestArmyCheck = GameObject.Find("LargestArmyCheck").GetComponent<LargestArmyCheck>(); - commented out because it throws error
+        largestArmyCheck = GameObject.Find("LargestArmyCheck").GetComponent<LargestArmyCheck>();
 
         pCardQuantities = new Dictionary<string, int>
         {
@@ -157,7 +157,7 @@ public class PlayerManager : MonoBehaviour
     public void IncrementKnightCardUsage()
     {
         numberOfKnightCardsPlayed++;
-        largestArmyCheck.CheckLongestArmy();
+        largestArmyCheck.CheckLargestArmy();
     }
 
 
@@ -577,6 +577,19 @@ public void SetBuildingColors(string color)
         else
         {
             return 0;
+        }
+    }
+
+    public void HideResourceAndDevelopmentCards()
+    {
+        foreach (GameObject dcSpawnPoint in DCspawnPoints)
+        {
+            dcSpawnPoint.SetActive(false);
+        }
+
+        foreach (GameObject rcSpawnPoint in RCspawnPoints)
+        {
+            rcSpawnPoint.SetActive(false);
         }
     }
 

@@ -25407,6 +25407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackMat: {fileID: 2100000, guid: 64b113604a0afca4e8d92d45530a7dfd, type: 2}
+  redMat: {fileID: 2100000, guid: 28371b34fa1fc32429030d8ea9f9ce1e, type: 2}
 --- !u!65 &1244545254
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25440,7 +25441,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb1b66a1e4b1342499248772ecc8ff6a, type: 2}
+  - {fileID: 2100000, guid: 28371b34fa1fc32429030d8ea9f9ce1e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26649,6 +26650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   donateCardsObject: {fileID: 1244545251}
+  endTurnButton: {fileID: 1559949152}
   player1StealFromButton: {fileID: 1177771106}
   player2StealFromButton: {fileID: 1365649520}
   player3StealFromButton: {fileID: 550382914}
@@ -26660,15 +26662,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1314095360}
-  m_LocalRotation: {x: -0, y: -0.49706706, z: -0, w: 0.8677122}
-  m_LocalPosition: {x: -5.57, y: 0.03999996, z: 2.69}
-  m_LocalScale: {x: 2.39013, y: 0.07234777, z: 1.1950653}
+  m_LocalRotation: {x: -0, y: -0.49907523, z: -0, w: 0.8665587}
+  m_LocalPosition: {x: -5.79, y: -0.17, z: 3.06}
+  m_LocalScale: {x: 2.7035573, y: 0.024740726, z: 1.4690131}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1244545257}
   m_Father: {fileID: 0}
   m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -59.878, z: 0}
 --- !u!4 &1317786310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6232181876239607125, guid: 24bca8835503aee4d9ee57d0ce5d8f47,
@@ -29494,6 +29496,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robber
       objectReference: {fileID: 0}
+    - target: {fileID: 7685534956951782940, guid: 35c256beaa46ac24999a329e19c41b2c,
+        type: 3}
+      propertyPath: endTurnButton
+      value: 
+      objectReference: {fileID: 1559949152}
     - target: {fileID: 7685534956951782940, guid: 35c256beaa46ac24999a329e19c41b2c,
         type: 3}
       propertyPath: RobberTriggerCanvas

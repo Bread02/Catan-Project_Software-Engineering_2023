@@ -12,6 +12,8 @@ public class StealCards : MonoBehaviour
 
     [Header("GameObjects")]
     public GameObject donateCardsObject;
+    private GameObject bankMangObj;
+    [SerializeField] private GameObject endTurnButton;
 
     [Header("Buttons")]
     public GameObject player1StealFromButton;
@@ -27,6 +29,7 @@ public class StealCards : MonoBehaviour
         robber = GameObject.Find("Robber").GetComponent<Robber>();
         helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
         diceRolling = GameObject.Find("DiceRolling").GetComponent<DiceRolling>();
+        bankMangObj = GameObject.Find("THE_BANK");
 
     }
 
@@ -127,8 +130,8 @@ public class StealCards : MonoBehaviour
     public void ForcePlayerDonateCard(PlayerManager playerManager)
     {
         // player now must donate card
-        turnManager.ForcePlayerTurn(playerManager);
         donateCardsObject.SetActive(true);
+        turnManager.ForcePlayerTurn(playerManager);
         donateCardsObject.GetComponent<DonateCardsObject>().SetPlayerDonatingTo(turnManager.playerWhoRolledSeven);
         Debug.Log("Set player donating to");
     }
@@ -139,7 +142,16 @@ public class StealCards : MonoBehaviour
         turnManager.ForcePlayerTurn(turnManager.playerWhoRolledSeven);
         RemovePlayerTheftOptions();
 
-        if(!diceRolling.redRolled)
+        //Can now show interactable objects again
+        foreach (GameObject playerDropZone in turnManager.playerDropZones)
+        {
+            playerDropZone.SetActive(true);
+        }
+        bankMangObj.SetActive(true);
+        endTurnButton.SetActive(true);
+        //
+
+        if (!diceRolling.redRolled)
         {
             diceRolling.TimeToRollDice();
             Debug.Log("Time to roll dice");
@@ -158,7 +170,6 @@ public class StealCards : MonoBehaviour
         {
             StartCoroutine(helpText.HelpTextBox("No cards to steal. Continue your round."));
         }
-
     }
 
     public void RemovePlayerTheftOptions()

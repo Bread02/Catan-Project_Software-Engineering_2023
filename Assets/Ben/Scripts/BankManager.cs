@@ -108,6 +108,7 @@ public class BankManager : MonoBehaviour
                 {
                     case "knight":
                         // activate robber
+                        turnManager.playerWhoRolledSeven = turnManager.ReturnCurrentPlayer(); //knight card simulates rolling a 7
                         robber.TriggerRobberMovement();
                         turnManager.ReturnCurrentPlayer().IncrementKnightCardUsage();
                         break;
@@ -133,6 +134,8 @@ public class BankManager : MonoBehaviour
                         break;
                 }
             }
+            //Will reset back to showing resource cards only - players don't want to reveal their development cards to other players!
+            turnManager.ReturnCurrentPlayer().ShowResourceCardsOnly();
 
         }
         else //resource card played

@@ -8,7 +8,7 @@ public class DonateCardsObject : MonoBehaviour
     private WarningText warningText;
     private StealCards stealCards;
 
-    public Material blackMat;
+    public Material blackMat, redMat;
 
    // public GameObject loseCardsZone;
 
@@ -43,6 +43,8 @@ public class DonateCardsObject : MonoBehaviour
         if (cardType == "knight" || cardType == "victoryPoints" || cardType == "monopoly" || cardType == "roadBuilding" || cardType == "yearOfPlenty") //development card played
         {
             StartCoroutine(warningText.WarningTextBox("Cannot discard development card. Discard resource cards instead."));
+            turnManager.ReturnCurrentPlayer().IncOrDecValue(cardType, -1, cardPlayed.gameObject);
+            turnManager.ReturnCurrentPlayer().IncOrDecValue(cardType, 1);
             return;
         }
 
@@ -56,6 +58,8 @@ public class DonateCardsObject : MonoBehaviour
         stealCards.FinishTheft(true);
 
         StartCoroutine(ChangeColour());
+
+        this.gameObject.SetActive(false);
     }
 
 
@@ -63,5 +67,6 @@ public class DonateCardsObject : MonoBehaviour
     {
         this.gameObject.GetComponent<Renderer>().material = blackMat;
         yield return new WaitForSeconds(0.2f);
+        this.gameObject.GetComponent<Renderer>().material = redMat;
     }
 }

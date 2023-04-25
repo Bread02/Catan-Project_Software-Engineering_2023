@@ -20,6 +20,8 @@ public class Robber : MonoBehaviour
     [SerializeField] private GameObject robberTriggerCanvas;
     private GameObject desertHex;
     public GameObject occupiedHex;
+    private GameObject bankMangObj;
+    [SerializeField] private GameObject endTurnButton;
 
     [Header("Robber Notifications")]
     public string robberActivatedRollString = "7 rolled! Robber Activated!\n\nMove the robber to a new location.";
@@ -40,6 +42,7 @@ public class Robber : MonoBehaviour
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
         stealCards = GameObject.Find("StealCards").GetComponent<StealCards>();
         discardHalfOfCards = GameObject.Find("DiscardHalfOfCards").GetComponent<DiscardHalfOfCards>();
+        bankMangObj = GameObject.Find("THE_BANK");
     }
 
     void DelayStart()
@@ -65,6 +68,18 @@ public class Robber : MonoBehaviour
     // if robber is triggered in this method, players MUST DISCARD HALF THEIR CARDS if they have more than 7. Rounding down.
     public void TriggerRobberMovement()
     {
+        //Want to hide everything in the scene that a card could interact with - also the end turn button
+        //Hides player dropzones
+        foreach(GameObject playerDropZone in turnManager.playerDropZones)
+        {
+            playerDropZone.SetActive(false);
+        }
+        //Hides bank
+        bankMangObj.SetActive(false);
+        //Hide end turn button
+        endTurnButton.SetActive(false);
+        //These will be set to true again in the FinishTheft() method, in StealCards
+
         terrainAssigner.TriggerRobber();
         robberTriggerCanvas.SetActive(true);
         robberActivatedText.text = robberActivatedRollString.ToString();
