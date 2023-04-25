@@ -9,6 +9,8 @@ public class TurnManager : MonoBehaviour
     private DiceRolling diceRolling;
     private TradeManager tradeManager;
     private MakeTrade makeTrade;
+    private Robber robber;
+    private WarningText warningText;
     private HelpText helpText;
     private WinConditions winConditions;
     private PlayerDataTrack playerDataTrack;
@@ -211,12 +213,14 @@ public class TurnManager : MonoBehaviour
     */
     public void AssignPlayerToColor(List<int> playerColor)
     {
+        Debug.Log("Assigning player to color");
         if(playerColor != null)
         {
             playerList[0].PlayerColor(playerColor[0]);
             playerList[1].PlayerColor(playerColor[1]);
             playerList[2].PlayerColor(playerColor[2]);
             playerList[3].PlayerColor(playerColor[3]);
+            Debug.Log("Put colors in v2");
             return;
         }
         else
@@ -226,6 +230,7 @@ public class TurnManager : MonoBehaviour
             playerList[1].PlayerColor(1);
             playerList[2].PlayerColor(2);
             playerList[3].PlayerColor(3);
+            Debug.Log("Put colors in");
         }
 
     }
@@ -549,6 +554,8 @@ public class TurnManager : MonoBehaviour
         diceRolling = GameObject.Find("DiceRolling").GetComponent<DiceRolling>();
         tradeManager = GameObject.Find("THE_TRADE_GUI").GetComponent<TradeManager>();
         makeTrade = GameObject.Find("EMPTY_OBJ_MakeTrade").GetComponent<MakeTrade>();
+        robber = GameObject.Find("Robber").GetComponent<Robber>();
+        warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
         helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
         winConditions = GameObject.Find("WinConditionsAndScreen").GetComponent<WinConditions>();
 

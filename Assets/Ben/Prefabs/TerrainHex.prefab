@@ -188,15 +188,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013328be59b89b842aab05000f6dce1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terrainAssigner: {fileID: 0}
   terrainDiceNumber: 0
+  terrainTypeNumber: 0
   robberActivated: 0
-  robberLocationSelected: 0
-  isDesert: 0
-  robberBlocked: 0
   terrain: 0
-  adjacentSettlements: []
   hexImage: {fileID: 7015156351535161705}
   terrainNumberObject: {fileID: 6524527760648006507}
+  isDesert: 0
   hoverOverColour: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
   origColour: {r: 1, g: 1, b: 1, a: 1}
   selectedColour: {r: 1, g: 0, b: 0, a: 1}
@@ -217,7 +216,6 @@ GameObject:
   - component: {fileID: 6881611140634911786}
   - component: {fileID: 1784130854467069308}
   - component: {fileID: 5347035086393203903}
-  - component: {fileID: 3102714808622017375}
   m_Layer: 5
   m_Name: TerrainNumber
   m_TagString: Untagged
@@ -342,18 +340,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3102714808622017375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6524527760648006507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dfcbb0688410d743a20d106601b59b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6657964825253759680
 GameObject:
   m_ObjectHideFlags: 0
