@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class ChooseSettlement : MonoBehaviour
 {
     [SerializeField] private Material origColour, takenColour, hoverOverColour;
@@ -179,158 +179,162 @@ public class ChooseSettlement : MonoBehaviour
     // IF NOT IN OPENING SEQUENCE THE SETTLEMENT MUST BE BUILT ON A ROAD.
     private void OnMouseDown()
     {
-        adjacentRoadCheck = false; // false until proven.
-
-        Debug.Log("Choose settlement mouse down");
-        // In the case of cities, do this alternate option
-        if(settlementTaken && inCityBuildMode)
+        // check the player is not clicking a UI.
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("Choose settlement mouse down 2");
-            if (playerClaimedBy == turnManager.playerToPlay)
+            adjacentRoadCheck = false; // false until proven.
+
+            Debug.Log("Choose settlement mouse down");
+            // In the case of cities, do this alternate option
+            if (settlementTaken && inCityBuildMode)
             {
-                Debug.Log("Choose settlement mouse dow 3");
-                // build city
-                ChangeToCity();
-                audioManager.PlaySound("build");
-                PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
-                string playerColor = playerManager.GetPlayerColor();
-                // get color of player to turn settlement into
-                switch (playerColor)
+                Debug.Log("Choose settlement mouse down 2");
+                if (playerClaimedBy == turnManager.playerToPlay)
                 {
-                    case "red":
-                        this.gameObject.GetComponent<Renderer>().material = red;
-                        break;
-                    case "blue":
-                        this.gameObject.GetComponent<Renderer>().material = blue;
-                        break;
-                    case "white":
-                        this.gameObject.GetComponent<Renderer>().material = white;
-                        break;
-                    case "orange":
-                        this.gameObject.GetComponent<Renderer>().material = orange;
-                        break;
-                    default:
-                        Debug.LogError("Color ISSUE. Unacceptable string for color");
-                        this.gameObject.GetComponent<Renderer>().material = takenColour;
-                        break;
+                    Debug.Log("Choose settlement mouse dow 3");
+                    // build city
+                    ChangeToCity();
+                    audioManager.PlaySound("build");
+                    PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+                    string playerColor = playerManager.GetPlayerColor();
+                    // get color of player to turn settlement into
+                    switch (playerColor)
+                    {
+                        case "red":
+                            this.gameObject.GetComponent<Renderer>().material = red;
+                            break;
+                        case "blue":
+                            this.gameObject.GetComponent<Renderer>().material = blue;
+                            break;
+                        case "white":
+                            this.gameObject.GetComponent<Renderer>().material = white;
+                            break;
+                        case "orange":
+                            this.gameObject.GetComponent<Renderer>().material = orange;
+                            break;
+                        default:
+                            Debug.LogError("Color ISSUE. Unacceptable string for color");
+                            this.gameObject.GetComponent<Renderer>().material = takenColour;
+                            break;
+                    }
+                    return;
                 }
-                return;
-            }
-            else
-            {
-                warningText.WarningTextBox("You do not own this settlement");
-                return;
-            }
-        }
-
-
-        // if not in setup phase, check an adjacent player owned road is present
-        if (turnManager.isSetUpPhase == false)
-        {
-            foreach(GameObject adjacentRoad in adjacentRoads)
-            {
-                if(adjacentRoad.GetComponent<ChooseBorder>().playerClaimedBy == turnManager.playerToPlay)
+                else
                 {
-                    adjacentRoadCheck = true;
-                }
-            }
-
-            if (!adjacentRoadCheck)
-            {
-                StartCoroutine(warningText.WarningTextBox("No adjacent road to build settlement"));
-                return;
-            }
-        }
-
-        //Can only interact with this point when the user has bought a settlement!
-        if (this.gameObject.GetComponent<Renderer>().enabled)
-        {
-            foreach (GameObject adjacentSettlement in adjacentSettlements)
-            {
-                if (adjacentSettlement.GetComponent<ChooseSettlement>().settlementTaken)
-                {
-                    Debug.Log("CANNOT BUILD SETTLEMENT. ADJACENT SETTLEMENT ALREADY CLAIMED");
-                    StartCoroutine(warningText.WarningTextBox("Cannot build settlement. Adjacent settlement already claimed."));
+                    warningText.WarningTextBox("You do not own this settlement");
                     return;
                 }
             }
 
-            if (!settlementTaken)
+
+            // if not in setup phase, check an adjacent player owned road is present
+            if (turnManager.isSetUpPhase == false)
             {
-                Debug.Log("settlement taken");
-                Debug.Log("value of isSetUpPhase in turnManager is: " + turnManager.isSetUpPhase);
-
-                //   this.gameObject.GetComponent<Renderer>().material = takenColour;
-                settlementTaken = true;
-                playerClaimedBy = turnManager.playerToPlay;
-
-                // add to playerManager of correct player.
-                PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
-                playerManager.playerOwnedSettlements.Add(this.gameObject);
-                string playerColor = playerManager.GetPlayerColor();
-
-
-                // give this player an improved port if this is a port hex.
-                if (isImprovedHarbor)
+                foreach (GameObject adjacentRoad in adjacentRoads)
                 {
-                    playerManager.ownsImprovedHarbor = true;
-                }
-                if (isBrickHarbor)
-                {
-                    playerManager.ownsBrickHarbor = true;
-                }
-                if (isLumberHarbor)
-                {
-                    playerManager.ownsLumberHarbor = true;
-                }
-                if (isWoolHarbor)
-                {
-                    playerManager.ownsWoolHarbor = true;
-                }
-                if (isGrainHarbor)
-                {
-                    playerManager.ownsGrainHarbor = true;
-                }
-                if (isOreHarbor)
-                {
-                    playerManager.ownsOreHarbor = true;
+                    if (adjacentRoad.GetComponent<ChooseBorder>().playerClaimedBy == turnManager.playerToPlay)
+                    {
+                        adjacentRoadCheck = true;
+                    }
                 }
 
-
-                //Play Audio Queue
-                audioManager.PlaySound("build");
-
-                // get color of player to turn settlement into
-                switch (playerColor)
+                if (!adjacentRoadCheck)
                 {
-                    case "red":
-                        this.gameObject.GetComponent<Renderer>().material = red;
-                        break;
-                    case "blue":
-                        this.gameObject.GetComponent<Renderer>().material = blue;
-                        break;
-                    case "white":
-                        this.gameObject.GetComponent<Renderer>().material = white;
-                        break;
-                    case "orange":
-                        this.gameObject.GetComponent<Renderer>().material = orange;
-                        break;
-                    default:
-                        Debug.LogError("Color ISSUE. Unacceptable string for color");
-                        this.gameObject.GetComponent<Renderer>().material = takenColour;
-                        break;
+                    StartCoroutine(warningText.WarningTextBox("No adjacent road to build settlement"));
+                    return;
+                }
+            }
+
+            //Can only interact with this point when the user has bought a settlement!
+            if (this.gameObject.GetComponent<Renderer>().enabled)
+            {
+                foreach (GameObject adjacentSettlement in adjacentSettlements)
+                {
+                    if (adjacentSettlement.GetComponent<ChooseSettlement>().settlementTaken)
+                    {
+                        Debug.Log("CANNOT BUILD SETTLEMENT. ADJACENT SETTLEMENT ALREADY CLAIMED");
+                        StartCoroutine(warningText.WarningTextBox("Cannot build settlement. Adjacent settlement already claimed."));
+                        return;
+                    }
                 }
 
-                if (turnManager.isSetUpPhase)
+                if (!settlementTaken)
                 {
-                    Debug.Log("siiiu");
-                    turnManager.roadAndSettlementPlacedSetUpCounter++;
-                }
-                makeTradeScript.GetComponent<MakeTrade>().SetSettlementBought(false);
+                    Debug.Log("settlement taken");
+                    Debug.Log("value of isSetUpPhase in turnManager is: " + turnManager.isSetUpPhase);
 
-                foreach (GameObject adjacentTile in adjacentTiles)
-                {
-                    adjacentTile.GetComponent<TerrainHex>().adjacentSettlements.Add(this.gameObject);
+                    //   this.gameObject.GetComponent<Renderer>().material = takenColour;
+                    settlementTaken = true;
+                    playerClaimedBy = turnManager.playerToPlay;
+
+                    // add to playerManager of correct player.
+                    PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+                    playerManager.playerOwnedSettlements.Add(this.gameObject);
+                    string playerColor = playerManager.GetPlayerColor();
+
+
+                    // give this player an improved port if this is a port hex.
+                    if (isImprovedHarbor)
+                    {
+                        playerManager.ownsImprovedHarbor = true;
+                    }
+                    if (isBrickHarbor)
+                    {
+                        playerManager.ownsBrickHarbor = true;
+                    }
+                    if (isLumberHarbor)
+                    {
+                        playerManager.ownsLumberHarbor = true;
+                    }
+                    if (isWoolHarbor)
+                    {
+                        playerManager.ownsWoolHarbor = true;
+                    }
+                    if (isGrainHarbor)
+                    {
+                        playerManager.ownsGrainHarbor = true;
+                    }
+                    if (isOreHarbor)
+                    {
+                        playerManager.ownsOreHarbor = true;
+                    }
+
+
+                    //Play Audio Queue
+                    audioManager.PlaySound("build");
+
+                    // get color of player to turn settlement into
+                    switch (playerColor)
+                    {
+                        case "red":
+                            this.gameObject.GetComponent<Renderer>().material = red;
+                            break;
+                        case "blue":
+                            this.gameObject.GetComponent<Renderer>().material = blue;
+                            break;
+                        case "white":
+                            this.gameObject.GetComponent<Renderer>().material = white;
+                            break;
+                        case "orange":
+                            this.gameObject.GetComponent<Renderer>().material = orange;
+                            break;
+                        default:
+                            Debug.LogError("Color ISSUE. Unacceptable string for color");
+                            this.gameObject.GetComponent<Renderer>().material = takenColour;
+                            break;
+                    }
+
+                    if (turnManager.isSetUpPhase)
+                    {
+                        Debug.Log("siiiu");
+                        turnManager.roadAndSettlementPlacedSetUpCounter++;
+                    }
+                    makeTradeScript.GetComponent<MakeTrade>().SetSettlementBought(false);
+
+                    foreach (GameObject adjacentTile in adjacentTiles)
+                    {
+                        adjacentTile.GetComponent<TerrainHex>().adjacentSettlements.Add(this.gameObject);
+                    }
                 }
             }
         }
