@@ -20,7 +20,7 @@ public class TerrainAssigner : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        AssignTiles(); // if on beginner map.
+  //      AssignTiles(); // if on beginner map.
         robber = GameObject.Find("Robber").GetComponent<Robber>();
     }
 
@@ -190,7 +190,7 @@ public class TerrainAssigner : MonoBehaviour
         tileList[random10].GetComponent<TerrainHex>().AssignDesertTile();
         tileList[random10].GetComponent<TerrainHex>().AssignDiceNumber(7);
         desertHex = tileList[random10];
-
+        Debug.Log("Assigned Desert Tile");
 
 
 

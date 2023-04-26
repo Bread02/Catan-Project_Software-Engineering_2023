@@ -31,6 +31,7 @@ public class TerrainHex : MonoBehaviour
     [Header("GameObjects")]
     public GameObject hexImage;
     public GameObject terrainNumberObject;
+    private GameObject terrainHexCircle;
 
     [Header("Terrain Colors")]
     [SerializeField] private Color hoverOverColour;
@@ -63,6 +64,11 @@ public class TerrainHex : MonoBehaviour
         FindScripts();
         AddToList();
         isDesert = false;
+
+        terrainHexCircle = this.gameObject.transform.GetChild(0).transform.GetChild(1).gameObject;
+
+        terrainHexCircle.SetActive(true);
+        terrainNumberObject.SetActive(true);
     }
 
     void FindScripts()
@@ -129,8 +135,12 @@ public class TerrainHex : MonoBehaviour
 * */
     public void AssignDesertTile()
     {
-
+        Debug.Log("Assigning Desert");
         terrain = Terrain.Desert;
+
+        // desert hex has no terrain number visible.
+        terrainHexCircle.SetActive(false);
+        terrainNumberObject.SetActive(false);
 
         AssignTile(0);
         return;
