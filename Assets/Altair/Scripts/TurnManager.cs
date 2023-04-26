@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+/**
+ * This script controls the overall turn taking functionality of the game. It also sets up the game when loaded.
+ *
+ * @author Altair, Ben
+ * @version 26/04/2023
+ */
 public class TurnManager : MonoBehaviour
 {
     [Header("Other Scripts")]
     private DiceRolling diceRolling;
     private TradeManager tradeManager;
     private MakeTrade makeTrade;
-    private Robber robber;
-    private WarningText warningText;
     private HelpText helpText;
     private WinConditions winConditions;
     private PlayerDataTrack playerDataTrack;
@@ -566,8 +570,6 @@ public class TurnManager : MonoBehaviour
         diceRolling = GameObject.Find("DiceRolling").GetComponent<DiceRolling>();
         tradeManager = GameObject.Find("THE_TRADE_GUI").GetComponent<TradeManager>();
         makeTrade = GameObject.Find("EMPTY_OBJ_MakeTrade").GetComponent<MakeTrade>();
-        robber = GameObject.Find("Robber").GetComponent<Robber>();
-        warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
         helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
         winConditions = GameObject.Find("WinConditionsAndScreen").GetComponent<WinConditions>();
         terrainAssigner = GameObject.Find("TileHolder").GetComponent<TerrainAssigner>();

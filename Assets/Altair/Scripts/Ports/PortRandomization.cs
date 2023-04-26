@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/**
+ * This script randomizes the port locations each time a game is started.
+ *
+ * @author Altair, Ben
+ * @version 26/04/2023
+ */
 public class PortRandomization : MonoBehaviour
 {
     [Header("Port Prefabs")]
@@ -20,6 +25,7 @@ public class PortRandomization : MonoBehaviour
     [SerializeField] private Transform port5Location;
     [SerializeField] private Transform port6Location;
 
+    [Header("Lists")]
     [SerializeField] private List<GameObject> portPrefabList = new List<GameObject>();
     [SerializeField] private List<Transform> portLocationsList = new List<Transform>();
 
@@ -27,11 +33,10 @@ public class PortRandomization : MonoBehaviour
     void Start()
     {
         AddAllItemsToList();
-
-
         InstantiatePorts();
     }
 
+    // Adds all the port locations and all the port prefabs onto the two lists.
     void AddAllItemsToList()
     {
         portLocationsList.Add(port1Location);

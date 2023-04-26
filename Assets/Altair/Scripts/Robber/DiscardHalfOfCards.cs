@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+/**
+ * This script controls the mechanic for the player needing to discard half of their cards
+ * if a robber is rolled.
+ *
+ * @author Altair, Ben
+ * @version 26/04/2023
+ */
 public class DiscardHalfOfCards : MonoBehaviour
 {
     [Header("Other Scripts")]
@@ -23,6 +31,8 @@ public class DiscardHalfOfCards : MonoBehaviour
     {
         FindObjects();
     }
+
+    // Finds the scripts needed for this script
     private void FindObjects()
     {
         robber = GameObject.Find("Robber").GetComponent<Robber>();
@@ -30,6 +40,8 @@ public class DiscardHalfOfCards : MonoBehaviour
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
     }
 
+
+    // Triggers the lose half of cards functionality.
     public void LoseHalfOfCards(PlayerManager playerManagerRollSeven)
     {
         turnManager.playerWhoRolledSeven = playerManagerRollSeven;
@@ -55,6 +67,7 @@ public class DiscardHalfOfCards : MonoBehaviour
         StartCoroutine(PlayerLoseCardsTurn(playersMustDiscard));
     }
 
+    // This checks if players have to lose cards.
     public IEnumerator PlayerLoseCardsTurn(List<PlayerManager> playerLoseCards)
     {
         if (playerLoseCards.Count == 0)

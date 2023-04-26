@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * This controls what type of port this is.
+ *
+ * @author Altair, Ben
+ * @version 26/04/2023
+ */
 public class PortChildTrigger : MonoBehaviour
 {
     public PortType portType;
@@ -14,19 +20,6 @@ public class PortChildTrigger : MonoBehaviour
     grain,
     brick,
     improved
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     // designate the type of city this is.
