@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class LongestRoadCheck : MonoBehaviour
 {
-    public GameObject longestRoadCard;
-
     // current largest player
     public PlayerManager playerWithLongestRoad;
     private TurnManager turnManager;
@@ -13,19 +11,38 @@ public class LongestRoadCheck : MonoBehaviour
 
     private bool hasBeenGivenToAPlayer;
 
-    [Header("Largest Army Points")]
-    public Transform P0Point;
-    public Transform P1Point;
-    public Transform P2Point;
-    public Transform P3Point;
-    public Transform P4Point;
+    public GameObject longestRoad0SP, longestRoadP1SP, longestRoadP2SP, longestRoadP3SP, longestRoadP4SP;
+
+    private List<GameObject> longestRoadSPs;
+
     // Start is called before the first frame update
     void Start()
     {
-        sizeOfLongestRoad = 5;
+        sizeOfLongestRoad = 4; //Must be 4 so that condition on line 61 is true when player builds road of length 5
         hasBeenGivenToAPlayer = false;
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
-        longestRoadCard.transform.position = P0Point.position; // start at no players.
+        longestRoadSPs = new List<GameObject>
+        {
+            longestRoad0SP
+        };
+        switch (turnManager.playersToSpawn)
+        {
+            case 2:
+                longestRoadSPs.Add(longestRoadP1SP);
+                longestRoadSPs.Add(longestRoadP2SP);
+                break;
+            case 3:
+                longestRoadSPs.Add(longestRoadP1SP);
+                longestRoadSPs.Add(longestRoadP2SP);
+                longestRoadSPs.Add(longestRoadP3SP);
+                break;
+            case 4:
+                longestRoadSPs.Add(longestRoadP1SP);
+                longestRoadSPs.Add(longestRoadP2SP);
+                longestRoadSPs.Add(longestRoadP3SP);
+                longestRoadSPs.Add(longestRoadP4SP);
+                break;
+        }
     }
 
     private void Update()
@@ -43,25 +60,18 @@ public class LongestRoadCheck : MonoBehaviour
 
         if(currentLongestRoad > sizeOfLongestRoad)
         {
-            switch (playerNumWhoOwnsCurrentLongestRoad)
+            for(int i = 0; i < longestRoadSPs.Count; i++)
             {
-                case 1:
-                    longestRoadCard.transform.position = P1Point.position;
-                    longestRoadCard.transform.rotation = P1Point.rotation;
-                    break;
-                case 2:
-                    longestRoadCard.transform.position = P2Point.position;
-                    longestRoadCard.transform.rotation = P2Point.rotation;
-                    break;
-                case 3:
-                    longestRoadCard.transform.position = P3Point.position;
-                    longestRoadCard.transform.rotation = P3Point.rotation;
-                    break;
-                case 4:
-                    longestRoadCard.transform.position = P4Point.position;
-                    longestRoadCard.transform.rotation = P4Point.rotation;
-                    break;
+                if (i == playerNumWhoOwnsCurrentLongestRoad)
+                {
+                    longestRoadSPs[i].SetActive(true);
+                }
+                else
+                {
+                    longestRoadSPs[i].SetActive(false);
+                }
             }
+
             if(!hasBeenGivenToAPlayer)
             {
                 playerWithLongestRoad = turnManager.playerList[playerNumWhoOwnsCurrentLongestRoad - 1];

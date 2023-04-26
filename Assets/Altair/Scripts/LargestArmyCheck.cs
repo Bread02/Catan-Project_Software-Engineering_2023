@@ -14,14 +14,8 @@ public class LargestArmyCheck : MonoBehaviour
     // current largest player
     public PlayerManager playerWithBiggestArmy;
 
-    public GameObject largestArmyCard;
-
-    [Header("Largest Army Points")]
-    public Transform largestArmy0Point;
-    public Transform largestArmyP1Point;
-    public Transform largestArmyP2Point;
-    public Transform largestArmyP3Point;
-    public Transform largestArmyP4Point;
+    public GameObject largestArmy0SP, largestArmyP1SP, largestArmyP2SP, largestArmyP3SP, largestArmyP4SP;
+    private List<GameObject> largestArmySPs;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +23,28 @@ public class LargestArmyCheck : MonoBehaviour
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         bankManager = GameObject.Find("THE_BANK").GetComponent<BankManager>();
 
-        largestArmyCard.transform.position = largestArmy0Point.position;
+        largestArmySPs = new List<GameObject>
+        {
+            largestArmy0SP
+        };
+        switch (turnManager.playersToSpawn)
+        {
+            case 2:
+                largestArmySPs.Add(largestArmyP1SP);
+                largestArmySPs.Add(largestArmyP2SP);
+                break;
+            case 3:
+                largestArmySPs.Add(largestArmyP1SP);
+                largestArmySPs.Add(largestArmyP2SP);
+                largestArmySPs.Add(largestArmyP3SP);
+                break;
+            case 4:
+                largestArmySPs.Add(largestArmyP1SP);
+                largestArmySPs.Add(largestArmyP2SP);
+                largestArmySPs.Add(largestArmyP3SP);
+                largestArmySPs.Add(largestArmyP4SP);
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -112,23 +127,17 @@ public class LargestArmyCheck : MonoBehaviour
             playerNumber = playerWithBiggestArmy.playerNumber;
 
         }
-        switch (playerNumber)
+
+        for(int i = 0; i <= largestArmySPs.Count; i++)
         {
-            // no one has it
-            case 0:
-                return;
-            case 1:
-                largestArmyCard.transform.position = largestArmyP1Point.position;
-                break;
-            case 2:
-                largestArmyCard.transform.position = largestArmyP2Point.position;
-                break;
-            case 3:
-                largestArmyCard.transform.position = largestArmyP3Point.position;
-                break;
-            case 4:
-                largestArmyCard.transform.position = largestArmyP4Point.position;
-                break;
+            if(i == playerNumber)
+            {
+                largestArmySPs[i].SetActive(true);
+            }
+            else
+            {
+                largestArmySPs[i].SetActive(false);
+            }
         }
     }
 }

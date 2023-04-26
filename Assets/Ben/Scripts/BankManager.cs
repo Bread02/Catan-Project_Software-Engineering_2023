@@ -93,6 +93,8 @@ public class BankManager : MonoBehaviour
         return tradeStarted;
     }
 
+    [SerializeField] private KnightCardsPlayedMainManager kcMangTextScript;
+
     private void OnTriggerEnter(Collider cardPlayed)
     {
         string cardType = cardPlayed.gameObject.tag;
@@ -117,6 +119,7 @@ public class BankManager : MonoBehaviour
                         robber.TriggerRobberMovement();
                         turnManager.ReturnCurrentPlayer().IncrementKnightCardUsage();
                         turnManager.hasUsedDevCardThisTurn = true;
+                        kcMangTextScript.IncrementKCPAmountToPlayer(turnManager.ReturnCurrentPlayer().playerNumber);
                         break;
                     case "roadBuilding":
                         // NEEDS IMPLEMENTING
