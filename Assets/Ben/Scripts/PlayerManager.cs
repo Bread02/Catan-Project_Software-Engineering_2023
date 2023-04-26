@@ -433,53 +433,36 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void CheckIfNewCards(List<GameObject> tiles)
+    public Dictionary<string, int> GetDictForCardsFromDiceRoll(List<GameObject> tiles)
     {
-        // go through all player owned settlements and find if adjacent tile is in the tiles list.
-        for (int j = 0; j < playerOwnedSettlements.Count; j++)
+        Dictionary<string, int> cardAmntsFromDRDict = new Dictionary<string, int>()
         {
-            //    Debug.Log("Inside player owned settlements");
-
-            foreach (GameObject tiles1 in tiles)
+            {"grain", 0 },
+            {"wool", 0 },
+            {"ore", 0 },
+            {"brick", 0 },
+            {"lumber", 0 }
+        };
+        // go through all player owned settlements and find if adjacent tile is in the tiles list.
+        foreach(GameObject settlementObjOwnedByPlr in playerOwnedSettlements)
+        {
+            foreach(GameObject tile in tiles)
             {
-
-                //    Debug.Log("Inside tiles");
-
-
-                // loop through first
-                for (int i = 0; i < playerOwnedSettlements.Count; i++)
+                if (settlementObjOwnedByPlr.GetComponent<ChooseSettlement>().adjacentTiles.Contains(tile))
                 {
-                    //      Debug.Log("sETTLEMENT: " + playerOwnedSettlements[i]);
-                }
-
-
-                // loop through second=
-                for (int i = 0; i < tiles.Count; i++)
-                {
-                    //        Debug.Log("sETTLEMENT: " + tiles1);
-                }
-
-
-                if (playerOwnedSettlements[j].GetComponent<ChooseSettlement>().adjacentTiles.Contains(tiles1))
-                {
-
                     // if not blocked by robber, remove card from bank and add new card to player's hand.
-                    if (!tiles1.GetComponent<TerrainHex>().robberBlocked)
+                    if (!tile.GetComponent<TerrainHex>().robberBlocked)
                     {
-                        if (!playerOwnedSettlements[j].GetComponent<ChooseSettlement>().isCity)
+                        string terrainType = tile.GetComponent<TerrainHex>().terrain.ToString();
+                        if (!settlementObjOwnedByPlr.GetComponent<ChooseSettlement>().isCity)
                         {
-                            string terrainType = tiles1.GetComponent<TerrainHex>().terrain.ToString();
-                            GameObject.Find("THE_BANK").GetComponent<BankManager>().IncOrDecValue(terrainType, -1);
-                            AddResourceCard(terrainType, 1);
-                            Debug.Log("Adding new player card");
+                            cardAmntsFromDRDict[terrainType] += 1;
                         }
                         else // if city, double output
                         {
-                            string terrainType = tiles1.GetComponent<TerrainHex>().terrain.ToString();
-                            GameObject.Find("THE_BANK").GetComponent<BankManager>().IncOrDecValue(terrainType, -2);
-                            AddResourceCard(terrainType, 2);
-                            Debug.Log("Adding new player card");
+                            cardAmntsFromDRDict[terrainType] += 2;
                         }
+                        Debug.Log("Adding new player card");
                     }
                     else
                     {
@@ -487,9 +470,8 @@ public class PlayerManager : MonoBehaviour
                     }
                 }
             }
-
         }
-
+        return cardAmntsFromDRDict;
     }
 
     // ONLY FOR OPENING SEQUENCE WHEN THE SECOND SETTLEMENT IS ADDED
@@ -506,7 +488,7 @@ public class PlayerManager : MonoBehaviour
                 string terrainType = tiles1.GetComponent<TerrainHex>().terrain.ToString();
                 if (terrainType != "Desert")
                 {
-                    GameObject.Find("THE_BANK").GetComponent<BankManager>().IncOrDecValue(terrainType, -1);
+                    GameObject.Find("THE_BANK").GetComponent<BankManager>().IncOrDecValue(terrainType, -1); //This is the start of the game - there is guaranteed to be enough resource cards in bank
                     AddResourceCard(terrainType, 1);
                     Debug.Log("Adding new player card");
                 }

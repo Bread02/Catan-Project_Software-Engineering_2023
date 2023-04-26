@@ -53,14 +53,14 @@ public class BankManager : MonoBehaviour
         return bank[key];
     }
 
-    public void IncOrDecValue(string key, int value)
+    public bool IncOrDecValue(string key, int value)
     {
-        int temp = bank[key];
+        bool cardsTaken = true;
         bank[key] += value;
-        if (temp <= 0)
+        if (bank[key] < 0)
         {
-            Debug.Log("No more " + key + " cards left in bank!");
             bank[key] = 0;
+            cardsTaken = false;
         }
         if (key == "knight" || key == "victoryPoints" || key == "monopoly" || key == "roadBuilding" || key == "yearOfPlenty")
         {
@@ -70,10 +70,15 @@ public class BankManager : MonoBehaviour
         {
             bankGuiTxt.GetComponent<DisplayBankQuantities>().ChangeQuantity(key, bank[key]);
         }
-        
+        return cardsTaken;
     }
 
-    private int GetDevCardQuant()
+    public int GetResCardQuant()
+    {
+        return bank["grain"] + bank["wool"] + bank["ore"] + bank["brick"] + bank["lumber"];
+    }
+
+    public int GetDevCardQuant()
     {
         return bank["knight"] + bank["victoryPoints"] + bank["monopoly"] + bank["roadBuilding"] + bank["yearOfPlenty"];
     }
@@ -124,7 +129,15 @@ public class BankManager : MonoBehaviour
                     case "yearOfPlenty":
                         // NEEDS IMPLEMENTING
                         // ALLOWS THE PLAYER TO TAKE ANY 2 RESOURCE CARDS FROM THE BANK
-                        StartCoroutine(YearOfPlentyDevCardPlayed());
+                        if(GetResCardQuant() >= 2)
+                        {
+                            StartCoroutine(YearOfPlentyDevCardPlayed());
+                        }
+                        else
+                        {
+                            Debug.Log("Not enough cards in bank to activate year of plenty! Returning card to player hand.");
+                            turnManager.ReturnCurrentPlayer().IncOrDecValue("yearOfPlenty", 1);
+                        }
                         break;
                     case "monopoly":
                         // NEEDS IMPLEMENTING
@@ -257,15 +270,21 @@ public class BankManager : MonoBehaviour
 
     private void ResourceCardGainedFromYOP(string rcType)
     {
-        IncOrDecValue(rcType, -1);
-        turnManager.ReturnCurrentPlayer().IncOrDecValue(rcType, 1);
-        if (!firstRCchosenFromYOP)
+        if (!IncOrDecValue(rcType, -1))
         {
-            firstRCchosenFromYOP = true;
+            Debug.Log("No " + rcType + " cards left in bank.");
         }
-        else if (!secondRCchosenFromYOP)
+        else
         {
-            secondRCchosenFromYOP = true;
+            turnManager.ReturnCurrentPlayer().IncOrDecValue(rcType, 1);
+            if (!firstRCchosenFromYOP)
+            {
+                firstRCchosenFromYOP = true;
+            }
+            else if (!secondRCchosenFromYOP)
+            {
+                secondRCchosenFromYOP = true;
+            }
         }
     }
 }

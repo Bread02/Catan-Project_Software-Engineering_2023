@@ -51,7 +51,13 @@ public class DropDown : MonoBehaviour
                 key = "victoryPoints";
                 break;
         }
-        turnManager.ReturnCurrentPlayer().IncOrDecValue(key, 1);
-        bankMang.GetComponent<BankManager>().IncOrDecValue(key, -1);
+        if(!bankMang.GetComponent<BankManager>().IncOrDecValue(key, -1))
+        {
+            Debug.Log("No more " + key + " cards left in bank!");
+        }
+        else
+        {
+            turnManager.ReturnCurrentPlayer().IncOrDecValue(key, 1);
+        }
     }
 }
