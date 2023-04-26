@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TerrainAssigner : MonoBehaviour
 {
+    [Header("Other Scripts")]
     private Robber robber;
 
     [Header("Lists")]
     public List<GameObject> tileList = new List<GameObject>();
     public List<GameObject> tileNoDesertList = new List<GameObject>();
     public List<GameObject> tileNumberMatches = new List<GameObject>();
-
     public List<GameObject> orderedTileList = new List<GameObject>(); // ordered list is assigned from top left to bottom right manually.
 
     [Header("Game Objects")]
@@ -18,6 +18,7 @@ public class TerrainAssigner : MonoBehaviour
     public GameObject selectedRobberHex;
 
     // Start is called before the first frame update
+    
     void Awake()
     {
         robber = GameObject.Find("Robber").GetComponent<Robber>();
