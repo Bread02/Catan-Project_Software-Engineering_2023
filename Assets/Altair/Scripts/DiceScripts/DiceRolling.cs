@@ -138,8 +138,6 @@ public class DiceRolling : MonoBehaviour
                     }
                 }
             }
-            turnManager.finishedDiceRolling = true;
-            turnManager.DisplayEndTurnButton();
         }
         else
         {
@@ -147,7 +145,8 @@ public class DiceRolling : MonoBehaviour
             Debug.Log("Triggering lose half of cards");
             discardHalfOfCards.LoseHalfOfCards(turnManager.ReturnCurrentPlayer());
         }
-
+        turnManager.finishedDiceRolling = true;
+        turnManager.DisplayEndTurnButton();
         // add card to each matching tile with settlement.
     }
 

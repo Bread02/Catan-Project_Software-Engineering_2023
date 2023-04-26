@@ -41,6 +41,14 @@ public class DragAndDropControl : MonoBehaviour
         {
             StartCoroutine(warningText.WarningTextBox("Victory Point cards cannot be controlled!"));
         }
+        else if (!turnManager.finishedDiceRolling && (this.gameObject.tag == "brick" || this.gameObject.tag == "ore" || this.gameObject.tag == "lumber" || this.gameObject.tag == "grain" || this.gameObject.tag == "wool"))
+        {
+            StartCoroutine(warningText.WarningTextBox("Must roll dice before using resource cards!"));
+        }
+        else if (turnManager.hasUsedDevCardThisTurn && (this.gameObject.tag == "knight" || this.gameObject.tag == "monopoly" || this.gameObject.tag == "roadBuilding" || this.gameObject.tag == "yearOfPlenty"))
+        {
+            StartCoroutine(warningText.WarningTextBox("Only one development card can be played per turn!"));
+        }
         else if (turnManager.ReturnCurrentPlayer().playerNumber == playerNumWhoOwnsThisCard)
         {
             rigidbody.constraints = RigidbodyConstraints.FreezeRotation;

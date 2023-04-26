@@ -35,6 +35,7 @@ public class TurnManager : MonoBehaviour
     public bool isTrading;
     private bool cardDiscardingComplete;
     bool playerDiscarded = false;
+    public bool hasUsedDevCardThisTurn;
 
     public PlayerManager playerWhoRolledSeven;
 
@@ -247,6 +248,7 @@ public class TurnManager : MonoBehaviour
         finalTurn = false;
         abridgedFinalTurn = false;
         loseCardsObject.SetActive(false);
+        hasUsedDevCardThisTurn = false;
     }
 
     // if dice rolling is false, and trade is false, show button.
@@ -395,6 +397,9 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        //Resets hasUsedDevCard
+        hasUsedDevCardThisTurn = false;
+
         //Ensures that if player whose turn it is has their development cards shown, the cards are switched back to showing resource cards
         ReturnCurrentPlayer().ShowResourceCardsOnly();
 

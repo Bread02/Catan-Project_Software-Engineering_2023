@@ -116,15 +116,13 @@ public class BankManager : MonoBehaviour
                         turnManager.playerWhoRolledSeven = turnManager.ReturnCurrentPlayer(); //knight card simulates rolling a 7
                         robber.TriggerRobberMovement();
                         turnManager.ReturnCurrentPlayer().IncrementKnightCardUsage();
-                        break;
-                    case "victoryPoints":
-                        // NEEDS IMPLEMENTING
-                        // GRANTS THE PLAYER 1 VP
+                        turnManager.hasUsedDevCardThisTurn = true;
                         break;
                     case "roadBuilding":
                         // NEEDS IMPLEMENTING
                         // BUYS 2 ROADS FOR THE PLAYER TO BUILD ON THE MAP.
                         StartCoroutine(RoadBuildingDevCardPlayed());
+                        turnManager.hasUsedDevCardThisTurn = true;
                         break;
                     case "yearOfPlenty":
                         // NEEDS IMPLEMENTING
@@ -132,6 +130,7 @@ public class BankManager : MonoBehaviour
                         if(GetResCardQuant() >= 2)
                         {
                             StartCoroutine(YearOfPlentyDevCardPlayed());
+                            turnManager.hasUsedDevCardThisTurn = true;
                         }
                         else
                         {
@@ -144,6 +143,7 @@ public class BankManager : MonoBehaviour
                         // All players must give 1 of the resource card the player asks for. e.g. ore, all players give 1 ore card.
                         // If player does not have ore card, they do not give anything.
                         MonopolyDevCardPlayed();
+                        turnManager.hasUsedDevCardThisTurn = true;
                         break;
                 }
             }
