@@ -46,6 +46,8 @@ public class TerrainHex : MonoBehaviour
     [SerializeField] private Sprite mountainsSprite;
     [SerializeField] private Sprite pastureSprite;
 
+    public TextMeshProUGUI pip;
+
     public int placeOnBoardNumber;
 
     public enum Terrain
@@ -71,6 +73,7 @@ public class TerrainHex : MonoBehaviour
         terrainNumberObject.SetActive(true);
     }
 
+    // Finds the other scripts needed for this script.
     void FindScripts()
     {
         terrainAssigner = GameObject.Find("TileHolder").GetComponent<TerrainAssigner>();
@@ -79,12 +82,14 @@ public class TerrainHex : MonoBehaviour
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
     }
 
+    // Adds this hex to the tile lists.
     void AddToList()
     {
         terrainAssigner.tileList.Add(this.gameObject);
         terrainAssigner.tileNoDesertList.Add(this.gameObject);
     }
 
+    // Assigns the tile's correct hex.
     public void AssignTile(int terrainType)
     {
         if (terrainType == 0)
@@ -118,10 +123,81 @@ public class TerrainHex : MonoBehaviour
         }
     }
 
+    // Assigns the tile's dice number.
     public void AssignDiceNumber(int number)
     {
         terrainDiceNumber = number;
         terrainNumberObject.GetComponent<TextMeshProUGUI>().text = terrainDiceNumber.ToString();
+
+        // sort pips. Give red color if 6 or 8.
+        switch (number)
+        {
+            case 2:
+                SetPips(1);
+                break;
+            case 3:
+                SetPips(2);
+                break;
+            case 4:
+                SetPips(3);
+                break;
+            case 5:
+                SetPips(4);
+                break;
+            case 6:
+                SetPips(5);
+                terrainNumberObject.GetComponent<TextMeshProUGUI>().color = Color.red;
+                break;
+            case 7:
+                // give no pips
+                SetPips(0);
+                break;
+            case 8:
+                SetPips(5);
+                terrainNumberObject.GetComponent<TextMeshProUGUI>().color = Color.red;
+                break;
+            case 9:
+                SetPips(4);
+                break;
+            case 10:
+                SetPips(3);
+                break;
+            case 11:
+                SetPips(2);
+                break;
+            case 12:
+                SetPips(1);
+                break;
+        
+        
+        }
+
+    }
+
+    // Sets the number of pips below a number.
+    public void SetPips(int numberOfPips)
+    {
+        switch(numberOfPips)
+        {
+            case 0:
+                pip.text = "";
+                break;
+            case 1:
+                pip.text = ".";
+                break;
+            case 2:
+                pip.text = "..";
+                break;
+            case 3:
+                pip.text = "...";
+                break;
+            case 4:
+                pip.text = "....";
+                break;
+            case 5:
+                pip.text = ".....";
+                break;
+        }
     }
 
     /*number of each terrain
@@ -133,6 +209,8 @@ public class TerrainHex : MonoBehaviour
 *  16, 17, 18 - clay
 * 
 * */
+    // Assigns the desert tile and characteristics to a hex.
+
     public void AssignDesertTile()
     {
         Debug.Log("Assigning Desert");
@@ -148,6 +226,7 @@ public class TerrainHex : MonoBehaviour
     }
 
 
+    // Assigns the tile's terrain type number.
     public void AssignTerrainTypeNumber(int number)
     {
         terrainTypeNumber = number;
@@ -201,7 +280,6 @@ public class TerrainHex : MonoBehaviour
     }
 
     // terrain hex interaction for when the robber is activated
-
     public void UnselectHex()
     {
         robberLocationSelected = false;
@@ -237,6 +315,7 @@ public class TerrainHex : MonoBehaviour
         }
     }
 
+    // When mouse is no longer hovering over a hex when robber is activated.
     private void OnMouseExit()
     {
         if (robberActivated && !robberLocationSelected)
@@ -247,6 +326,7 @@ public class TerrainHex : MonoBehaviour
         }
     }
 
+    // When mouse hovering over a hex when robber is activated.
     private void OnMouseEnter()
     {
         if (robberActivated && !robberLocationSelected)
