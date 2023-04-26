@@ -291,12 +291,10 @@ public class ChooseBorder : MonoBehaviour
                             bankMang.secondRoadPlacedInRB = true;
                         }
                     }
-
                     borderTaken = true;
                 }
+                Debug.Log("This road has a distance of " + furthestDistanceFromASettlement + ", to the furthest possibe settlement.");
             }
-        
-        Debug.Log("This road has a distance of " + furthestDistanceFromASettlement + ", to the furthest possibe settlement.");
     }
 
     private void OnMouseExit()

@@ -19,7 +19,7 @@ public class TradeManager : MonoBehaviour
     private Dictionary<string, int> cardAmountsDict, totalTradedDict;
 
     [SerializeField] private GameObject bankMang, gameBoardMang, dropDownMenu, buyRoadBut, buySettBut, buyCityBut, buyDevCBut,
-        unusedCardsBut, submitTradeBut, buyRCwGrainBut, buyRCwWoolBut, buyRCwBrickBut, buyRCwOreBut, buyRCwLumberBut, chooseRCpanel;
+        unusedCardsBut, submitTradeBut, buyRCwGrainBut, buyRCwWoolBut, buyRCwBrickBut, buyRCwOreBut, buyRCwLumberBut, chooseRCpanel, endTurnButton;
 
     [SerializeField] private TMP_Text rcTypeToGiveToBankInMTtxt;
 
@@ -240,6 +240,7 @@ public class TradeManager : MonoBehaviour
         }
 
         ResetVariables();
+        endTurnButton.SetActive(true);
     }
 
     /*
@@ -261,6 +262,7 @@ public class TradeManager : MonoBehaviour
                 bankMang.GetComponent<BankManager>().IncOrDecValue(cards.Key, cards.Value); //No need to worry about return value as we are adding cards to bank
             }
             ResetVariables();
+            endTurnButton.SetActive(true);
         }
 
     }

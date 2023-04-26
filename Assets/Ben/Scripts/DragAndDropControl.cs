@@ -12,6 +12,7 @@ public class DragAndDropControl : MonoBehaviour
     private TurnManager turnManager;
     private new Rigidbody rigidbody;
     private GameBoardManager board;
+    private MakeTrade makeTrade;
 
     private int playerNumWhoOwnsThisCard;
 
@@ -23,6 +24,7 @@ public class DragAndDropControl : MonoBehaviour
         board = GameObject.FindGameObjectWithTag("GameBoard").GetComponent<GameBoardManager>();
         rigidbody = GetComponent<Rigidbody>();
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
+        makeTrade = GameObject.FindGameObjectWithTag("MakeTrade").GetComponent<MakeTrade>();
     }
 
     public void SetPlayerNumWhoOwnsThisCard(int playerNum)
@@ -37,7 +39,11 @@ public class DragAndDropControl : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if(this.gameObject.tag == "victoryPoints")
+        if(playerNumWhoOwnsThisCard != turnManager.ReturnCurrentPlayer().playerNumber)
+        {
+            StartCoroutine(warningText.WarningTextBox("You're not allowed to move another player's cards!"));
+        }
+        else if(this.gameObject.tag == "victoryPoints")
         {
             StartCoroutine(warningText.WarningTextBox("Victory Point cards cannot be controlled!"));
         }
@@ -49,7 +55,19 @@ public class DragAndDropControl : MonoBehaviour
         {
             StartCoroutine(warningText.WarningTextBox("Only one development card can be played per turn!"));
         }
-        else if (turnManager.ReturnCurrentPlayer().playerNumber == playerNumWhoOwnsThisCard)
+        else if (makeTrade.GetRoadBought())
+        {
+            StartCoroutine(warningText.WarningTextBox("Place road(s) pieces before moving cards!"));
+        }
+        else if (makeTrade.GetSettlementBought())
+        {
+            StartCoroutine(warningText.WarningTextBox("Place settlement(s) pieces before moving cards!"));
+        }
+        else if (makeTrade.GetCityBought())
+        {
+            StartCoroutine(warningText.WarningTextBox("Place city(s) pieces before moving cards!"));
+        }
+        else
         {
             rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 
