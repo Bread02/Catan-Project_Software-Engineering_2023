@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * This script controls camera movement using the mouse buttons and moving the mouse to the edges of the screen.
+ *
+ * @author Altair Robinson
+ * @version 26/04/2023
+ */
 public class CameraMovement : MonoBehaviour
 {
     [Header("Other Scripts")]
@@ -25,16 +31,11 @@ public class CameraMovement : MonoBehaviour
     private float lockYZoomIn;
     private float lockYZoomOut;
 
-    [Header("Bools")]
-    public bool cameraDragging = true;
-    public bool middleMouseButtonDragging = true;
-
     [Header("Disable Scrolling IF this camera is not in use")]
     public bool disableScroll;
 
     [Header("Player")]
     public int playerNumber;
-
     private Vector3 cameraCenterPoint;
 
 
@@ -48,6 +49,7 @@ public class CameraMovement : MonoBehaviour
         GetCameraCentrePoint();
     }
 
+    // Grabs the camera's starting point. Needed for middle mouse click to centre mouse back to screen.
     private void GetCameraCentrePoint()
     {
         cameraCenterPoint = this.gameObject.transform.position;
@@ -73,6 +75,7 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    // This locks the camera's X, Y and Z axis so it cannot go outside of these ranges.
     void CameraLockConstraints()
     {
         lockXNegative = -10;
@@ -83,6 +86,7 @@ public class CameraMovement : MonoBehaviour
         lockYZoomOut = 10;
     }
 
+    // Zooming functionality using the mouse scrollwheel.
     private void Zooming()
     {
         // zoom in
@@ -241,7 +245,7 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-
+    // Click the mouse wheel button then the camera will go back to its centre point.
     private void ClickToCenter()
     {
         if(Input.GetMouseButtonDown(2))

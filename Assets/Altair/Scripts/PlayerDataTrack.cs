@@ -5,6 +5,15 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 // ONLY ENABLE THIS CLASS IF COMING FROM PLAYMENU TO GAME.
+
+/**
+ * This script interacts with the playtogame script in order to grab the relevant data transferred into this scene.
+ * With the data in the playtogame, this script setup the required functionality using the player's custom settings they would
+ * like for the game, such as enabling players, AI controlled players, player icons, abridged mode, etc.
+ *
+ * @author Altair Robinson
+ * @version 26/04/2023
+ */
 public class PlayerDataTrack : MonoBehaviour
 {
     [Header("ONLY ENABLE THIS CLASS IF COMING FROM PLAYMENU TO GAME.")]
@@ -138,6 +147,7 @@ public class PlayerDataTrack : MonoBehaviour
         GrabPlayToGameData();
     }
 
+    // Finds the relevant game objects this script requires.
     private void FindScripts()
     {
         playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
@@ -185,6 +195,9 @@ public class PlayerDataTrack : MonoBehaviour
         }
     }
 
+    // Checks which players were enabled in the playtogame script.
+    // Removes player stat card if disabled.
+    // Also does not instantiate a player in the turnmanager if disabled.
     public void CheckEnabledPlayers()
     {
         // check enabled players
@@ -226,10 +239,10 @@ public class PlayerDataTrack : MonoBehaviour
 
 
         CheckColors();
-
         turnManager.SetupGameFinal(numberOfPlayers, CheckColors(), playToGame.BeginnersModeToggled);
     }
 
+    // Parameters: Insert the icon number of the player, then matches the number to the correct icon.
     private void NumberToIcons(int player1Num, int player2Num, int player3Num, int player4Num)
     {
         switch (player1Num)
@@ -367,12 +380,9 @@ public class PlayerDataTrack : MonoBehaviour
                 player4PortraitIconUI.sprite = portraitIcon10;
                 break;
         }
-
-
-
-
     }
 
+    // Grabs information from the play to game script to insert into the game.
     public void GrabPlayToGameData()
     {
         int player1PortraitIconUINum = playToGame.Player1PortraitIcon;
@@ -394,9 +404,6 @@ public class PlayerDataTrack : MonoBehaviour
         player3NameText.text = player3NameUI;
         player4NameText.text = player4NameUI;
 
-
-        // check abridged
-
         // check enabled players
         AICheck();
         CheckEnabledPlayers();
@@ -405,6 +412,7 @@ public class PlayerDataTrack : MonoBehaviour
 
     }
 
+    // Checks if the AI is toggled and updates the sprite and turns that player into an AI.
     public void AICheck()
     {
         // AI icon
@@ -483,6 +491,7 @@ public class PlayerDataTrack : MonoBehaviour
         return playerColorList;
     }
 
+    // Checks the gamemode on the play to game script, if it's abridged mode, setup the abridged mode functionality.
     void CheckGameMode()
     {
         Debug.Log("Checking game mode");
@@ -505,7 +514,7 @@ public class PlayerDataTrack : MonoBehaviour
 
 
     // victory points. Grab from playermanager each player's VP's
-    // THIS  IS BASED ON A 4P SYSTEM.  ALLOW  LESS THAN 4.
+    // This is based on a 4 player system, but will work with 3 or 2 players.
     public void VictoryPoints()
     {
         // grab each game manager
@@ -528,8 +537,6 @@ public class PlayerDataTrack : MonoBehaviour
         playerManagersRanked.Add(playerManagers[2]);
         playerManagersRanked.Add(playerManagers[1]);
         playerManagersRanked.Add(playerManagers[0]);
-
-
 
         p1VictoryPointsText.text = player1Points.ToString();
         p2VictoryPointsText.text = player2Points.ToString();

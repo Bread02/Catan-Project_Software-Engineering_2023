@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 // data we need to bring from the play menu to the game
+
+/**
+ * This script interacts with the playMenu script in order to grab the relevant data that will need to be
+ * transferred across to the mainscene2 (the game's main scene).
+ *
+ * @author Altair Robinson
+ * @version 26/04/2023
+ */
 public class PlayToGame : MonoBehaviour
 {
     private PlayMenu playMenu;

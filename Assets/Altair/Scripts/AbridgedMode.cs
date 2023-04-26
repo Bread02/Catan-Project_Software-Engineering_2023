@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+/**
+ * This script controls the abridged mode in the main game. It controls the time remaining on the screen and
+ * triggers the final turn on the turnManager.
+ *
+ * @author Altair Robinson
+ * @version 26/04/2023
+ */
 public class AbridgedMode : MonoBehaviour
 {
+    [Header("Other Scripts")]
     private TurnManager turnManager;
 
     [Header("UI")]
     public TextMeshProUGUI timeRemainingText;
     public GameObject abridgedUI;
 
+    [Header("Time Remaining")]
     public float timeRemaining;
+
     [Header("Bools")]
     public bool isAbridgedMode;
     public bool isCountingDown;
@@ -31,27 +42,27 @@ public class AbridgedMode : MonoBehaviour
         timeRemaining = totalTime;
     }
 
-
-
     // Update is called once per frame
     void Update()
     {
+        // DEBUGS. REMOVE ON FINAL VERSION
         if(Input.GetKeyDown(KeyCode.V))
         {
             SetupAbridged(180);
         }
-        // count down if abridged mode
-        if(isCountingDown)
-        {
-            CountDown();
-        }
-
-        if(Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J))
         {
             timeRemaining = 3;
         }
+
+        // count down if abridged mode
+        if (isCountingDown)
+        {
+            CountDown();
+        }
     }
 
+    // This counts down the timer. Starting from time remaining to zero using the in game speed setting.
     public void CountDown()
     {
         timeRemaining -= Time.deltaTime;
@@ -75,7 +86,7 @@ public class AbridgedMode : MonoBehaviour
         }
     }
 
-    // time run out
+    // Set turnmanager to abridged final turn when the time runs out.
     private void TimeRanOut()
     {
         turnManager.SetAbridgedFinalTurn();
