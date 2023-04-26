@@ -12,6 +12,7 @@ public class DiceRolling : MonoBehaviour
     public DiceReader redDiceReader;
     private TerrainAssigner terrainAssigner;
     private DiscardHalfOfCards discardHalfOfCards;
+    private BankManager bankMang;
 
     [Header("Bools")]
     public bool yellowRolled;
@@ -41,6 +42,7 @@ public class DiceRolling : MonoBehaviour
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         tradeManager = GameObject.Find("THE_TRADE_GUI").GetComponent<TradeManager>();
         discardHalfOfCards = GameObject.Find("DiscardHalfOfCards").GetComponent<DiscardHalfOfCards>();
+        bankMang = GameObject.Find("THE_BANK").GetComponent<BankManager>();
     }
 
     public void EndDiceRoll()
@@ -73,15 +75,68 @@ public class DiceRolling : MonoBehaviour
 
     public void TriggerNumberAction(int totalResult)
     {
-       
-        if(totalResult != 7)
+
+        if (totalResult != 7)
         {
             List<GameObject> tiles = terrainAssigner.FindMatchingHexNumbers(totalResult);
 
-            // for each player manager
-            foreach(PlayerManager playerManager in turnManager.playerList)
+            //Must now check if there are enough resources
+            //E.g. if there are 4 players that each should receive a brick card, but there are only 3 brick cards in the bank, then NO ONE gets a brick card
+            //However in the same dice roll, if 3 players should receive a grain card, and there are 4 grain cards in the bank, then these 3 players get a grain card.
+            //Solution: Have a dictionary where the key is the player number, and value is another dictionary
+            //that stores the quantity of each resource card that the player should receive.
+            Dictionary<PlayerManager, Dictionary<string, int>> cardsToGiveToPlrsDict = new Dictionary<PlayerManager, Dictionary<string, int>>();
+            foreach (PlayerManager playerManager in turnManager.playerList)
             {
-                playerManager.CheckIfNewCards(tiles);
+                cardsToGiveToPlrsDict.Add(playerManager, playerManager.GetDictForCardsFromDiceRoll(tiles));
+            }
+
+            //Go through each card type and find if the sum of all cards that need to be given to players is less than or equal to amount in bank
+            //If it greater, then this resource card CANNOT be taken from the bank!
+            Dictionary<string, int> sumOfEachRCtoTakeFromBankDict = new Dictionary<string, int>()
+            {
+                {"grain", 0},
+                {"wool", 0},
+                {"ore", 0},
+                {"brick", 0},
+                {"lumber", 0}
+            };
+            Dictionary<string, bool> canTakeRCfromBank = new Dictionary<string, bool>()
+            {
+                {"grain", true},
+                {"wool", true},
+                {"ore", true},
+                {"brick", true},
+                {"lumber", true}
+            };
+
+            foreach(Dictionary<string, int> cardsToGiveToOnePlrDict in cardsToGiveToPlrsDict.Values)
+            {
+                foreach(KeyValuePair<string, int> kvp in cardsToGiveToOnePlrDict)
+                {
+                    sumOfEachRCtoTakeFromBankDict[kvp.Key] += kvp.Value;
+                }
+            }
+            foreach (KeyValuePair<string, int> singleRCsumToTakeFromBank in sumOfEachRCtoTakeFromBankDict)
+            {
+                if (singleRCsumToTakeFromBank.Value > bankMang.GetValue(singleRCsumToTakeFromBank.Key)) {
+                    canTakeRCfromBank[singleRCsumToTakeFromBank.Key] = false;
+                    Debug.Log("NOT ENOUGH "+singleRCsumToTakeFromBank.Key+" CARDS TO GIVE TO ALL PLAYERS!");
+                }
+            }
+            foreach (KeyValuePair<PlayerManager, Dictionary<string, int>> kvp in cardsToGiveToPlrsDict)
+            {
+                PlayerManager player = kvp.Key;
+                foreach(KeyValuePair<string, int> cardsToGiveToOnePlrDict in kvp.Value)
+                {
+                    string cardType = cardsToGiveToOnePlrDict.Key;
+                    int amntToTakeFromBank = cardsToGiveToOnePlrDict.Value;
+                    if (canTakeRCfromBank[cardType])
+                    {
+                        bankMang.IncOrDecValue(cardType, -amntToTakeFromBank); //Return value doesn't matter as we have already checked if cards can be taken from bank
+                        player.IncOrDecValue(cardType, amntToTakeFromBank);
+                    }
+                }
             }
             turnManager.finishedDiceRolling = true;
             turnManager.DisplayEndTurnButton();

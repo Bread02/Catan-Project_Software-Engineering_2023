@@ -236,7 +236,7 @@ public class TradeManager : MonoBehaviour
         }
         foreach (KeyValuePair<string, int> cards in totalTradedDict)
         {
-            bankMang.GetComponent<BankManager>().IncOrDecValue(cards.Key, cards.Value);
+            bankMang.GetComponent<BankManager>().IncOrDecValue(cards.Key, cards.Value); //No need to worry about return value as we are adding cards back to the bank
         }
 
         ResetVariables();
@@ -258,7 +258,7 @@ public class TradeManager : MonoBehaviour
         {
             foreach (KeyValuePair<string, int> cards in totalTradedDict)
             {
-                bankMang.GetComponent<BankManager>().IncOrDecValue(cards.Key, cards.Value);
+                bankMang.GetComponent<BankManager>().IncOrDecValue(cards.Key, cards.Value); //No need to worry about return value as we are adding cards to bank
             }
             ResetVariables();
         }
@@ -390,10 +390,17 @@ public class TradeManager : MonoBehaviour
 
     public void ShowMaritimeTradePanel(string rcTypeToGiveToBank)
     {
-        this.rcTypeToGiveToBank = rcTypeToGiveToBank;
-        this.gameObject.SetActive(false);
-        chooseRCpanel.SetActive(true);
-        rcTypeToGiveToBankInMTtxt.text = rcTypeToGiveToBank;
+        if(bankMang.GetComponent<BankManager>().GetResCardQuant() <= 0)
+        {
+            Debug.Log("Cannot perform maritime trade as there are no cards left in the bank!");
+        }
+        else
+        {
+            this.rcTypeToGiveToBank = rcTypeToGiveToBank;
+            this.gameObject.SetActive(false);
+            chooseRCpanel.SetActive(true);
+            rcTypeToGiveToBankInMTtxt.text = rcTypeToGiveToBank;
+        }
     }
 
     //***Called by buttons***
@@ -425,56 +432,65 @@ public class TradeManager : MonoBehaviour
 
     public void GetResourceCardThroughtMT(string rcTypeToGetFromBank)
     {
-        bool ownsBestHarbor = false;
-        //Remove cards from trade window
-        switch (rcTypeToGetFromBank)
+        if(bankMang.GetComponent<BankManager>().GetValue(rcTypeToGetFromBank) <= 0)
         {
-            case "grain":
-                ownsBestHarbor = turnManager.ReturnCurrentPlayer().ownsGrainHarbor;
-                break;
-            case "wool":
-                ownsBestHarbor = turnManager.ReturnCurrentPlayer().ownsWoolHarbor;
-                break;
-            case "ore":
-                ownsBestHarbor = turnManager.ReturnCurrentPlayer().ownsOreHarbor;
-                break;
-            case "brick":
-                ownsBestHarbor = turnManager.ReturnCurrentPlayer().ownsBrickHarbor;
-                break;
-            case "lumber":
-                ownsBestHarbor = turnManager.ReturnCurrentPlayer().ownsLumberHarbor;
-                break;
-        }
-
-        if (ownsBestHarbor)
-        {
-            Debug.Log("Current player owns the best harbour for " + rcTypeToGiveToBank);
-            IncOrDecValue(rcTypeToGiveToBank, -2);
-        }
-        else if (turnManager.ReturnCurrentPlayer().ownsImprovedHarbor)
-        {
-            Debug.Log("Current player owns the 3:1 harbour");
-            IncOrDecValue(rcTypeToGiveToBank, -3);
+            Debug.Log("No " + rcTypeToGetFromBank + " left in the bank!");
         }
         else
         {
-            Debug.Log("Current player must give 4 cards for the maritime trade");
-            IncOrDecValue(rcTypeToGiveToBank, -4);
+            bool ownsBestHarbor = false;
+            //Remove cards from trade window
+            switch (rcTypeToGetFromBank)
+            {
+                case "grain":
+                    ownsBestHarbor = turnManager.ReturnCurrentPlayer().ownsGrainHarbor;
+                    break;
+                case "wool":
+                    ownsBestHarbor = turnManager.ReturnCurrentPlayer().ownsWoolHarbor;
+                    break;
+                case "ore":
+                    ownsBestHarbor = turnManager.ReturnCurrentPlayer().ownsOreHarbor;
+                    break;
+                case "brick":
+                    ownsBestHarbor = turnManager.ReturnCurrentPlayer().ownsBrickHarbor;
+                    break;
+                case "lumber":
+                    ownsBestHarbor = turnManager.ReturnCurrentPlayer().ownsLumberHarbor;
+                    break;
+            }
+
+            int amntRequiredFromPlr;
+            if (ownsBestHarbor)
+            {
+                Debug.Log("Current player owns the best harbour for " + rcTypeToGiveToBank);
+                amntRequiredFromPlr = 2;
+            }
+            else if (turnManager.ReturnCurrentPlayer().ownsImprovedHarbor)
+            {
+                Debug.Log("Current player owns the 3:1 harbour");
+                amntRequiredFromPlr = 3;
+            }
+            else
+            {
+                Debug.Log("Current player must give 4 cards for the maritime trade");
+                amntRequiredFromPlr = 4;
+            }
+
+            //Take resource card the player wants from the bank, and add to player's hand
+            IncOrDecValue(rcTypeToGiveToBank, -amntRequiredFromPlr);
+            bankMang.GetComponent<BankManager>().IncOrDecValue(rcTypeToGetFromBank, -1); //No need to worry about return value as we have already checked quantity of bank
+            turnManager.ReturnCurrentPlayer().IncOrDecValue(rcTypeToGetFromBank, 1);
+
+            buyRCwBrickBut.SetActive(false);
+            buyRCwGrainBut.SetActive(false);
+            buyRCwLumberBut.SetActive(false);
+            buyRCwOreBut.SetActive(false);
+            buyRCwWoolBut.SetActive(false);
+
+            chooseRCpanel.SetActive(false);
+            this.gameObject.SetActive(true);
+
+            turnManager.isTrading = false;
         }
-
-        //Take resource card the player wants from the bank, and add to player's hand
-        bankMang.GetComponent<BankManager>().IncOrDecValue(rcTypeToGetFromBank, -1);
-        turnManager.ReturnCurrentPlayer().IncOrDecValue(rcTypeToGetFromBank, 1);
-
-        buyRCwBrickBut.SetActive(false);
-        buyRCwGrainBut.SetActive(false);
-        buyRCwLumberBut.SetActive(false);
-        buyRCwOreBut.SetActive(false);
-        buyRCwWoolBut.SetActive(false);
-
-        chooseRCpanel.SetActive(false);
-        this.gameObject.SetActive(true);
-
-        turnManager.isTrading = false;
     }
 }

@@ -112,48 +112,55 @@ public class MakeTrade : MonoBehaviour
 
     public void BuyDevCard()
     {
-        tradeMang.GetComponent<TradeManager>().IncOrDecValue("ore", -1);
-        tradeMang.GetComponent<TradeManager>().IncOrDecValue("wool", -1);
-        tradeMang.GetComponent<TradeManager>().IncOrDecValue("grain", -1);
-
-
-        //must find new development card to take if there are no cards of devCardType left in bank
-        string devCardType = "";
-        do
+        if(bankMang.GetComponent<BankManager>().GetDevCardQuant() < 0)
         {
-            Random.InitState(System.DateTime.Now.Millisecond);
-            int randNo = Random.Range(0, 5);
-            Debug.Log("Random number is: " + randNo);
+            Debug.Log("No development cards left in bank!");
+        }
+        else
+        {
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("ore", -1);
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("wool", -1);
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("grain", -1);
 
-            switch (randNo)
+            //must find new development card to take if there are no cards of devCardType left in bank
+            string devCardType = "";
+
+            do
             {
-                case 0: //knight card
-                    devCardType = "knight";
-                    break;
+                Random.InitState(System.DateTime.Now.Millisecond);
+                int randNo = Random.Range(0, 5);
+                Debug.Log("Random number is: " + randNo);
 
-                case 1: //monopoly card
-                    devCardType = "monopoly";
-                    break;
+                switch (randNo)
+                {
+                    case 0: //knight card
+                        devCardType = "knight";
+                        break;
 
-                case 2: //roadBuilding card
-                    devCardType = "roadBuilding";
-                    break;
+                    case 1: //monopoly card
+                        devCardType = "monopoly";
+                        break;
 
-                case 3: //yearOfPlenty card
-                    devCardType = "yearOfPlenty";
-                    break;
+                    case 2: //roadBuilding card
+                        devCardType = "roadBuilding";
+                        break;
 
-                case 4: //victoryPoints card
-                    devCardType = "victoryPoints";
-                    break;
-            }
-        } while (bankMang.GetComponent<BankManager>().GetValue(devCardType) <= 0);
-        Debug.Log("Development card type bought is: " + devCardType);
+                    case 3: //yearOfPlenty card
+                        devCardType = "yearOfPlenty";
+                        break;
 
-        bankMang.GetComponent<BankManager>().IncOrDecValue(devCardType, -1);
-        turnManager.ReturnCurrentPlayer().GetComponent<PlayerManager>().IncOrDecValue(devCardType, 1);
-        submitTradeButt.SetActive(true);
+                    case 4: //victoryPoints card
+                        devCardType = "victoryPoints";
+                        break;
+                }
+            } while (bankMang.GetComponent<BankManager>().GetValue(devCardType) <= 0);
+            Debug.Log("Development card type bought is: " + devCardType);
 
-        Debug.Log("You bought a development card!");
+            bankMang.GetComponent<BankManager>().IncOrDecValue(devCardType, -1); //Do not need to use return value as we have already checked at least one dev card is in bank
+            turnManager.ReturnCurrentPlayer().GetComponent<PlayerManager>().IncOrDecValue(devCardType, 1);
+            submitTradeButt.SetActive(true);
+
+            Debug.Log("You bought a development card!");
+        }
     }
 }
