@@ -112,7 +112,7 @@ public class MakeTrade : MonoBehaviour
 
     public void BuyDevCard()
     {
-        if(bankMang.GetComponent<BankManager>().GetDevCardQuant() < 0)
+        if(bankMang.GetComponent<BankManager>().GetDevCardQuant() <= 0)
         {
             Debug.Log("No development cards left in bank!");
         }

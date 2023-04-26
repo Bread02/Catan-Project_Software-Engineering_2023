@@ -140,7 +140,7 @@ public class BankManager : MonoBehaviour
                         break;
                     case "monopoly":
                         // NEEDS IMPLEMENTING
-                        // All players must give 1 of the resource card the player asks for. e.g. ore, all players give 1 ore card.
+                        // All players must give all of the resource cards the player asks for. e.g. ore, all players give all their ore cards.
                         // If player does not have ore card, they do not give anything.
                         MonopolyDevCardPlayed();
                         turnManager.hasUsedDevCardThisTurn = true;
@@ -223,8 +223,11 @@ public class BankManager : MonoBehaviour
                 //Then remove card from opponent's hand and add to hand of player who played monopoly card
 
                 //TODO: Check if opponent actually holds resource card that will be stolen!
-                player.IncOrDecValue(rcType, -1);
-                turnManager.ReturnCurrentPlayer().IncOrDecValue(rcType, 1);
+                while(player.GetCardTypeQuantity(rcType) > 0)
+                {
+                    player.IncOrDecValue(rcType, -1);
+                    turnManager.ReturnCurrentPlayer().IncOrDecValue(rcType, 1);
+                }
             }
         }
     }
