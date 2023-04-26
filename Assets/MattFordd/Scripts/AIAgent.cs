@@ -172,7 +172,9 @@ public class AIAgent : PlayerManager
                     // build settlement
                     break;
                 case "city":
-                    // build city
+                    List<GameObject> cityOptions;
+                    cityOptions = getCityBuildingOptions();
+                    GameObject cityChoice = cityOptions[Random.Range(0, cityOptions.Count -1)];
                     break;
                 case "buyDevelopmentCard":
                     // buy development card
