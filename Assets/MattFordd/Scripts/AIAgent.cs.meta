@@ -3,7 +3,24 @@ guid: 85052e9f7bd357e468cab470731851b9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cardPfab: {instanceID: 0}
+  - grainMat: {fileID: 21300000, guid: 9ff09acee301af846b5f093c008fbe88, type: 3}
+  - woolMat: {instanceID: 0}
+  - brickMat: {instanceID: 0}
+  - oreMat: {instanceID: 0}
+  - lumberMat: {instanceID: 0}
+  - knightMat: {instanceID: 0}
+  - victoryPointsMat: {instanceID: 0}
+  - monopolyMat: {instanceID: 0}
+  - roadBuildingMat: {instanceID: 0}
+  - yearOfPlentyMat: {instanceID: 0}
+  - red: {instanceID: 0}
+  - blue: {instanceID: 0}
+  - white: {instanceID: 0}
+  - orange: {instanceID: 0}
+  - robber: {instanceID: 0}
+  - graph: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

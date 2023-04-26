@@ -8,11 +8,12 @@ public class AIAgent : PlayerManager
     private Dictionary<string, int> AIResourceAccessibility = new Dictionary<string, int>();
     public Robber robber;
     public BoardGraph graph;
+    List<GameObject> list = new List<GameObject>();
 
 
     void Update(){
         if(Input.GetKeyDown(KeyCode.A)){
-            List<GameObject> list = getHexOptions();
+            list = getHexOptions();
             Debug.Log(list.Count);
         }
     }
@@ -23,15 +24,18 @@ public class AIAgent : PlayerManager
         List<GameObject> hexesToPlay = new List<GameObject>();
         Dictionary<GameObject, int> hexValues = new Dictionary<GameObject, int>();
         
+        int counter = 0;
         // find hex with the most players (+1 for opponent, -1 for yourself)
         foreach(BoardSettlement settlement in graph.settlements){
-            Debug.Log(settlement.getHexNumbers());
+            Debug.Log(counter);
+            counter++;
             if(settlement.getSettlment().GetComponent<ChooseSettlement>().settlementTaken == true){
                 foreach(BoardVertex v in settlement.getHexObjects()){
                     if((v != null) && (v.getHexTile() != robber.occupiedHex)){
-                        if(settlement.GetComponent<ChooseSettlement>() != null){
+                        Debug.Log("TEST: " + settlement.getSettlment().GetComponent<ChooseSettlement>());
+                        if(settlement.GetComponent<ChooseSettlement>() != null && playerNumber != null){
                             Debug.Log("HERE");
-                            if(settlement.GetComponent<ChooseSettlement>().playerClaimedBy != playerNumber){
+                            if(settlement.getSettlment().GetComponent<ChooseSettlement>().playerClaimedBy != playerNumber){
                                 Debug.Log("PLUS");
                                 hexValues[v.getHexTile()] += 1;
                             } else {
@@ -111,6 +115,7 @@ public class AIAgent : PlayerManager
         /*
         * WILL HAVING ALL THE DEVELOPMENT CARDS HAVE A BAD EFFECT ON THE AIs RANDOMNESS?
         */
+        //use bool to chjeck if its already played one.
         if(pCardQuantities["monopoly"] >= 1 || pCardQuantities["knight"] >= 1 || pCardQuantities["roadBuilding"] >= 1 || pCardQuantities["yearOfPlenty"] >= 1){
             options.Add("playDevelopmentCard");
         }
