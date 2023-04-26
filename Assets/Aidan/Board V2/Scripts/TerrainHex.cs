@@ -45,6 +45,8 @@ public class TerrainHex : MonoBehaviour
     [SerializeField] private Sprite mountainsSprite;
     [SerializeField] private Sprite pastureSprite;
 
+    public int placeOnBoardNumber;
+
     public enum Terrain
     {
         Desert,
@@ -58,12 +60,17 @@ public class TerrainHex : MonoBehaviour
 
     void Awake()
     {
+        FindScripts();
+        AddToList();
+        isDesert = false;
+    }
+
+    void FindScripts()
+    {
         terrainAssigner = GameObject.Find("TileHolder").GetComponent<TerrainAssigner>();
         robber = GameObject.Find("Robber").GetComponent<Robber>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
-        AddToList();
-        isDesert = false;
     }
 
     void AddToList()
@@ -72,36 +79,39 @@ public class TerrainHex : MonoBehaviour
         terrainAssigner.tileNoDesertList.Add(this.gameObject);
     }
 
-    public void AssignTile()
+    public void AssignTile(int terrainType)
     {
-        if (terrain == Terrain.lumber)
+        if (terrainType == 0)
         {
-            hexImage.GetComponent<Image>().sprite = forestSprite;
+            if (terrain == Terrain.lumber)
+            {
+                hexImage.GetComponent<Image>().sprite = forestSprite;
+            }
+            if (terrain == Terrain.Desert)
+            {
+                hexImage.GetComponent<Image>().sprite = desertSprite;
+                isDesert = true;
+                terrainAssigner.tileNoDesertList.Remove(this.gameObject);
+            }
+            if (terrain == Terrain.wool)
+            {
+                hexImage.GetComponent<Image>().sprite = pastureSprite;
+            }
+            if (terrain == Terrain.brick)
+            {
+                hexImage.GetComponent<Image>().sprite = hillsSprite;
+            }
+            if (terrain == Terrain.ore)
+            {
+                hexImage.GetComponent<Image>().sprite = mountainsSprite;
+            }
+            if (terrain == Terrain.grain)
+            {
+                hexImage.GetComponent<Image>().sprite = fieldSprite;
+            }
         }
-        if (terrain == Terrain.Desert)
-        {
-            hexImage.GetComponent<Image>().sprite = desertSprite;
-            isDesert = true;
-            terrainAssigner.tileNoDesertList.Remove(this.gameObject);
-        }
-        if (terrain == Terrain.wool)
-        {
-            hexImage.GetComponent<Image>().sprite = pastureSprite;
-        }
-        if (terrain == Terrain.brick)
-        {
-            hexImage.GetComponent<Image>().sprite = hillsSprite;
-        }
-        if (terrain == Terrain.ore)
-        {
-            hexImage.GetComponent<Image>().sprite = mountainsSprite;
-        }
-        if (terrain == Terrain.grain)
-        {
-            hexImage.GetComponent<Image>().sprite = fieldSprite;
-        }
-
     }
+
     public void AssignDiceNumber(int number)
     {
         terrainDiceNumber = number;
@@ -122,7 +132,7 @@ public class TerrainHex : MonoBehaviour
 
         terrain = Terrain.Desert;
 
-        AssignTile();
+        AssignTile(0);
         return;
 
     }
@@ -132,38 +142,46 @@ public class TerrainHex : MonoBehaviour
     {
         terrainTypeNumber = number;
 
+        if (number == 0)
+        {
+            terrain = Terrain.Desert;
+            AssignTile(0);
+            isDesert = true;
+            return;
+        }
+
         if (number == 1 || number == 2 || number ==  3 || number == 4)
         {
             terrain = Terrain.wool;
-            AssignTile();
+            AssignTile(0);
             isDesert = false;
             return;
         }
         if (number == 5 || number == 6 || number == 7 || number == 8)
         {
             terrain = Terrain.grain;
-            AssignTile();
+            AssignTile(0);
             isDesert = false;
             return;
         }
         if (number == 9 || number == 10 || number == 11 || number == 12)
         {
             terrain = Terrain.lumber;
-            AssignTile();
+            AssignTile(0);
             isDesert = false;
             return;
         }
         if (number == 13 || number == 14 || number == 15)
         {
             terrain = Terrain.ore;
-            AssignTile();
+            AssignTile(0);
             isDesert = false;
             return;
         }
         if (number == 16 || number == 17 || number == 18)
         {
             terrain = Terrain.brick;
-            AssignTile();
+            AssignTile(0);
             isDesert = false;
             return;
         }

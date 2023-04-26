@@ -14,6 +14,7 @@ public class TurnManager : MonoBehaviour
     private HelpText helpText;
     private WinConditions winConditions;
     private PlayerDataTrack playerDataTrack;
+    private TerrainAssigner terrainAssigner;
 
     [Header("Stat BG to Light Up on Turn")]
     public GameObject p1StatBG;
@@ -152,7 +153,7 @@ public class TurnManager : MonoBehaviour
     // this is triggered by the game data track to setup the game PROPERLY with the correct number of players.
     // ONLY UNCOMMENT THIS IF YOU PLAN TO USE THIS INSTEAD AND FOR THE FINAL VERSION
     
-    public void SetupGameFinal(int numberOfPlayers, List<int> colorInt)
+    public void SetupGameFinal(int numberOfPlayers, List<int> colorInt, bool beginnerMap)
     {
         Debug.Log("Setup final");
         FindObjects();
@@ -193,6 +194,15 @@ public class TurnManager : MonoBehaviour
 
         SetAllPlayerPositions();
 
+        if(beginnerMap)
+        {
+            terrainAssigner.AssignTilesBeginner();
+        }
+        else
+        {
+            terrainAssigner.AssignTilesRandom();
+        }
+
         //Add player dropZones to playerDropZones list
         playerDropZones.Add(player1DropZone);
         playerDropZones.Add(player2DropZone);
@@ -213,14 +223,12 @@ public class TurnManager : MonoBehaviour
     */
     public void AssignPlayerToColor(List<int> playerColor)
     {
-        Debug.Log("Assigning player to color");
         if(playerColor != null)
         {
             playerList[0].PlayerColor(playerColor[0]);
             playerList[1].PlayerColor(playerColor[1]);
             playerList[2].PlayerColor(playerColor[2]);
             playerList[3].PlayerColor(playerColor[3]);
-            Debug.Log("Put colors in v2");
             return;
         }
         else
@@ -230,7 +238,6 @@ public class TurnManager : MonoBehaviour
             playerList[1].PlayerColor(1);
             playerList[2].PlayerColor(2);
             playerList[3].PlayerColor(3);
-            Debug.Log("Put colors in");
         }
 
     }
@@ -558,15 +565,18 @@ public class TurnManager : MonoBehaviour
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
         helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
         winConditions = GameObject.Find("WinConditionsAndScreen").GetComponent<WinConditions>();
+        terrainAssigner = GameObject.Find("TileHolder").GetComponent<TerrainAssigner>();
 
         try
         {
             playerDataTrack = GameObject.Find("PlayerDataTrack").GetComponent<PlayerDataTrack>();
+            
         }
         catch (System.Exception)
         {
 
-            Debug.Log("Player data track not found in scene");
+            Debug.Log("Player data track not found in scene. Will randomize tiles.");
+            terrainAssigner.AssignTilesRandom();
         }
     }
     #endregion

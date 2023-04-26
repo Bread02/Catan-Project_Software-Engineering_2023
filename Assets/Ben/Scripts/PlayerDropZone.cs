@@ -9,11 +9,14 @@ public class PlayerDropZone : MonoBehaviour
 
     private TurnManager turnManager;
 
+    public WarningText warningText;
+
     [SerializeField] private DomesticTradeOnlyManager domesTradeParentObj;
 
     private void Start()
     {
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+        warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
     }
 
     private void OnTriggerEnter(Collider cardPlayed)
@@ -36,6 +39,7 @@ public class PlayerDropZone : MonoBehaviour
         if(playerNumThatOwnsThisDropZone == turnManager.ReturnCurrentPlayer().playerNumber)
         {
             Debug.Log("You silly goose! You're trying to trade with yourself!");
+            StartCoroutine(warningText.WarningTextBox("You silly goose! You're trying to trade with yourself!"));
             turnManager.ReturnCurrentPlayer().IncOrDecValue(cardType, -1, cardPlayed.gameObject);
             turnManager.ReturnCurrentPlayer().IncOrDecValue(cardType, 1);
         }

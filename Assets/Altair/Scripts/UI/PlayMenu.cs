@@ -134,6 +134,10 @@ public class PlayMenu : MonoBehaviour
     public TextMeshProUGUI player3NameText;
     public TextMeshProUGUI player4NameText;
 
+    [Header("Beginner Map")]
+    private bool beginnerMap;
+    [SerializeField] private Image beginnerToggle;
+
 
     // play to game needs this data
     public string Player1Name { get => Player1Name1; set => Player1Name1 = value; }
@@ -172,6 +176,7 @@ public class PlayMenu : MonoBehaviour
     public int Player2ColorInt { get => player2ColorInt; set => player2ColorInt = value; }
     public int Player3ColorInt { get => player3ColorInt; set => player3ColorInt = value; }
     public int Player4ColorInt { get => player4ColorInt; set => player4ColorInt = value; }
+    public bool BeginnerMap { get => beginnerMap; set => beginnerMap = value; }
 
     private enum GameMode
         {
@@ -226,9 +231,13 @@ public class PlayMenu : MonoBehaviour
         DefaultPlayerIcons();
         DefaultPlayerColors();
 
+        // beginner map default
+        beginnerMap = true;
+        beginnerToggle.sprite = iconEnabled;
+
     }
 
- 
+
     public void EnablePlayers()
     {
         ClickEnablePlayer(1);
@@ -310,6 +319,26 @@ public class PlayMenu : MonoBehaviour
     }
 
     #region Game Mode Options
+
+    public void BeginnerModeToggle()
+    {
+        if (beginnerMap)
+        {
+            beginnerMap = false;
+            beginnerToggle.sprite = iconDisabled;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        else
+        {
+            beginnerMap = true;
+            beginnerToggle.sprite = iconEnabled;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+    }
+
+
     public void ClickIncreaseTimeLimit()
     {
         if(TimeLimit1 == TimeLimit.five)
@@ -476,6 +505,7 @@ public class PlayMenu : MonoBehaviour
 
     #region Player Options
 
+    
     public void ClickEnablePlayer(int playerNumber)
     {
         switch (playerNumber)

@@ -11,6 +11,8 @@ public class TerrainAssigner : MonoBehaviour
     public List<GameObject> tileNoDesertList = new List<GameObject>();
     public List<GameObject> tileNumberMatches = new List<GameObject>();
 
+    public List<GameObject> orderedTileList = new List<GameObject>();
+
     [Header("Game Objects")]
     public GameObject desertHex;
     public GameObject selectedRobberHex;
@@ -18,8 +20,19 @@ public class TerrainAssigner : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        AssignTiles();
+        AssignTiles(); // if on beginner map.
         robber = GameObject.Find("Robber").GetComponent<Robber>();
+    }
+
+    public void AssignTilesBeginner()
+    {
+        AssignTilesBeginnerMap();
+        Debug.Log("Creating Beginner Map");
+    }
+
+    public void AssignTilesRandom()
+    {
+        AssignTiles();
     }
 
     public void TriggerRobber()
@@ -77,11 +90,39 @@ public class TerrainAssigner : MonoBehaviour
     {
         for (int j = 0; j < tileList.Count; j++)
         {
-            tileList[j].GetComponent<TerrainHex>().AssignTile();
+            tileList[j].GetComponent<TerrainHex>().AssignTile(0); // for beginner map, a number would be assigned, otherwise 0 is random.
         }
 
         AssignTerrainDiceNumber();
+    }
 
+    // NEEDS FIXING
+    public void AssignTilesBeginnerMap()
+    {
+        orderedTileList[0].GetComponent<TerrainHex>().AssignTerrainTypeNumber(13); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[1].GetComponent<TerrainHex>().AssignTerrainTypeNumber(1); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[2].GetComponent<TerrainHex>().AssignTerrainTypeNumber(9); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[3].GetComponent<TerrainHex>().AssignTerrainTypeNumber(5); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[4].GetComponent<TerrainHex>().AssignTerrainTypeNumber(16); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[5].GetComponent<TerrainHex>().AssignTerrainTypeNumber(1); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[6].GetComponent<TerrainHex>().AssignTerrainTypeNumber(16); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[7].GetComponent<TerrainHex>().AssignTerrainTypeNumber(5); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[8].GetComponent<TerrainHex>().AssignTerrainTypeNumber(9); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[9].GetComponent<TerrainHex>().AssignDesertTile(); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[9].GetComponent<TerrainHex>().AssignTerrainTypeNumber(0); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[10].GetComponent<TerrainHex>().AssignTerrainTypeNumber(9); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[11].GetComponent<TerrainHex>().AssignTerrainTypeNumber(13); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[12].GetComponent<TerrainHex>().AssignTerrainTypeNumber(9); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[13].GetComponent<TerrainHex>().AssignTerrainTypeNumber(13); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[14].GetComponent<TerrainHex>().AssignTerrainTypeNumber(5); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[15].GetComponent<TerrainHex>().AssignTerrainTypeNumber(1); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[16].GetComponent<TerrainHex>().AssignTerrainTypeNumber(16); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[17].GetComponent<TerrainHex>().AssignTerrainTypeNumber(5); // for beginner map, a number would be assigned, otherwise 0 is random.
+        orderedTileList[18].GetComponent<TerrainHex>().AssignTerrainTypeNumber(1); // for beginner map, a number would be assigned, otherwise 0 is random.
+
+        desertHex = orderedTileList[9];
+
+        AssignTerrainDiceNumberBeginner();
     }
 
     // assigns the main dice roll number for the tile. RANDOMLY assign this.
@@ -347,6 +388,75 @@ public class TerrainAssigner : MonoBehaviour
 
         tileList[random19].GetComponent<TerrainHex>().AssignDiceNumber(12);
         tileList[random19].GetComponent<TerrainHex>().AssignTerrainTypeNumber(randomTerrain19);
+    }
 
+    // CREATE BEGINNER MAP
+    // THIS REMOVES RNG ASPECTS OF THE MAP
+    // CORRECT
+    public void AssignTerrainDiceNumberBeginner()
+    {
+        orderedTileList[0].GetComponent<TerrainHex>().AssignDiceNumber(10);
+        //  tileList[0].GetComponent<TerrainHex>().AssignTerrainTypeNumber(13);
+
+
+        orderedTileList[1].GetComponent<TerrainHex>().AssignDiceNumber(2);
+        //   tileList[1].GetComponent<TerrainHex>().AssignTerrainTypeNumber(1);
+
+
+        orderedTileList[2].GetComponent<TerrainHex>().AssignDiceNumber(9);
+        //       tileList[2].GetComponent<TerrainHex>().AssignTerrainTypeNumber(9);
+
+
+        orderedTileList[3].GetComponent<TerrainHex>().AssignDiceNumber(12);
+        //      tileList[3].GetComponent<TerrainHex>().AssignTerrainTypeNumber(5);
+
+        orderedTileList[4].GetComponent<TerrainHex>().AssignDiceNumber(6);
+        //        tileList[4].GetComponent<TerrainHex>().AssignTerrainTypeNumber(16);
+
+
+        orderedTileList[5].GetComponent<TerrainHex>().AssignDiceNumber(4);
+        //       tileList[5].GetComponent<TerrainHex>().AssignTerrainTypeNumber(1);
+
+
+        orderedTileList[6].GetComponent<TerrainHex>().AssignDiceNumber(10);
+        //     tileList[6].GetComponent<TerrainHex>().AssignTerrainTypeNumber(16);
+
+        orderedTileList[7].GetComponent<TerrainHex>().AssignDiceNumber(9);
+        //       tileList[7].GetComponent<TerrainHex>().AssignTerrainTypeNumber(5);
+
+        orderedTileList[8].GetComponent<TerrainHex>().AssignDiceNumber(11);
+        //       tileList[8].GetComponent<TerrainHex>().AssignTerrainTypeNumber(9);
+
+        orderedTileList[9].GetComponent<TerrainHex>().AssignDiceNumber(7);
+        //       tileList[9].GetComponent<TerrainHex>().AssignTerrainTypeNumber(0);
+
+        orderedTileList[10].GetComponent<TerrainHex>().AssignDiceNumber(3);
+        //      tileList[10].GetComponent<TerrainHex>().AssignTerrainTypeNumber(9);
+
+
+        orderedTileList[11].GetComponent<TerrainHex>().AssignDiceNumber(8);
+        //      tileList[11].GetComponent<TerrainHex>().AssignTerrainTypeNumber(13);
+
+        orderedTileList[12].GetComponent<TerrainHex>().AssignDiceNumber(8);
+        //     tileList[12].GetComponent<TerrainHex>().AssignTerrainTypeNumber(9);
+
+        orderedTileList[13].GetComponent<TerrainHex>().AssignDiceNumber(3);
+        //      tileList[13].GetComponent<TerrainHex>().AssignTerrainTypeNumber(13);
+
+        orderedTileList[14].GetComponent<TerrainHex>().AssignDiceNumber(4);
+        //      tileList[14].GetComponent<TerrainHex>().AssignTerrainTypeNumber(5);
+
+        orderedTileList[15].GetComponent<TerrainHex>().AssignDiceNumber(5);
+        //     tileList[15].GetComponent<TerrainHex>().AssignTerrainTypeNumber(1);
+
+        orderedTileList[16].GetComponent<TerrainHex>().AssignDiceNumber(5);
+        //     tileList[16].GetComponent<TerrainHex>().AssignTerrainTypeNumber(16);
+
+
+        orderedTileList[17].GetComponent<TerrainHex>().AssignDiceNumber(6);
+        //      tileList[17].GetComponent<TerrainHex>().AssignTerrainTypeNumber(5);
+
+        orderedTileList[18].GetComponent<TerrainHex>().AssignDiceNumber(11);
+   //     tileList[18].GetComponent<TerrainHex>().AssignTerrainTypeNumber(1);
     }
 }

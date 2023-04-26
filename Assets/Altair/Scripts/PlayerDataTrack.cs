@@ -227,7 +227,7 @@ public class PlayerDataTrack : MonoBehaviour
 
         CheckColors();
 
-        turnManager.SetupGameFinal(numberOfPlayers, CheckColors());
+        turnManager.SetupGameFinal(numberOfPlayers, CheckColors(), playToGame.BeginnersModeToggled);
     }
 
     private void NumberToIcons(int player1Num, int player2Num, int player3Num, int player4Num)

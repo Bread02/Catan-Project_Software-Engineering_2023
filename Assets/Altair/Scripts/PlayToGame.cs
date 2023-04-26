@@ -54,6 +54,8 @@ public class PlayToGame : MonoBehaviour
     private string gameMode;
     private int timeLimit;
 
+    private bool beginnersModeToggled;
+
     public Color Player1Color { get => player1Color; set => player1Color = value; }
     public Color Player2Color { get => player2Color; set => player2Color = value; }
     public Color Player3Color { get => player3Color; set => player3Color = value; }
@@ -80,6 +82,7 @@ public class PlayToGame : MonoBehaviour
     public int Player2ColorInt { get => player2ColorInt; set => player2ColorInt = value; }
     public int Player3ColorInt { get => player3ColorInt; set => player3ColorInt = value; }
     public int Player4ColorInt { get => player4ColorInt; set => player4ColorInt = value; }
+    public bool BeginnersModeToggled { get => beginnersModeToggled; set => beginnersModeToggled = value; }
 
 
     // Start is called before the first frame update
@@ -134,5 +137,7 @@ public class PlayToGame : MonoBehaviour
         Player2PortraitIcon = playMenu.Player2PortraitIconNumber;
         Player3PortraitIcon = playMenu.Player3PortraitIconNumber;
         Player4PortraitIcon = playMenu.Player4PortraitIconNumber;
+
+        BeginnersModeToggled = playMenu.BeginnerMap;
     }
 }

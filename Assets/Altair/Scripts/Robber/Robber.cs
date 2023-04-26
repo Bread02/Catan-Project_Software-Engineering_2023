@@ -37,7 +37,7 @@ public class Robber : MonoBehaviour
         robberTriggerCanvas.SetActive(false);
         terrainAssigner = GameObject.Find("TileHolder").GetComponent<TerrainAssigner>();
         DelayStart();
-        Invoke("DelayStart", 0.1f);
+        Invoke("DelayStart", 0.01f);
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
         stealCards = GameObject.Find("StealCards").GetComponent<StealCards>();

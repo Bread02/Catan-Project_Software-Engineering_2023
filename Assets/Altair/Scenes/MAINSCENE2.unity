@@ -2486,6 +2486,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!1 &119339031 stripped
@@ -3815,6 +3820,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TerrainHex
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
@@ -6133,6 +6143,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &293383010 stripped
@@ -7174,6 +7189,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &339246373 stripped
@@ -7551,6 +7571,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TerrainHex (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
@@ -11615,6 +11640,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &567867115 stripped
@@ -14077,6 +14107,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &619296110 stripped
@@ -14709,6 +14744,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &644818696 stripped
@@ -15184,6 +15224,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TerrainHex (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
@@ -16553,16 +16598,16 @@ RectTransform:
   m_GameObject: {fileID: 731053550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.7526948, y: 2.7526948, z: 2.7526948}
+  m_LocalScale: {x: 2, y: 2.7526948, z: 2.7526948}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1039071601}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -800, y: -307.71173}
-  m_SizeDelta: {x: 117.219, y: 90.5531}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -1240, y: -80}
+  m_SizeDelta: {x: 117.218994, y: 90.5531}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &731053552
 MonoBehaviour:
@@ -24658,6 +24703,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &1060237053 stripped
@@ -25652,6 +25702,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TerrainHex
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
@@ -27014,6 +27069,26 @@ MonoBehaviour:
   tileList: []
   tileNoDesertList: []
   tileNumberMatches: []
+  orderedTileList:
+  - {fileID: 978180400819313149}
+  - {fileID: 1200248928}
+  - {fileID: 1060237054}
+  - {fileID: 1617473784}
+  - {fileID: 669282681}
+  - {fileID: 119339031}
+  - {fileID: 2132200860}
+  - {fileID: 1368504722}
+  - {fileID: 1692668513}
+  - {fileID: 619296111}
+  - {fileID: 339246374}
+  - {fileID: 384076429}
+  - {fileID: 1092042199}
+  - {fileID: 293383011}
+  - {fileID: 2042407704}
+  - {fileID: 567867116}
+  - {fileID: 196139776}
+  - {fileID: 1809206843}
+  - {fileID: 644818697}
   desertHex: {fileID: 0}
   selectedRobberHex: {fileID: 0}
 --- !u!1 &1156699972 stripped
@@ -28665,6 +28740,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TerrainHex (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
@@ -32805,6 +32885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TerrainHex
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
@@ -37282,9 +37367,9 @@ RectTransform:
   m_Father: {fileID: 1633162720}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 745, y: 450}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -215, y: 450}
   m_SizeDelta: {x: 375, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1559949154
@@ -38643,6 +38728,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex
       objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!1 &1617473784 stripped
@@ -39554,9 +39644,9 @@ RectTransform:
   m_Father: {fileID: 1965193584}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 745, y: 450}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -215, y: 450}
   m_SizeDelta: {x: 375, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1660123929
@@ -40826,6 +40916,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TerrainHex (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
@@ -43616,6 +43711,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TerrainHex (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
@@ -47077,6 +47177,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainHex (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
 --- !u!4 &2042407703 stripped
@@ -49221,6 +49326,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TerrainHex (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089918845313531400, guid: 670a178e8aa029a42978125342f20f38,
+        type: 3}
+      propertyPath: placeOnBoardNumber
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670a178e8aa029a42978125342f20f38, type: 3}
