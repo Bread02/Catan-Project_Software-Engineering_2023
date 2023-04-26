@@ -3,25 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// Checks which player has the largest army.
+/**
+ * This script checks which player has the largest army.
+ *
+ * @author Altair Robinson
+ * @version 26/04/2023
+ */
 public class LargestArmyCheck : MonoBehaviour
 {
+    [Header("Other Scripts")]
     private TurnManager turnManager;
-    private BankManager bankManager;
 
+    [Header("Lists")]
+    private List<GameObject> largestArmySPs;
     public List<PlayerManager> playersWithMoreThan2;
 
+    [Header("GameObjects")]
+    public GameObject largestArmy0SP, largestArmyP1SP, largestArmyP2SP, largestArmyP3SP, largestArmyP4SP;
+
+    [Header("Leading Player")]
     // current largest player
     public PlayerManager playerWithBiggestArmy;
 
-    public GameObject largestArmy0SP, largestArmyP1SP, largestArmyP2SP, largestArmyP3SP, largestArmyP4SP;
-    private List<GameObject> largestArmySPs;
 
     // Start is called before the first frame update
     void Start()
     {
-        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
-        bankManager = GameObject.Find("THE_BANK").GetComponent<BankManager>();
+        FindScripts();
 
         largestArmySPs = new List<GameObject>
         {
@@ -47,10 +55,10 @@ public class LargestArmyCheck : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    // Finds all the scripts needed for this script.
+    void FindScripts()
     {
-        
+        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
     }
 
     // check if any player has largest army
@@ -111,6 +119,7 @@ public class LargestArmyCheck : MonoBehaviour
         }
     }
 
+    // Sets all player's owning the largest army to false.
     public void SetAllPlayersToFalse()
     {
         for (int i = 0; i < turnManager.playerList.Count; i++)
@@ -119,6 +128,8 @@ public class LargestArmyCheck : MonoBehaviour
         }
     }
 
+
+    // Moves the largest army card to the player's hand.
     public void MoveLargestArmyCard()
     {
         int playerNumber = 0;

@@ -5,15 +5,23 @@ using TMPro;
 
 public class PlayerDropZone : MonoBehaviour
 {
-    public int playerNumThatOwnsThisDropZone;
 
+    [Header("Other Scripts")]
     private TurnManager turnManager;
-
     public WarningText warningText;
-
     [SerializeField] private DomesticTradeOnlyManager domesTradeParentObj;
 
+    [Header("Other")]
+    public int playerNumThatOwnsThisDropZone;
+
+
     private void Start()
+    {
+        FindScripts();
+    }
+
+    // Finds the scripts neeeded for this script.
+    private void FindScripts()
     {
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
