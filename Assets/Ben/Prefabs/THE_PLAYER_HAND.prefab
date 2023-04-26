@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1102089624302547179}
   - component: {fileID: 1102089624302547176}
-  - component: {fileID: -3208690530301822536}
   m_Layer: 0
   m_Name: THE_PLAYER_HAND
   m_TagString: Player
@@ -113,58 +112,6 @@ MonoBehaviour:
   ownsOreHarbor: 0
   ownsGrainHarbor: 0
   colorSelected: 0
---- !u!114 &-3208690530301822536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102089624302547177}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85052e9f7bd357e468cab470731851b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPfab: {fileID: 2048995424853604670, guid: 3bb149b5382ca6e4dbd133cc84f44b91,
-    type: 3}
-  RCspawnPoints: []
-  DCspawnPoints: []
-  grainMat: {fileID: 21300000, guid: 9ff09acee301af846b5f093c008fbe88, type: 3}
-  woolMat: {fileID: 21300000, guid: 092ae47ee98797d4ba2c28b82dedb95b, type: 3}
-  brickMat: {fileID: 21300000, guid: a9b9cfec04a49f64f89f4469349d1baa, type: 3}
-  oreMat: {fileID: 21300000, guid: 62916ac827f3cf74fb5f07e528116ef0, type: 3}
-  lumberMat: {fileID: 21300000, guid: 5c94586f49dc4794fbeb6ccc38b0a90b, type: 3}
-  knightMat: {fileID: 21300000, guid: b35df200b3b70234bba272665f7bb754, type: 3}
-  victoryPointsMat: {fileID: 21300000, guid: 3353419a3988e66409276eaf062cc421, type: 3}
-  monopolyMat: {fileID: 21300000, guid: f200cc624592d42418c8d4ad0d8bebfc, type: 3}
-  roadBuildingMat: {fileID: 21300000, guid: 390a7232258b1994ca4655bcfb408fd4, type: 3}
-  yearOfPlentyMat: {fileID: 21300000, guid: 978dd0f0a5a240b4fb8f044bc7f8ab92, type: 3}
-  playerOwnedSettlements: []
-  playerOwnedCities: []
-  playerOwnedRoads: []
-  playerColor: 
-  red: {fileID: 2100000, guid: eb1b66a1e4b1342499248772ecc8ff6a, type: 2}
-  blue: {fileID: 2100000, guid: 942f5325970bf9a479b87095095c7e57, type: 2}
-  white: {fileID: 2100000, guid: 8b885fbe8f5941a4a844d08b189bdcad, type: 2}
-  orange: {fileID: 2100000, guid: 44012ed305fbf2b4fb278a0d51890559, type: 2}
-  ownsLargestArmy: 0
-  ownsLongestRoad: 0
-  playerNumber: 0
-  playerVictoryPoints: 0
-  playerTrueVictoryPoints: 0
-  victoryPointCardsPlayed: 0
-  victoryPointCardsHeld: 0
-  rcQuantTxts: []
-  dcQuantTxts: []
-  ownsImprovedHarbor: 0
-  ownsBrickHarbor: 0
-  ownsLumberHarbor: 0
-  ownsWoolHarbor: 0
-  ownsOreHarbor: 0
-  ownsGrainHarbor: 0
-  colorSelected: 0
-  robber: {fileID: 0}
-  graph: {fileID: 0}
 --- !u!1001 &1102089624002783429
 PrefabInstance:
   m_ObjectHideFlags: 0
