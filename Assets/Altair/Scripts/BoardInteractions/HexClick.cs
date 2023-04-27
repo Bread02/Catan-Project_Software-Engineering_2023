@@ -4,16 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+/**
+ * This script is responsbie for controlling hex clicking
+ *
+ * @author Altair
+ * @version 27/04/2023
+ */
+
 public class HexClick : MonoBehaviour
 {
-    public HexBorderClick hexBorderClick;
+    [Header("Other Scripts")]
+    private HexBorderClick hexBorderClick;
 
 
     [Header("SELECTED HEX OR BORDER")]
     [SerializeField] public GameObject selectedHexOrBorder;
 
-
-
+    [Header("Lists")]
     [SerializeField] public List<GameObject> listOfHex;
 
     // plan to encapsulate later
@@ -39,12 +47,14 @@ public class HexClick : MonoBehaviour
     [SerializeField] public GameObject hex18;
     [SerializeField] public GameObject hex19;
 
+
+    [Header("Colors")]
     [SerializeField] public Color hexDefaultColor;
     [SerializeField] public Color hexHoveredColor;
     [SerializeField] public Color hexSelectedColor;
 
 
-
+    [Header("Texts")]
     [SerializeField] public TextMeshProUGUI notificationText;
 
 
@@ -54,6 +64,8 @@ public class HexClick : MonoBehaviour
         AddAllHexToList();
     }
 
+
+    // adds all the hexes onto the list.
     private void AddAllHexToList()
     {
         listOfHex.Add(hex1);
@@ -78,6 +90,7 @@ public class HexClick : MonoBehaviour
 
     }
 
+    // unselects all hexes directly
     public void UnselectAllHexDirect()
     {
         foreach (var hex in listOfHex)
@@ -90,6 +103,7 @@ public class HexClick : MonoBehaviour
         hexBorderClick.UnselectAllBorders();
     }
 
+    // unselects all hexes
     public void UnselectAllHex()
     {
         foreach (var hex in listOfHex)

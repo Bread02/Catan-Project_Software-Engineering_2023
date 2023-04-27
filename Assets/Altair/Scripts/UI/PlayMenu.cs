@@ -5,8 +5,16 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+/**
+ * This script is responsbie for controlling the play menu
+ *
+ * @author Altair
+ * @version 27/04/2023
+ */
+
 public class PlayMenu : MonoBehaviour
 {
+    [Header("Other Scripts")]
     private PlayToGame playToGame;
     private LoadScene loadScene;
 
@@ -84,6 +92,25 @@ public class PlayMenu : MonoBehaviour
 
     public int timeLimitInt; // THIS IS IN SECONDS
     public string gameModeString;
+
+    // THIS IS STANDARD MODE OPTIONS
+    private VictoryPointsLimit victoryPointsLimit;
+
+    [SerializeField] private GameObject victoryPointsOptions;
+    [SerializeField] private GameObject abridgedModeOptions;
+    private int victoryPointsLimitInt;
+
+    [SerializeField] private TextMeshProUGUI victoryPointsLimitText;
+
+    public enum VictoryPointsLimit
+    {
+        six,
+        eight,
+        ten,
+        twelve,
+        fourteen,
+        sixteen,
+    }
 
     [Header("Player Color Icon")]
     [SerializeField] private Image player1ColorIcon;
@@ -177,6 +204,7 @@ public class PlayMenu : MonoBehaviour
     public int Player3ColorInt { get => player3ColorInt; set => player3ColorInt = value; }
     public int Player4ColorInt { get => player4ColorInt; set => player4ColorInt = value; }
     public bool BeginnerMap { get => beginnerMap; set => beginnerMap = value; }
+    public int VictoryPointsLimitInt { get => victoryPointsLimitInt; set => victoryPointsLimitInt = value; }
 
     private enum GameMode
         {
@@ -205,12 +233,18 @@ public class PlayMenu : MonoBehaviour
         playToGame.GetData(gameModeString, timeLimitInt);
     }
 
+    private void DefaultMode()
+    {
+        victoryPointsOptions.SetActive(true);
+        abridgedModeOptions.SetActive(false);
+    }
 
     // Start is called before the first frame update
     void Awake()
     {
-        loadScene = GameObject.Find("LoadingBar").GetComponent<LoadScene>();
-        playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
+        DefaultMode();
+
+        FindScripts();
         InvokeRepeating("ReadPlayerName", 0.5f, 0.5f);
 
         // default time limit
@@ -221,6 +255,7 @@ public class PlayMenu : MonoBehaviour
 
         ColorListCreate();
         IconListCreate();
+        DefaultVPSettings();
 
         // standard is default mode
         ClickStandard();
@@ -234,10 +269,17 @@ public class PlayMenu : MonoBehaviour
         // beginner map default
         beginnerMap = true;
         beginnerToggle.sprite = iconEnabled;
+    }
 
+    // Finds scripts needed for this class.
+    void FindScripts()
+    {
+        loadScene = GameObject.Find("LoadingBar").GetComponent<LoadScene>();
+        playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
     }
 
 
+    // enables all players and enables all ai.
     public void EnablePlayers()
     {
         ClickEnablePlayer(1);
@@ -255,16 +297,16 @@ public class PlayMenu : MonoBehaviour
         Invoke("InvokeStart", 0.01f);
     }
 
+    // Changes all colors forward.
     public void InvokeStart()
     {
         ClickChangeColorForward(1);
         ClickChangeColorForward(2);
         ClickChangeColorForward(3);
         ClickChangeColorForward(4);
-
-
     }
 
+    // Sets the default player icons and the default numbers.
     private void DefaultPlayerIcons()
     {
         Player1PortraitIcon.sprite = portraitIcon1;
@@ -280,6 +322,7 @@ public class PlayMenu : MonoBehaviour
 
     }
 
+    // Creates the color list.
     private void ColorListCreate()
     {
         colorList.Add(blue); //0
@@ -288,6 +331,7 @@ public class PlayMenu : MonoBehaviour
         colorList.Add(white); // 3
     }
 
+    // Sets the default player colors and corresponding numbers.
     private void DefaultPlayerColors()
     {
         Player1Color = blue;
@@ -304,6 +348,7 @@ public class PlayMenu : MonoBehaviour
         Player4ColorInt = 3;
     }
 
+    // Creates an icon list using all available icons.
     private void IconListCreate()
     {
         IconList.Add(portraitIcon1);
@@ -320,6 +365,7 @@ public class PlayMenu : MonoBehaviour
 
     #region Game Mode Options
 
+    // Method triggered by a button which toggles the beginner mode map.
     public void BeginnerModeToggle()
     {
         if (beginnerMap)
@@ -338,7 +384,92 @@ public class PlayMenu : MonoBehaviour
         }
     }
 
+    public void DefaultVPSettings()
+    {
+        victoryPointsLimit = VictoryPointsLimit.ten;
+        victoryPointsLimitText.text = "10";
+        VictoryPointsLimitInt = 10;
+    }
 
+    // victory points
+    public void ClickIncreaseVictoryPoints()
+    {
+        if (victoryPointsLimit == VictoryPointsLimit.six)
+        {
+            victoryPointsLimit = VictoryPointsLimit.eight;
+            victoryPointsLimitText.text = "8";
+            VictoryPointsLimitInt = 8;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.eight)
+        {
+            victoryPointsLimit = VictoryPointsLimit.ten;
+            victoryPointsLimitText.text = "10";
+            VictoryPointsLimitInt = 10;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.ten)
+        {
+            victoryPointsLimit = VictoryPointsLimit.twelve;
+            victoryPointsLimitText.text = "12";
+            VictoryPointsLimitInt = 12;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.twelve)
+        {
+            victoryPointsLimit = VictoryPointsLimit.fourteen;
+            victoryPointsLimitText.text = "15";
+            VictoryPointsLimitInt = 15;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+    }
+
+    // Method triggered by a button which DECREASES the time limit for abridged mode.
+    public void ClickDecreaseVictoryPoints()
+    {
+        if (victoryPointsLimit == VictoryPointsLimit.fourteen)
+        {
+            victoryPointsLimit = VictoryPointsLimit.twelve;
+            victoryPointsLimitText.text = "12";
+            VictoryPointsLimitInt = 12;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.twelve)
+        {
+            victoryPointsLimit = VictoryPointsLimit.ten;
+            victoryPointsLimitText.text = "10";
+            VictoryPointsLimitInt = 10;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.ten)
+        {
+            victoryPointsLimit = VictoryPointsLimit.eight;
+            victoryPointsLimitText.text = "8";
+            VictoryPointsLimitInt = 8;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.eight)
+        {
+            victoryPointsLimit = VictoryPointsLimit.six;
+            victoryPointsLimitText.text = "6";
+            VictoryPointsLimitInt = 6;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+    }
+
+    // Method triggered by a button which increases the time limit for abridged mode.
     public void ClickIncreaseTimeLimit()
     {
         if(TimeLimit1 == TimeLimit.five)
@@ -403,6 +534,7 @@ public class PlayMenu : MonoBehaviour
         }
     }
 
+    // Method triggered by a button which DECREASES the time limit for abridged mode.
     public void ClickDecreaseTimeLimit()
     {
         if (TimeLimit1 == TimeLimit.ten)
@@ -467,6 +599,7 @@ public class PlayMenu : MonoBehaviour
         }
     }
 
+    // Method triggered by a button which enables standard mode.
     public void ClickStandard()
     {
         GameMode1 = GameMode.standard;
@@ -474,23 +607,28 @@ public class PlayMenu : MonoBehaviour
         standardButton.GetComponent<Image>().color = colorEnabled;
         gameModeInfo.GetComponent<TextMeshProUGUI>().text = gameModeInfoTextStandard;
         gameModeString = "standard";
+        victoryPointsOptions.SetActive(true);
+        abridgedModeOptions.SetActive(false);
         playToGame.SetMode(gameModeString, timeLimitInt);
     }
 
+    // Method triggered by a button which enables abridged mode.
     public void ClickAbridged()
     {
-
         GameMode1 = GameMode.abridged;
         abridgedButton.GetComponent<Image>().color = colorEnabled;
         standardButton.GetComponent<Image>().color = colorDisabled;
         gameModeInfo.GetComponent<TextMeshProUGUI>().text = gameModeInfoTextAbridged;
         gameModeString = "abridged";
+        victoryPointsOptions.SetActive(false);
+        abridgedModeOptions.SetActive(true);
         playToGame.SetMode(gameModeString, timeLimitInt);
     }
     #endregion
 
     #region PlayAndBack
 
+    // Method triggered by a button which goes back to the main menu
     public void ClickBackToMainMenu()
     {
         StartCoroutine(loadScene.LoadSceneCoroutine("MainMenuFinal"));
@@ -505,7 +643,7 @@ public class PlayMenu : MonoBehaviour
 
     #region Player Options
 
-    
+    // Method triggered by a button which enables the selected player
     public void ClickEnablePlayer(int playerNumber)
     {
         switch (playerNumber)
@@ -528,7 +666,6 @@ public class PlayMenu : MonoBehaviour
 
                     return;
                 }
-                break;
             case 2:
                 if (Player2Enabled)
                 {
@@ -548,7 +685,6 @@ public class PlayMenu : MonoBehaviour
 
                     return;
                 }
-                break;
             case 3:
                 if (Player3Enabled)
                 {
@@ -568,7 +704,6 @@ public class PlayMenu : MonoBehaviour
 
                     return;
                 }
-                break;
             case 4:
                 if (Player4Enabled)
                 {
@@ -588,12 +723,11 @@ public class PlayMenu : MonoBehaviour
 
                     return;
                 }
-                break;
         }
 
 
     }
-
+    // Method triggered by a button which enables the selected AI
     public void ClickEnableAI(int playerNumber)
     {
         switch (playerNumber)
@@ -613,7 +747,6 @@ public class PlayMenu : MonoBehaviour
                     playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
-                break;
             case 2:
                 if (Player2AI)
                 {
@@ -629,7 +762,6 @@ public class PlayMenu : MonoBehaviour
                     playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
-                break;
             case 3:
                 if (Player3AI)
                 {
@@ -660,10 +792,10 @@ public class PlayMenu : MonoBehaviour
                     playToGame.GetData(gameModeString, timeLimitInt);
                     return;
                 }
-                break;
         }
     }
 
+    // Method triggered by a button which changes the icon forward of the selected player
     public void ClickChangeIconForward(int playerNumber)
     {
         Debug.Log("Change icon forward");
@@ -771,6 +903,8 @@ public class PlayMenu : MonoBehaviour
         }
     }
 
+    // Method triggered by a button which changes the icon backward of the selected player
+
     public void ClickChangeIconBackward(int playerNumber)
     {
         switch (playerNumber)
@@ -873,6 +1007,7 @@ public class PlayMenu : MonoBehaviour
 
     // find current color it is, then ++ on list.
     // If there is time, come back to make it more compact as this code can be simplified.
+    // Method triggered by a button which changes the color forward of the selected player
     public void ClickChangeColorForward(int playerNumber)
     {
         Debug.Log("Change color forward");
@@ -991,6 +1126,7 @@ public class PlayMenu : MonoBehaviour
         }
     }
 
+    // Method triggered by a button which changes the color backward of the selected player
     public void ClickChangeColorBackward(int playerNumber)
     {
         switch (playerNumber)

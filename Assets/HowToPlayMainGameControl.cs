@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+/**
+ * This script is responsbie for controlling the how to play menu in the mainscene2.
+ *
+ * @author Altair
+ * @version 27/04/2023
+ */
 public class HowToPlayMainGameControl : MonoBehaviour
 {
 
@@ -18,6 +23,7 @@ public class HowToPlayMainGameControl : MonoBehaviour
     }
 
 
+    // method triggereed by clicking the how to play button in mainscene2.
     public void ClickHowToPlayButton()
     {
         // this prevents clicking a game object by accident

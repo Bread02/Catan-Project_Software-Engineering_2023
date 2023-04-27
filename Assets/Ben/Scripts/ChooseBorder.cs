@@ -13,18 +13,12 @@ public class ChooseBorder : MonoBehaviour
     private WarningText warningText;
     private BankManager bankMang;
 
-    public int playerClaimedBy;
-
     [Header("Player Color")]
     public Material red;
     public Material blue;
     public Material orange;
     public Material white;
     [SerializeField] private Material origColour, takenColour, hoverOverColour;
-
-    [Header("Adjacent Objects")]
-    public List<GameObject> adjacentRoads = new List<GameObject>();
-    public List<GameObject> adjacentSettlements = new List<GameObject>();
 
     [Header("Bools")]
     private bool borderTaken;
@@ -39,13 +33,14 @@ public class ChooseBorder : MonoBehaviour
 
     private bool adjacentSettlementCheckOpening;
 
-    public int furthestDistanceFromASettlement; //0 indicates the border has not been 'chosen' by a player.
+    public List<GameObject> adjacentRoads = new List<GameObject>();
 
-    // works out who currently has the longest road.
-    public void CheckMaxRoadLength()
-    {
+    [Header("Variables used by NewLongestRoadCheck")]
+    public List<GameObject> adjacentSettlements = new List<GameObject>();
+    public int playerNumWhoOwnsThisR; //R shorthand for road
+    public bool thisRoadPointExplored;
 
-    }
+    private NewLongestRoadCheck newLongestRoadCheck;
 
     private void Awake()
     {
@@ -54,12 +49,12 @@ public class ChooseBorder : MonoBehaviour
         makeTradeScript = GameObject.FindGameObjectWithTag("MakeTrade");
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
         bankMang = GameObject.Find("THE_BANK").GetComponent<BankManager>();
+        newLongestRoadCheck = GameObject.Find("LongestRoadCheck").GetComponent<NewLongestRoadCheck>();
     }
 
     private void Start()
     {
-        playerClaimedBy = 0;
-        furthestDistanceFromASettlement = 0;
+        playerNumWhoOwnsThisR = 0;
         FindAdjacentSettlements();
         FindAdjacentRoads();
         borderTaken = false;
@@ -118,183 +113,158 @@ public class ChooseBorder : MonoBehaviour
         
     }
 
-
     // Roads can ONLY be built adjacent to other roads OR settlements.
     // Check if a player settlement is adjacent to this road OR another road is adjacent to this road (of same player), if YES, allow building.
     private void OnMouseDown()
     {
-            adjacentRoadOrSettlementCheck = false; // false until proven otherwise.
-            adjacentSettlementCheckOpening = false; // false until proven otherwise
+        adjacentRoadOrSettlementCheck = false; // false until proven otherwise.
+        adjacentSettlementCheckOpening = false; // false until proven otherwise
 
-            //Can only interact with border when the user has bought a road!
-            if (this.gameObject.GetComponent<Renderer>().enabled)
+        //Can only interact with border when the user has bought a road!
+        if (this.gameObject.GetComponent<Renderer>().enabled)
+        {
+            // false until otherwise proven
+            bool adjacentSettlementPresent = false;
+            bool adjacentRoadPresent = false;
+            // roads must connect to a settlement or to an adjacent road.
+            foreach (GameObject adjacentSettlement in adjacentSettlements)
             {
-                // false until otherwise proven
-                bool adjacentSettlementPresent = false;
-                bool adjacentRoadPresent = false;
-                // roads must connect to a settlement or to an adjacent road.
-                foreach (GameObject adjacentSettlement in adjacentSettlements)
+                if (adjacentSettlement.GetComponent<ChooseSettlement>().settlementTaken)
                 {
-                    if (adjacentSettlement.GetComponent<ChooseSettlement>().settlementTaken)
-                    {
-                        adjacentSettlementPresent = true;
-                        //           Debug.Log("Adjacent settlement present for road");
+                    adjacentSettlementPresent = true;
+                    //           Debug.Log("Adjacent settlement present for road");
 
-                    }
                 }
+            }
 
-                // IF IN STARTING PHASE IT MUST BE CONNECTED TO A VILLAGE WITH NO ADJACENT ROADS.
+            // IF IN STARTING PHASE IT MUST BE CONNECTED TO A VILLAGE WITH NO ADJACENT ROADS.
+            foreach (GameObject adjacentRoad in adjacentRoads)
+            {
+                if (adjacentRoad.GetComponent<ChooseBorder>().borderTaken)
+                {
+                    adjacentRoadPresent = true;
+                    Debug.Log("Adjacent road present for road");
+
+                }
+            }
+
+            // if not in setup phase, check an adjacent player owned road is present
+            if (turnManager.isSetUpPhase == false)
+            {
                 foreach (GameObject adjacentRoad in adjacentRoads)
                 {
-                    if (adjacentRoad.GetComponent<ChooseBorder>().borderTaken)
+                    if (adjacentRoad.GetComponent<ChooseBorder>().playerNumWhoOwnsThisR == turnManager.playerToPlay)
                     {
-                        adjacentRoadPresent = true;
-                        Debug.Log("Adjacent road present for road");
-
+                        adjacentRoadOrSettlementCheck = true;
                     }
                 }
 
-                // if not in setup phase, check an adjacent player owned road is present
-                if (turnManager.isSetUpPhase == false)
+                foreach (GameObject adjacentSettlement in adjacentSettlements)
                 {
-                    foreach (GameObject adjacentRoad in adjacentRoads)
+                    if (adjacentSettlement.GetComponent<ChooseSettlement>().playerNumWhoOwnsThisSt == turnManager.playerToPlay)
                     {
-                        if (adjacentRoad.GetComponent<ChooseBorder>().playerClaimedBy == turnManager.playerToPlay)
-                        {
-                            adjacentRoadOrSettlementCheck = true;
-                        }
-                    }
-
-                    foreach (GameObject adjacentSettlement in adjacentSettlements)
-                    {
-                        if (adjacentSettlement.GetComponent<ChooseSettlement>().playerClaimedBy == turnManager.playerToPlay)
-                        {
-                            adjacentRoadOrSettlementCheck = true;
-                        }
-                    }
-
-                    if (!adjacentRoadOrSettlementCheck)
-                    {
-                        StartCoroutine(warningText.WarningTextBox("No adjacent road or settlement to build road"));
-                        return;
+                        adjacentRoadOrSettlementCheck = true;
                     }
                 }
 
-
-                // if setup part 2, ensure the new road is connected to the player's 2nd settlement
-                if (!turnManager.allPlayersBuiltStart && turnManager.isSetUpPart2)
+                if (!adjacentRoadOrSettlementCheck)
                 {
-                    // check adjacent settlements if any of them are the player's second.
-                    foreach (GameObject settlement in adjacentSettlements)
-                    {
-                        // if it is players'
-                        if (settlement.GetComponent<ChooseSettlement>().playerClaimedBy == turnManager.playerToPlay)
-                        {
-                            PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
-                            // if it is the player's second
-                            if (settlement == playerManager.playerOwnedSettlements[1])
-                            {
-                                adjacentSettlementCheckOpening = true;
-
-                            }
-                        }
-                    }
-
-                    if (!adjacentSettlementCheckOpening)
-                    {
-                        StartCoroutine(warningText.WarningTextBox("EACH SETTLEMENT NEEDS A STARTING ROAD"));
-                        return;
-                    }
-                }
-
-                if (!adjacentRoadPresent && !adjacentSettlementPresent)
-                {
-                    Debug.Log("CANNOT BUILD ROAD. NO ADJACENT ROAD OR SETTLEMENT PRESENT");
-                    StartCoroutine(warningText.WarningTextBox("CANNOT BUILD ROAD. NO ADJACENT ROAD OR SETTLEMENT PRESENT."));
+                    StartCoroutine(warningText.WarningTextBox("No adjacent road or settlement to build road"));
                     return;
                 }
-
-
-                if (!borderTaken)
-                {
-                    makeTradeScript.GetComponent<MakeTrade>().SetRoadBought(false);
-
-                    PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
-                    playerManager.playerOwnedRoads.Add(this.gameObject);
-                    string playerColor = playerManager.GetPlayerColor();
-                    //   Debug.Log("PLayer color: " + playerColor);
-
-                    //Play sound queue
-                    audioManager.PlaySound("build");
-
-                    playerClaimedBy = turnManager.playerToPlay;
-
-                    // get color of player to turn settlement into
-                    switch (playerColor)
-                    {
-                        case "red":
-                            this.gameObject.GetComponent<Renderer>().material = red;
-                            break;
-                        case "blue":
-                            this.gameObject.GetComponent<Renderer>().material = blue;
-                            break;
-                        case "white":
-                            this.gameObject.GetComponent<Renderer>().material = white;
-                            break;
-                        case "orange":
-                            this.gameObject.GetComponent<Renderer>().material = orange;
-                            break;
-                        default:
-                            Debug.LogError("Color ISSUE. Unacceptable string for color");
-                            this.gameObject.GetComponent<Renderer>().material = takenColour;
-                            break;
-
-                    }
-
-                    if (turnManager.isSetUpPhase)
-                    {
-                        turnManager.roadAndSettlementPlacedSetUpCounter++;
-                        bool placedSecondRoadNextToFirst = false;
-                        foreach (GameObject adjacentRoad in adjacentRoads)
-                        {
-                            if (adjacentRoad.GetComponent<ChooseBorder>().borderTaken)
-                            {
-                                furthestDistanceFromASettlement = 2;
-                                placedSecondRoadNextToFirst = true;
-                            }
-                        }
-                        if (!placedSecondRoadNextToFirst)
-                        {
-                            furthestDistanceFromASettlement = 1;
-                        }
-                    }
-                    else
-                    {
-                        //Must find out longest distance from settlement.
-                        foreach (GameObject adjacentRoad in adjacentRoads)
-                        {
-                            ChooseBorder adjRoadBorderScript = adjacentRoad.GetComponent<ChooseBorder>();
-                            int tempFurthestDistance = furthestDistanceFromASettlement;
-                            if (adjRoadBorderScript.furthestDistanceFromASettlement > tempFurthestDistance)
-                            {
-                                tempFurthestDistance = adjRoadBorderScript.furthestDistanceFromASettlement + 1;
-                            }
-                            furthestDistanceFromASettlement = tempFurthestDistance;
-                        }
-
-                        if (!bankMang.firstRoadPlacedInRB)
-                        {
-                            bankMang.firstRoadPlacedInRB = true;
-                        }
-                        else if (!bankMang.secondRoadPlacedInRB)
-                        {
-                            bankMang.secondRoadPlacedInRB = true;
-                        }
-                    }
-                    borderTaken = true;
-                }
-                Debug.Log("This road has a distance of " + furthestDistanceFromASettlement + ", to the furthest possibe settlement.");
             }
+
+
+            // if setup part 2, ensure the new road is connected to the player's 2nd settlement
+            if (!turnManager.allPlayersBuiltStart && turnManager.isSetUpPart2)
+            {
+                // check adjacent settlements if any of them are the player's second.
+                foreach (GameObject settlement in adjacentSettlements)
+                {
+                    // if it is players'
+                    if (settlement.GetComponent<ChooseSettlement>().playerNumWhoOwnsThisSt == turnManager.playerToPlay)
+                    {
+                        PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+                        // if it is the player's second
+                        if (settlement == playerManager.playerOwnedSettlements[1])
+                        {
+                            adjacentSettlementCheckOpening = true;
+
+                        }
+                    }
+                }
+
+                if (!adjacentSettlementCheckOpening)
+                {
+                    StartCoroutine(warningText.WarningTextBox("EACH SETTLEMENT NEEDS A STARTING ROAD"));
+                    return;
+                }
+            }
+
+            if (!adjacentRoadPresent && !adjacentSettlementPresent)
+            {
+                Debug.Log("CANNOT BUILD ROAD. NO ADJACENT ROAD OR SETTLEMENT PRESENT");
+                StartCoroutine(warningText.WarningTextBox("CANNOT BUILD ROAD. NO ADJACENT ROAD OR SETTLEMENT PRESENT."));
+                return;
+            }
+
+
+            if (!borderTaken)
+            {
+                makeTradeScript.GetComponent<MakeTrade>().SetRoadBought(false);
+
+                PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+                playerManager.playerOwnedRoads.Add(this.gameObject);
+                string playerColor = playerManager.GetPlayerColor();
+                //   Debug.Log("PLayer color: " + playerColor);
+
+                //Play sound queue
+                audioManager.PlaySound("build");
+
+                playerNumWhoOwnsThisR = turnManager.ReturnCurrentPlayer().playerNumber;
+
+                // get color of player to turn settlement into
+                switch (playerColor)
+                {
+                    case "red":
+                        this.gameObject.GetComponent<Renderer>().material = red;
+                        break;
+                    case "blue":
+                        this.gameObject.GetComponent<Renderer>().material = blue;
+                        break;
+                    case "white":
+                        this.gameObject.GetComponent<Renderer>().material = white;
+                        break;
+                    case "orange":
+                        this.gameObject.GetComponent<Renderer>().material = orange;
+                        break;
+                    default:
+                        Debug.LogError("Color ISSUE. Unacceptable string for color");
+                        this.gameObject.GetComponent<Renderer>().material = takenColour;
+                        break;
+
+                }
+
+                if (turnManager.isSetUpPhase)
+                {
+                    turnManager.roadAndSettlementPlacedSetUpCounter++;
+                }
+                else
+                {
+                    if (!bankMang.firstRoadPlacedInRB)
+                    {
+                        bankMang.firstRoadPlacedInRB = true;
+                    }
+                    else if (!bankMang.secondRoadPlacedInRB)
+                    {
+                        bankMang.secondRoadPlacedInRB = true;
+                    }
+                }
+                borderTaken = true;
+
+                newLongestRoadCheck.FindLongestRoad();
+            }
+        }
     }
 
     private void OnMouseExit()

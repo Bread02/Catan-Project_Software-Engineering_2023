@@ -1,7 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/**
+ * This script controls the mechanic for the player needing to discard half of their cards
+ * if a robber is rolled.
+ *
+ * @author Altair, Ben
+ * @version 26/04/2023
+ */
 public class StealCards : MonoBehaviour
 {
     [Header("Other Scripts")]
@@ -25,12 +31,17 @@ public class StealCards : MonoBehaviour
     void Start()
     {
         RemovePlayerTheftOptions();
+        FindScripts();
+    }
+
+    // finds scripts needed for this
+    void FindScripts()
+    {
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         robber = GameObject.Find("Robber").GetComponent<Robber>();
         helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
         diceRolling = GameObject.Find("DiceRolling").GetComponent<DiceRolling>();
         bankMangObj = GameObject.Find("THE_BANK");
-
     }
 
     // finds the players with a settlement adjacent to the tile of the robber.
@@ -45,7 +56,7 @@ public class StealCards : MonoBehaviour
 
         foreach (GameObject adjacentSettlement in adjacentSettlements)
         {
-            int playerOwned = adjacentSettlement.GetComponent<ChooseSettlement>().playerClaimedBy;
+            int playerOwned = adjacentSettlement.GetComponent<ChooseSettlement>().playerNumWhoOwnsThisSt;
 
             switch (playerOwned)
             {
@@ -104,6 +115,7 @@ public class StealCards : MonoBehaviour
 
     }
 
+    // Button functionality. Each button is assigned to a player, the player clicks then it triggers this method.
     public void ClickPlayerToStealFrom(int playerToStealFrom)
     {
         StartCoroutine(helpText.HelpTextBox("Player wants to steal your card, choose a card to discard."));
@@ -127,6 +139,7 @@ public class StealCards : MonoBehaviour
         // ForcePlayerDonateCard(playerWhoRolledSeven);
     }
 
+    // Enables the force player card object turned on.
     public void ForcePlayerDonateCard(PlayerManager playerManager)
     {
         // player now must donate card
@@ -172,6 +185,8 @@ public class StealCards : MonoBehaviour
         }
     }
 
+
+    // Removes the theft options menu when there is no player to steal from.
     public void RemovePlayerTheftOptions()
     {
         player1StealFromButton.SetActive(false);

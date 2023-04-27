@@ -2,18 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * This script controls mechanic for the donating cards when a player's card is stolen.
+ *
+ * @author Altair
+ * @version 27/04/2023
+ */
 public class DonateCardsObject : MonoBehaviour
 {
+    [Header("Other Scripts")]
     private TurnManager turnManager;
     private WarningText warningText;
     private StealCards stealCards;
-
-    public Material blackMat, redMat;
-
-   // public GameObject loseCardsZone;
-
     private PlayerManager playerDonatingTo;
 
+    [Header("Materials")]
+    public Material blackMat, redMat;
+
+
+    // Finds the required scripts in the scene.
     private void FindScripts()
     {
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
@@ -27,6 +34,7 @@ public class DonateCardsObject : MonoBehaviour
         FindScripts();
     }
 
+    // sets the player that the player is donating cards to.
     public void SetPlayerDonatingTo(PlayerManager setPlayerDonatingTo)
     {
         playerDonatingTo = setPlayerDonatingTo;
@@ -63,6 +71,7 @@ public class DonateCardsObject : MonoBehaviour
     }
 
 
+    // changes the color of this game object.
     IEnumerator ChangeColour()
     {
         this.gameObject.GetComponent<Renderer>().material = blackMat;

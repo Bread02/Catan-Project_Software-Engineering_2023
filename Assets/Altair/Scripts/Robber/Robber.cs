@@ -4,9 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/**
+ * This script controls the mechanic for the robber.
+ *
+ * @author Altair
+ * @version 26/04/2023
+ */
 public class Robber : MonoBehaviour
 {
-    // Start is called before the first frame update
     // After tiles have spawned and the board is setup, place the robber on the desert hex
 
     [Header("Other Scripts")]
@@ -28,26 +33,32 @@ public class Robber : MonoBehaviour
     public string robberActivatedKnightString = "Knight card used! Robber Activated!\n\nMove the robber to a new location.";
     public TextMeshProUGUI robberActivatedText;
 
-
+    [Header("Other")]
     public bool robberPositionSelected;
 
     void Start()
     {
+        FindScripts();
         robberPositionSelected = false;
         robberTriggerCanvas.SetActive(false);
-        terrainAssigner = GameObject.Find("TileHolder").GetComponent<TerrainAssigner>();
-        DelayStart();
-        Invoke("DelayStart", 0.01f);
+    }
+
+    // Finds the scripts needed for the robber script
+    void FindScripts()
+    {
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         warningText = GameObject.Find("PlayerWarningBox").GetComponent<WarningText>();
         stealCards = GameObject.Find("StealCards").GetComponent<StealCards>();
         discardHalfOfCards = GameObject.Find("DiscardHalfOfCards").GetComponent<DiscardHalfOfCards>();
         bankMangObj = GameObject.Find("THE_BANK");
+        terrainAssigner = GameObject.Find("TileHolder").GetComponent<TerrainAssigner>();
+
     }
 
-    void DelayStart()
+    // moves robber to the starting desert location.
+    public void MoveRobberToStart(GameObject desertHex1)
     {
-        desertHex = terrainAssigner.desertHex;
+        desertHex = desertHex1;
         occupiedHex = desertHex;
         this.gameObject.transform.position = new Vector3(desertHex.transform.position.x + 0.3f, desertHex.transform.position.y + 0.3f, desertHex.transform.position.z);
     }
@@ -99,6 +110,7 @@ public class Robber : MonoBehaviour
     }
 
     // NOTE. PLAYER MUST MOVE THE ROBBER BEFORE TRIGGERING THE END.
+    // This ends the robber's movement.
     public void TriggerRobberMovementEnd()
     {
         Debug.Log("Ending Robber Movement");
@@ -121,7 +133,7 @@ public class Robber : MonoBehaviour
     }
 
 
-
+    // Moves the robber to the hex input
     public void MoveRobber(GameObject hex)
     {
         Debug.Log("Robber Moved");

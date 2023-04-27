@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/**
+ * This script is responsbie for controlling hex hovering.
+ *
+ * @author Altair
+ * @version 27/04/2023
+ */
 public class HexHover : MonoBehaviour
 {
     [SerializeField] private HexClick boardHexClick;
     [SerializeField] private HexBorderHover hexBorderHover;
-
-
 
     public void UnselectAllHoverHexDirect()
     {
@@ -24,6 +28,7 @@ public class HexHover : MonoBehaviour
 
     }
 
+    // This script is responsbie for unselecting the hover hex.
     public void UnselectAllHoverHex()
     {
         foreach (var hex in boardHexClick.listOfHex)
@@ -37,6 +42,8 @@ public class HexHover : MonoBehaviour
 
     // each method is tied to a button in the hover hex region.
     // putting a pointer over a button will trigger the method.
+
+    // Each method is responsible for a different hex.
     public void HoverHex1()
     {
         UnselectAllHoverHexDirect();

@@ -10,6 +10,7 @@ using UnityEngine;
  */
 public class LongestRoadCheck : MonoBehaviour
 {
+    /* Commented out because not in use right now and it throws errors
     // current largest player
     [Header("Other Scripts")]
     public PlayerManager playerWithLongestRoad;
@@ -18,14 +19,14 @@ public class LongestRoadCheck : MonoBehaviour
     public GameObject longestRoad0SP, longestRoadP1SP, longestRoadP2SP, longestRoadP3SP, longestRoadP4SP;
 
     [Header("Other")]
-    private int sizeOfLongestRoad;
+    private int lengthOfLongestRoad;
     private bool hasBeenGivenToAPlayer;
     private List<GameObject> longestRoadSPs;
 
     // Start is called before the first frame update
     void Start()
     {
-        sizeOfLongestRoad = 4; //Must be 4 so that condition on line 61 is true when player builds road of length 5
+        lengthOfLongestRoad = 4; //Must be 4 so that condition on line 61 is true when player builds road of length 5
         hasBeenGivenToAPlayer = false;
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         longestRoadSPs = new List<GameObject>
@@ -61,11 +62,11 @@ public class LongestRoadCheck : MonoBehaviour
             if (rpFurthDist > currentLongestRoad)
             {
                 currentLongestRoad = rpFurthDist;
-                playerNumWhoOwnsCurrentLongestRoad = roadPoint.GetComponent<ChooseBorder>().playerClaimedBy;
+                playerNumWhoOwnsCurrentLongestRoad = roadPoint.GetComponent<ChooseBorder>().playerNumWhoOwnsThisR;
             }
         }
 
-        if(currentLongestRoad > sizeOfLongestRoad)
+        if(currentLongestRoad > lengthOfLongestRoad)
         {
             for(int i = 0; i < longestRoadSPs.Count; i++)
             {
@@ -91,7 +92,7 @@ public class LongestRoadCheck : MonoBehaviour
                 playerWithLongestRoad = turnManager.playerList[playerNumWhoOwnsCurrentLongestRoad - 1];
                 playerWithLongestRoad.playerVictoryPoints += 2;
             }
-            sizeOfLongestRoad = currentLongestRoad;
+            lengthOfLongestRoad = currentLongestRoad;
         }
     }
 
