@@ -342,6 +342,8 @@ public class ChooseSettlement : MonoBehaviour
                     adjacentTile.GetComponent<TerrainHex>().adjacentSettlements.Add(this.gameObject);
                 }
 
+                makeTradeScript.GetComponent<MakeTrade>().HideCancelPieceBuildBut();
+
                 newLongestRoadCheck.FindLongestRoad(); //This method is called because there could be a scenario where a settlement is placed in between the player's roads
             }
         }

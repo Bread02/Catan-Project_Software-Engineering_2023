@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MakeTrade : MonoBehaviour
 {
-    [SerializeField] private GameObject tradeMang, submitTradeButt, bankMang;
+    [SerializeField] private GameObject tradeMang, submitTradeButt, bankMang, cancelPieceBuildBut;
     private HelpText helpText;
 
     private bool roadBought, settlementBought, cityBought;
@@ -82,7 +82,44 @@ public class MakeTrade : MonoBehaviour
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("lumber", -1);
         roadBought = true;
         tradeMang.SetActive(false); //removes trade GUI to make it easier to see board
+        cancelPieceBuildBut.SetActive(true);
         Debug.Log("You bought a road!");
+    }
+
+    public void CancelPieceBuildButtonPressed()
+    {
+        //Add correct cards back to trade
+        if (roadBought)
+        {
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("brick", 1);
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("lumber", 1);
+        }
+        else if (settlementBought)
+        {
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("brick", 1);
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("lumber", 1);
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("wool", 1);
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("grain", 1);
+        }
+        else if (cityBought)
+        {
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("ore", -3);
+            tradeMang.GetComponent<TradeManager>().IncOrDecValue("grain", -2);
+        }
+        //For insurance, set all bools to false
+        roadBought=false;
+        settlementBought=false;
+        cityBought=false;
+
+        //Hide cancel button
+        cancelPieceBuildBut.SetActive(false);
+
+        tradeMang.SetActive(true);
+    }
+
+    public void HideCancelPieceBuildBut()
+    {
+        cancelPieceBuildBut.SetActive(false);
     }
 
     public void BuySettlement()
@@ -93,6 +130,7 @@ public class MakeTrade : MonoBehaviour
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("grain", -1);
         settlementBought = true;
         tradeMang.SetActive(false); //removes trade GUI to make it easier to see board
+        cancelPieceBuildBut.SetActive(true);
         Debug.Log("You bought a settlement!");
     }
 
@@ -102,8 +140,8 @@ public class MakeTrade : MonoBehaviour
         tradeMang.GetComponent<TradeManager>().IncOrDecValue("grain", -2);
         cityBought = true;
         tradeMang.SetActive(false); //removes trade GUI to make it easier to see board
+        cancelPieceBuildBut.SetActive(true);
         helpText.HelpTextBox("Choose a settlement to build your city on");
-     //   turnManager.
         Debug.Log("You bought a city!");
     }
 
