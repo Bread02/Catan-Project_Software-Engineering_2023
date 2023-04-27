@@ -102,6 +102,14 @@ public class TurnManager : MonoBehaviour
     public GameObject player3DropZone;
     public GameObject player4DropZone;
 
+    [Header("Turn Time Limit")]
+    public float turnTimeLimit;
+    public float currentTimeLimit;
+    public TextMeshProUGUI turnTimeLimitText;
+    public GameObject turnTimeLimitObject;
+
+    public bool turnTimeLimitEnforced;
+
     // Start is called before the first frame update
     // instantiate correct number of player managers.
     // instantiate players by their correct name.
@@ -109,6 +117,9 @@ public class TurnManager : MonoBehaviour
   // pls clean up this script, awake should be for toggling methods.
     void Awake()
     {
+        // false until proven otherwise
+        turnTimeLimitEnforced = false;
+
         FindObjects();
         SetStartingBools();
 
@@ -149,14 +160,49 @@ public class TurnManager : MonoBehaviour
         donateCardsObject.SetActive(false);
     }
 
+    private void TurnTimer()
+    {
+        currentTimeLimit -= Time.deltaTime;
+
+        float minutes = Mathf.FloorToInt(currentTimeLimit / 60);
+        float seconds = Mathf.FloorToInt(currentTimeLimit % 60);
+
+
+        turnTimeLimitText.text = minutes.ToString() + ":" + seconds.ToString();
+
+        if (currentTimeLimit <= 0)
+        {
+            EndPlayerTurn();
+           
+        }
+    }
+
+    private void StartTurnTimer()
+    {
+        currentTimeLimit = turnTimeLimit;
+
+        // start turn timer.
+    }
+
 
     #region  SETUP FINAL VERSION. KEEP DISABLED UNTIL NEEDED.
     // In FINAL VERSION, this will be used and NOT awake method.
     // this is triggered by the game data track to setup the game PROPERLY with the correct number of players.
     // ONLY UNCOMMENT THIS IF YOU PLAN TO USE THIS INSTEAD AND FOR THE FINAL VERSION
 
-    public void SetupGameFinal(int numberOfPlayers, List<int> colorInt, bool beginnerMap)
+    public void SetupGameFinal(int numberOfPlayers, List<int> colorInt, bool beginnerMap, int timePerTurn)
     {
+        turnTimeLimit = timePerTurn;
+
+        turnTimeLimitObject.SetActive(false);
+
+        if(turnTimeLimit != 0)
+        {
+            // setup timer
+            turnTimeLimitObject.SetActive(true);
+            turnTimeLimitEnforced = true;
+        }
+
         Debug.Log("Setup final");
         FindObjects();
         SetStartingBools();
@@ -266,6 +312,11 @@ public class TurnManager : MonoBehaviour
         {
             EndPlayerTurn();
         }
+        if(turnTimeLimitEnforced)
+        {
+            TurnTimer();
+        }
+
 
     }
 
@@ -436,6 +487,10 @@ public class TurnManager : MonoBehaviour
             playerToPlay = 1;
         }
         DisplayCurrentPlayerTurn();
+        if (turnTimeLimitEnforced)
+        {
+            StartTurnTimer();
+        }
         Debug.Log("Player to play: " + playerToPlay);
     }
 

@@ -66,6 +66,8 @@ public class PlayToGame : MonoBehaviour
 
     private int victoryPointsLimit;
 
+    private int turnTimeLimit;
+
     public Color Player1Color { get => player1Color; set => player1Color = value; }
     public Color Player2Color { get => player2Color; set => player2Color = value; }
     public Color Player3Color { get => player3Color; set => player3Color = value; }
@@ -94,6 +96,7 @@ public class PlayToGame : MonoBehaviour
     public int Player4ColorInt { get => player4ColorInt; set => player4ColorInt = value; }
     public bool BeginnersModeToggled { get => beginnersModeToggled; set => beginnersModeToggled = value; }
     public int VictoryPointsLimit { get => victoryPointsLimit; set => victoryPointsLimit = value; }
+    public int TurnTimeLimit { get => turnTimeLimit; set => turnTimeLimit = value; }
 
 
     // Start is called before the first frame update
@@ -153,6 +156,7 @@ public class PlayToGame : MonoBehaviour
 
         victoryPointsLimit = playMenu.VictoryPointsLimitInt;
 
+        TurnTimeLimit = playMenu.turnTimeLimitInt;
 
     }
 }

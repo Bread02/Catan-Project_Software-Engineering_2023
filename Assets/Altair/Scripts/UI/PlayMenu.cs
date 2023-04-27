@@ -112,6 +112,20 @@ public class PlayMenu : MonoBehaviour
         sixteen,
     }
 
+    [Header("Turn Time Limit")]
+    public int turnTimeLimitInt;
+    public TextMeshProUGUI turnTimeLimitText;
+    public TurnTimeLimit turnTimeLimit;
+
+    public enum TurnTimeLimit
+    {
+        thirty,
+        sixty,
+        ninety,
+        oneTwenty,
+        infinite,
+    }
+
     [Header("Player Color Icon")]
     [SerializeField] private Image player1ColorIcon;
     [SerializeField] private Image player2ColorIcon;
@@ -259,7 +273,7 @@ public class PlayMenu : MonoBehaviour
 
         // standard is default mode
         ClickStandard();
-
+        TurnTimeLimitDefault();
         // default settings
         Invoke("EnablePlayers", 0.01f) ;
 
@@ -278,6 +292,14 @@ public class PlayMenu : MonoBehaviour
         playToGame = GameObject.Find("PlayToGame").GetComponent<PlayToGame>();
     }
 
+    void TurnTimeLimitDefault()
+    {
+        turnTimeLimitInt = 0;
+        turnTimeLimitText.text = "Infinite";
+        turnTimeLimit = TurnTimeLimit.infinite;
+    
+    
+    }
 
     // enables all players and enables all ai.
     public void EnablePlayers()
@@ -389,6 +411,86 @@ public class PlayMenu : MonoBehaviour
         victoryPointsLimit = VictoryPointsLimit.ten;
         victoryPointsLimitText.text = "10";
         VictoryPointsLimitInt = 10;
+    }
+
+    // victory points
+    public void ClickIncreaseTurnTimeLimit()
+    {
+        Debug.Log("Click");
+        if (turnTimeLimit == TurnTimeLimit.thirty)
+        {
+            turnTimeLimit = TurnTimeLimit.sixty;
+            turnTimeLimitText.text = "60";
+            turnTimeLimitInt = 8;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (turnTimeLimit == TurnTimeLimit.sixty)
+        {
+            turnTimeLimit = TurnTimeLimit.ninety;
+            turnTimeLimitText.text = "90";
+            turnTimeLimitInt = 10;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (turnTimeLimit == TurnTimeLimit.ninety)
+        {
+            turnTimeLimit = TurnTimeLimit.oneTwenty;
+            turnTimeLimitText.text = "120";
+            turnTimeLimitInt = 120;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (turnTimeLimit == TurnTimeLimit.oneTwenty)
+        {
+            turnTimeLimit = TurnTimeLimit.infinite;
+            turnTimeLimitText.text = "Infinite";
+            turnTimeLimitInt = 0; // if zero, it is infinite.
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+    }
+
+    // Method triggered by a button which DECREASES the time limit for abridged mode.
+    public void ClickDecreaseTurnTimeLimit()
+    {
+        Debug.Log("Click");
+        if (turnTimeLimit == TurnTimeLimit.infinite)
+        {
+            turnTimeLimit = TurnTimeLimit.oneTwenty;
+            turnTimeLimitText.text = "120";
+            turnTimeLimitInt = 120;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (turnTimeLimit == TurnTimeLimit.oneTwenty)
+        {
+            turnTimeLimit = TurnTimeLimit.ninety;
+            turnTimeLimitText.text = "90";
+            turnTimeLimitInt = 90;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (turnTimeLimit == TurnTimeLimit.ninety)
+        {
+            turnTimeLimit = TurnTimeLimit.sixty;
+            turnTimeLimitText.text = "60";
+            turnTimeLimitInt = 60;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (turnTimeLimit == TurnTimeLimit.sixty)
+        {
+            turnTimeLimit = TurnTimeLimit.thirty;
+            turnTimeLimitText.text = "30";
+            turnTimeLimitInt = 30;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
     }
 
     // victory points

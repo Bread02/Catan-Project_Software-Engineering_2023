@@ -62,6 +62,8 @@ public class PlayerDataTrack : MonoBehaviour
 
     public PlayerManager playerWithMostVPs;
 
+    private int turnTimeLimit;
+
     [Header("Abridged settings")]
     public int abridgeTime;
     public bool isAbridged;
@@ -144,10 +146,12 @@ public class PlayerDataTrack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         victoryPointsLimit = 10; // default.
         FindScripts();
         InvokeRepeating("VictoryPoints", 0.5f, 0.5f);
         GrabPlayToGameData();
+
     }
 
     // Finds the relevant game objects this script requires.
@@ -157,6 +161,7 @@ public class PlayerDataTrack : MonoBehaviour
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         abridgedMode = GameObject.Find("AbridgedUI").GetComponent<AbridgedMode>();
         winConditions = GameObject.Find("WinConditionsAndScreen").GetComponent<WinConditions>();
+
     }
 
 
@@ -243,7 +248,7 @@ public class PlayerDataTrack : MonoBehaviour
 
 
         CheckColors();
-        turnManager.SetupGameFinal(numberOfPlayers, CheckColors(), playToGame.BeginnersModeToggled);
+        turnManager.SetupGameFinal(numberOfPlayers, CheckColors(), playToGame.BeginnersModeToggled, turnTimeLimit);
     }
 
     // Parameters: Insert the icon number of the player, then matches the number to the correct icon.
@@ -389,6 +394,9 @@ public class PlayerDataTrack : MonoBehaviour
     // Grabs information from the play to game script to insert into the game.
     public void GrabPlayToGameData()
     {
+        turnTimeLimit = playToGame.TurnTimeLimit;
+
+
         int player1PortraitIconUINum = playToGame.Player1PortraitIcon;
         int player2PortraitIconUINum = playToGame.Player2PortraitIcon;
         int player3PortraitIconUINum = playToGame.Player3PortraitIcon;
