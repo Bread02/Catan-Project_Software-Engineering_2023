@@ -12,6 +12,7 @@ public class BankManager : MonoBehaviour
     [Header("Game Objects")]
     [SerializeField] private GameObject bankGuiTxt;
     [SerializeField] private GameObject tradeGUImang;
+    [SerializeField] private GameObject endTurnButton;
 
     [Header("Materials")]
     [SerializeField] private Material whiteMat, blackMat;
@@ -111,6 +112,7 @@ public class BankManager : MonoBehaviour
             }
             else
             {
+                endTurnButton.SetActive(false);
                 switch (cardType)
                 {
                     case "knight":
@@ -156,6 +158,7 @@ public class BankManager : MonoBehaviour
         }
         else //resource card played
         {
+            endTurnButton.SetActive(false);
             tradeGUImang.GetComponent<TradeManager>().CardAddedToTrade(cardPlayed.gameObject);
             tradeStarted = true;
         }

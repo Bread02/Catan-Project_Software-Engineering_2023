@@ -13,7 +13,7 @@ public class DomesticTradeOnlyManager : MonoBehaviour
 
     private bool hasTradeInitiateGivenAllTheirCards, hasTradeInitiateGivenFirstCard;
 
-    [SerializeField] private GameObject finishedGivingCardsButton, bankGraphicObject;
+    [SerializeField] private GameObject finishedGivingCardsButton, bankGraphicObject, endTurnButton;
 
     private void Update()
     {
@@ -100,6 +100,8 @@ public class DomesticTradeOnlyManager : MonoBehaviour
             this.gameObject.SetActive(false);
 
             turnManager.isTrading = false;
+
+            endTurnButton.SetActive(true);
         }
     }
 }

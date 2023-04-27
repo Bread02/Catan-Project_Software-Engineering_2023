@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /**
- * This script checks for the longest road, and grants hte player that card if they have the longest road.
+ * This script checks for the longest road, and grants the player that card if they have the longest road.
  *
  * @author Altair, Ben
  * @version 26/04/2023
@@ -15,7 +15,6 @@ public class LongestRoadCheck : MonoBehaviour
     public PlayerManager playerWithLongestRoad;
     private TurnManager turnManager;
 
-    [Header("GameObjects")]
     public GameObject longestRoad0SP, longestRoadP1SP, longestRoadP2SP, longestRoadP3SP, longestRoadP4SP;
 
     [Header("Other")]

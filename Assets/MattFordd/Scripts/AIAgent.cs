@@ -2,26 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIAgent : PlayerManager
+public class AIAgent : MonoBehaviour
 {
 
-    private Dictionary<string, int> AIResourceAccessibility = new Dictionary<string, int>();
-    public Robber robber;
-    public BoardGraph graph;
+    [Header("Scripts")]
+    private Robber robber;
+    private BoardGraph graph;
+    private TurnManager turnManager;
+
+
+    //private Dictionary<string, int> AIResourceAccessibility = new Dictionary<string, int>();
     List<GameObject> list = new List<GameObject>();
 
 
-    void Update(){
-        if(Input.GetKeyDown(KeyCode.A)){
-            list = getHexOptions();
-            Debug.Log(list.Count);
-        }
+    void Start(){
+        FindObjects();
     }
 
     // used for robber movements to find which hexes have player settlments
     private List<GameObject> getHexOptions(){
+       
         
-        List<GameObject> hexesToPlay = new List<GameObject>();
+        List<GameObject> hexesToPlay = new List<GameObject>(); 
+        /*
         Dictionary<GameObject, int> hexValues = new Dictionary<GameObject, int>();
         
         int counter = 0;
@@ -46,6 +49,7 @@ public class AIAgent : PlayerManager
                     }
                 }
             }
+            
         }
 
         foreach(KeyValuePair<GameObject, int> entry in hexValues){
@@ -55,29 +59,43 @@ public class AIAgent : PlayerManager
         }
 
         //sort the list for best solution
-        
+        */
         return hexesToPlay;
     }
 
     // used to find all the avaliable places the AI can build a road
     private List<GameObject> getRoadBuildingOptions(){
-        List<GameObject> avaliableRoadSpaces = new List<GameObject>();
         
+        List<GameObject> avaliableRoadSpaces = new List<GameObject>();
+        /*
+        for(int i = 0; i < graph.edges.Count - 1; i++){
+            //if(graph.edges[i].GetComponent<BoardEdge>().getRoad())
+        }
 
-
+*/
         return avaliableRoadSpaces;
+        
     }
 
     // used to find all the avaliable places the AI can build a settlment
     private List<GameObject> getSettlmentBuildingOptions(){
+        
         List<GameObject> avaliableSettlementSpaces = new List<GameObject>();
+        /*
+        for(int i = 0; i < graph.settlements.Count - 1; i++){
+            GameObject current = graph.settlements[i].getSettlment();
+            if(current.GetComponent<ChooseSettlement>().playerClaimedBy != 0){
+                current.GetComponent<ChooseSettlement>().FindAdjacentSettlements();
 
+            }
+        }
+        */
         return avaliableSettlementSpaces;
     }
 
     // used to find all the avaliable places the AI can upgrade to a city
     private List<GameObject> getCityBuildingOptions(){
-        return playerOwnedSettlements;
+        return null;//playerOwnedSettlements;
     }
 
     private float getPercentageOfActiveSettlments(){
@@ -88,7 +106,7 @@ public class AIAgent : PlayerManager
     private List<string> getAvaliableActions(){
 
         List<string> options = new List<string>();
-
+/*
         // check for road resources
         if((pCardQuantities["lumber"] >= 1) && (pCardQuantities["brick"] >= 1)){
             if(playerOwnedRoads.Count < 15){
@@ -116,6 +134,7 @@ public class AIAgent : PlayerManager
         * WILL HAVING ALL THE DEVELOPMENT CARDS HAVE A BAD EFFECT ON THE AIs RANDOMNESS?
         */
         //use bool to chjeck if its already played one.
+/*
         if(pCardQuantities["monopoly"] >= 1 || pCardQuantities["knight"] >= 1 || pCardQuantities["roadBuilding"] >= 1 || pCardQuantities["yearOfPlenty"] >= 1){
             options.Add("playDevelopmentCard");
         }
@@ -131,7 +150,7 @@ public class AIAgent : PlayerManager
 
     private string chooseDevelopmentCardToPlay(){
         List<string> avaliableCards = new List<string>();
-        
+/*
         if(pCardQuantities["monopoly"] >= 1){
             avaliableCards.Add("monopoly");
         }
@@ -139,6 +158,7 @@ public class AIAgent : PlayerManager
         /*
         * TO ADD: CHECK IF ROBBER AFFECTS THE AI, IF NOT, IT SHOULD NOT MOVE IT.
         */
+/*
         if(pCardQuantities["knight"] >= 1){
             avaliableCards.Add("knight");
         }
@@ -150,14 +170,16 @@ public class AIAgent : PlayerManager
         if(pCardQuantities["yearOfPlenty"] >= 1){
             avaliableCards.Add("yearOfPlenty");
         }
-
+*/
         return avaliableCards[(Random.Range(0, avaliableCards.Count))];
     }
 
     public void playTurn(){
         //roll dice
+        Debug.Log("AI Playing...");
+/*
         List<string> options = getAvaliableActions();
-        
+
         if(options.Count == 0){
             //end turn?
         } else {
@@ -170,11 +192,16 @@ public class AIAgent : PlayerManager
                     break;
                 case "settlement":
                     // build settlement
+                    List<GameObject> roadOptions = getSettlmentBuildingOptions();
+
                     break;
                 case "city":
                     List<GameObject> cityOptions;
                     cityOptions = getCityBuildingOptions();
                     GameObject cityChoice = cityOptions[Random.Range(0, cityOptions.Count -1)];
+                    cityChoice.GetComponent<ChooseSettlement>().ChangeToCity();
+                    IncOrDecValue("grain", -2);
+                    IncOrDecValue("ore", -3);
                     break;
                 case "buyDevelopmentCard":
                     // buy development card
@@ -204,9 +231,17 @@ public class AIAgent : PlayerManager
 
         }
 
+        
+
         /*
         * GIVES A 33% CHANCE THAT THE AI WILL PERFORM ANOTHER ACTION BEFORE ENDING THE TURN (could adjust throughout?)
         */ 
         
+    }
+
+    private void FindObjects(){
+        robber = GameObject.Find("Robber").GetComponent<Robber>();
+        graph = GameObject.Find("AI_BoardGraph").GetComponent<BoardGraph>();
+        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
     }
 }
