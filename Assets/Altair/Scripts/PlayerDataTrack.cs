@@ -28,6 +28,8 @@ public class PlayerDataTrack : MonoBehaviour
     private int p3VP;
     private int p4VP;
 
+    private int victoryPointsLimit;
+
     [Header("Player Stat Board")]
     public GameObject player1Stat;
     public GameObject player2Stat;
@@ -142,6 +144,7 @@ public class PlayerDataTrack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        victoryPointsLimit = 10; // default.
         FindScripts();
         InvokeRepeating("VictoryPoints", 0.5f, 0.5f);
         GrabPlayToGameData();
@@ -506,6 +509,7 @@ public class PlayerDataTrack : MonoBehaviour
         if (playToGame.GameMode == "standard")
         {
             // abridged mode on.
+            victoryPointsLimit = playToGame.VictoryPointsLimit;
             Debug.Log("Game mode is standard");
             return;
         }
@@ -648,7 +652,7 @@ public class PlayerDataTrack : MonoBehaviour
 
 
         // if game is on standard mode. first to 10 true VPs wins.
-        if (player1stPlace.playerTrueVictoryPoints >= 10 && playToGame.GameMode == "standard")
+        if (player1stPlace.playerTrueVictoryPoints >= victoryPointsLimit && playToGame.GameMode == "standard")
         {
             winConditions.TriggerVictory(player1stPlace);
             PlayerStatToVictoryScreen(player1stPlace.playerNumber);

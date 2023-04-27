@@ -31227,6 +31227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackMat: {fileID: 2100000, guid: 64b113604a0afca4e8d92d45530a7dfd, type: 2}
+  origMat: {fileID: 0}
   loseCardsZone: {fileID: 1237089495}
 --- !u!1 &1238634029
 GameObject:
@@ -36213,7 +36214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1417870484
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -41,11 +41,9 @@ public class Robber : MonoBehaviour
         FindScripts();
         robberPositionSelected = false;
         robberTriggerCanvas.SetActive(false);
-        DelayStart();
-        Invoke("DelayStart", 0.01f);
-
     }
 
+    // Finds the scripts needed for the robber script
     void FindScripts()
     {
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
@@ -57,10 +55,10 @@ public class Robber : MonoBehaviour
 
     }
 
-    // Delays moving the robber to the starting hex (desert).
-    void DelayStart()
+    // moves robber to the starting desert location.
+    public void MoveRobberToStart(GameObject desertHex1)
     {
-        desertHex = terrainAssigner.desertHex;
+        desertHex = desertHex1;
         occupiedHex = desertHex;
         this.gameObject.transform.position = new Vector3(desertHex.transform.position.x + 0.3f, desertHex.transform.position.y + 0.3f, desertHex.transform.position.z);
     }

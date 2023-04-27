@@ -6299,7 +6299,7 @@ GameObject:
   - component: {fileID: 420161436}
   - component: {fileID: 420161435}
   m_Layer: 5
-  m_Name: RightTimeButton
+  m_Name: RightVPButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6371,7 +6371,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 515375035}
         m_TargetAssemblyTypeName: PlayMenu, Assembly-CSharp
-        m_MethodName: ClickIncreaseTimeLimit
+        m_MethodName: ClickIncreaseVictoryPoints
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7233,6 +7233,9 @@ MonoBehaviour:
   timeLimitText: {fileID: 92761661}
   timeLimitInt: 0
   gameModeString: 
+  victoryPointsOptions: {fileID: 731205632}
+  abridgedModeOptions: {fileID: 1217643104}
+  victoryPointsLimitText: {fileID: 1801618716}
   player1ColorIcon: {fileID: 1135289743}
   player2ColorIcon: {fileID: 725071999}
   player3ColorIcon: {fileID: 1297294853}
@@ -24645,7 +24648,7 @@ GameObject:
   - component: {fileID: 1623951717}
   - component: {fileID: 1623951716}
   m_Layer: 5
-  m_Name: AbridgedTimeLimit
+  m_Name: VPLimitText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28991,7 +28994,7 @@ GameObject:
   - component: {fileID: 1801618717}
   - component: {fileID: 1801618716}
   m_Layer: 5
-  m_Name: TimeLimitText
+  m_Name: VPLimitText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30099,7 +30102,7 @@ GameObject:
   - component: {fileID: 1868853315}
   - component: {fileID: 1868853314}
   m_Layer: 5
-  m_Name: LeftTimeButton
+  m_Name: LeftVPButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30171,7 +30174,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 515375035}
         m_TargetAssemblyTypeName: PlayMenu, Assembly-CSharp
-        m_MethodName: ClickDecreaseTimeLimit
+        m_MethodName: ClickDecreaseVictoryPoints
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

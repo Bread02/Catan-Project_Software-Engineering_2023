@@ -96,17 +96,20 @@ public class PlayMenu : MonoBehaviour
     // THIS IS STANDARD MODE OPTIONS
     private VictoryPointsLimit victoryPointsLimit;
 
-    public GameObject victoryPointsOptions;
-    public GameObject abridgedModeOptions;
+    [SerializeField] private GameObject victoryPointsOptions;
+    [SerializeField] private GameObject abridgedModeOptions;
+    private int victoryPointsLimitInt;
+
+    [SerializeField] private TextMeshProUGUI victoryPointsLimitText;
 
     public enum VictoryPointsLimit
     {
-        five,
+        six,
         eight,
         ten,
         twelve,
-        fifteen,
-        twenty
+        fourteen,
+        sixteen,
     }
 
     [Header("Player Color Icon")]
@@ -201,6 +204,7 @@ public class PlayMenu : MonoBehaviour
     public int Player3ColorInt { get => player3ColorInt; set => player3ColorInt = value; }
     public int Player4ColorInt { get => player4ColorInt; set => player4ColorInt = value; }
     public bool BeginnerMap { get => beginnerMap; set => beginnerMap = value; }
+    public int VictoryPointsLimitInt { get => victoryPointsLimitInt; set => victoryPointsLimitInt = value; }
 
     private enum GameMode
         {
@@ -231,7 +235,7 @@ public class PlayMenu : MonoBehaviour
 
     private void DefaultMode()
     {
-      //  VictoryPointsOptions.SetActive(true);
+        victoryPointsOptions.SetActive(true);
         abridgedModeOptions.SetActive(false);
     }
 
@@ -251,6 +255,7 @@ public class PlayMenu : MonoBehaviour
 
         ColorListCreate();
         IconListCreate();
+        DefaultVPSettings();
 
         // standard is default mode
         ClickStandard();
@@ -264,7 +269,6 @@ public class PlayMenu : MonoBehaviour
         // beginner map default
         beginnerMap = true;
         beginnerToggle.sprite = iconEnabled;
-
     }
 
     // Finds scripts needed for this class.
@@ -380,66 +384,46 @@ public class PlayMenu : MonoBehaviour
         }
     }
 
+    public void DefaultVPSettings()
+    {
+        victoryPointsLimit = VictoryPointsLimit.ten;
+        victoryPointsLimitText.text = "10";
+        VictoryPointsLimitInt = 10;
+    }
+
     // victory points
     public void ClickIncreaseVictoryPoints()
     {
-        if (TimeLimit1 == TimeLimit.five)
+        if (victoryPointsLimit == VictoryPointsLimit.six)
         {
-            TimeLimit1 = TimeLimit.ten;
-            timeLimitText.text = "10:00";
-            timeLimitInt = 600;
+            victoryPointsLimit = VictoryPointsLimit.eight;
+            victoryPointsLimitText.text = "8";
+            VictoryPointsLimitInt = 8;
             playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
-        if (TimeLimit1 == TimeLimit.ten)
+        if (victoryPointsLimit == VictoryPointsLimit.eight)
         {
-            TimeLimit1 = TimeLimit.fifteen;
-            timeLimitText.text = "15:00";
-            timeLimitInt = 900;
+            victoryPointsLimit = VictoryPointsLimit.ten;
+            victoryPointsLimitText.text = "10";
+            VictoryPointsLimitInt = 10;
             playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
-        if (TimeLimit1 == TimeLimit.fifteen)
+        if (victoryPointsLimit == VictoryPointsLimit.ten)
         {
-            TimeLimit1 = TimeLimit.twenty;
-            timeLimitText.text = "20:00";
-            timeLimitInt = 1200;
-            playToGame.GetData(gameModeString, timeLimitInt);
-            return;
-
-        }
-        if (TimeLimit1 == TimeLimit.twenty)
-        {
-            TimeLimit1 = TimeLimit.twentyfive;
-            timeLimitText.text = "25:00";
-            timeLimitInt = 1500;
+            victoryPointsLimit = VictoryPointsLimit.twelve;
+            victoryPointsLimitText.text = "12";
+            VictoryPointsLimitInt = 12;
             playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
-        if (TimeLimit1 == TimeLimit.twentyfive)
+        if (victoryPointsLimit == VictoryPointsLimit.twelve)
         {
-            TimeLimit1 = TimeLimit.thirty;
-            timeLimitText.text = "30:00";
-            timeLimitInt = 1800;
-            playToGame.GetData(gameModeString, timeLimitInt);
-            return;
-
-        }
-        if (TimeLimit1 == TimeLimit.thirty)
-        {
-            TimeLimit1 = TimeLimit.thirtyfive;
-            timeLimitText.text = "35:00";
-            timeLimitInt = 2100;
-            playToGame.GetData(gameModeString, timeLimitInt);
-            return;
-
-        }
-        if (TimeLimit1 == TimeLimit.thirtyfive)
-        {
-            TimeLimit1 = TimeLimit.forty;
-            timeLimitText.text = "40:00";
-            timeLimitInt = 2400;
+            victoryPointsLimit = VictoryPointsLimit.fourteen;
+            victoryPointsLimitText.text = "15";
+            VictoryPointsLimitInt = 15;
             playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
@@ -448,65 +432,40 @@ public class PlayMenu : MonoBehaviour
     // Method triggered by a button which DECREASES the time limit for abridged mode.
     public void ClickDecreaseVictoryPoints()
     {
-        if (TimeLimit1 == TimeLimit.ten)
+        if (victoryPointsLimit == VictoryPointsLimit.fourteen)
         {
-            TimeLimit1 = TimeLimit.five;
-            timeLimitText.text = "5:00";
-            timeLimitInt = 300;
+            victoryPointsLimit = VictoryPointsLimit.twelve;
+            victoryPointsLimitText.text = "12";
+            VictoryPointsLimitInt = 12;
             playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
-        if (TimeLimit1 == TimeLimit.fifteen)
+        if (victoryPointsLimit == VictoryPointsLimit.twelve)
         {
-            TimeLimit1 = TimeLimit.ten;
-            timeLimitText.text = "10:00";
-            timeLimitInt = 600;
+            victoryPointsLimit = VictoryPointsLimit.ten;
+            victoryPointsLimitText.text = "10";
+            VictoryPointsLimitInt = 10;
             playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
-        if (TimeLimit1 == TimeLimit.twenty)
+        if (victoryPointsLimit == VictoryPointsLimit.ten)
         {
-            TimeLimit1 = TimeLimit.fifteen;
-            timeLimitText.text = "15:00";
-            timeLimitInt = 900;
+            victoryPointsLimit = VictoryPointsLimit.eight;
+            victoryPointsLimitText.text = "8";
+            VictoryPointsLimitInt = 8;
             playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
         }
-        if (TimeLimit1 == TimeLimit.twentyfive)
+        if (victoryPointsLimit == VictoryPointsLimit.eight)
         {
-            TimeLimit1 = TimeLimit.twenty;
-            timeLimitText.text = "20:00";
-            timeLimitInt = 1200;
+            victoryPointsLimit = VictoryPointsLimit.six;
+            victoryPointsLimitText.text = "6";
+            VictoryPointsLimitInt = 6;
             playToGame.GetData(gameModeString, timeLimitInt);
             return;
 
-        }
-        if (TimeLimit1 == TimeLimit.thirty)
-        {
-            TimeLimit1 = TimeLimit.twentyfive;
-            timeLimitText.text = "25:00";
-            timeLimitInt = 1500;
-            playToGame.GetData(gameModeString, timeLimitInt);
-            return;
-
-        }
-        if (TimeLimit1 == TimeLimit.thirtyfive)
-        {
-            TimeLimit1 = TimeLimit.thirty;
-            timeLimitText.text = "30:00";
-            timeLimitInt = 1800;
-            playToGame.GetData(gameModeString, timeLimitInt);
-            return;
-        }
-        if (TimeLimit1 == TimeLimit.forty)
-        {
-            TimeLimit1 = TimeLimit.thirtyfive;
-            timeLimitText.text = "35:00";
-            timeLimitInt = 2100;
-            playToGame.GetData(gameModeString, timeLimitInt);
-            return;
         }
     }
 
@@ -648,6 +607,8 @@ public class PlayMenu : MonoBehaviour
         standardButton.GetComponent<Image>().color = colorEnabled;
         gameModeInfo.GetComponent<TextMeshProUGUI>().text = gameModeInfoTextStandard;
         gameModeString = "standard";
+        victoryPointsOptions.SetActive(true);
+        abridgedModeOptions.SetActive(false);
         playToGame.SetMode(gameModeString, timeLimitInt);
     }
 
@@ -659,6 +620,8 @@ public class PlayMenu : MonoBehaviour
         standardButton.GetComponent<Image>().color = colorDisabled;
         gameModeInfo.GetComponent<TextMeshProUGUI>().text = gameModeInfoTextAbridged;
         gameModeString = "abridged";
+        victoryPointsOptions.SetActive(false);
+        abridgedModeOptions.SetActive(true);
         playToGame.SetMode(gameModeString, timeLimitInt);
     }
     #endregion
