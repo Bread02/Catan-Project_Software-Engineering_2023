@@ -30,41 +30,7 @@ public class AIAgent : MonoBehaviour
         
         List<GameObject> hexesToPlay = new List<GameObject>(); 
         
-        Dictionary<GameObject, int> hexValues = new Dictionary<GameObject, int>();
-        
-        int counter = 0;
-        // find hex with the most players (+1 for opponent, -1 for yourself)
-        foreach(BoardSettlement settlement in graph.settlements){
-            Debug.Log(counter);
-            counter++;
-            if(settlement.getSettlment().GetComponent<ChooseSettlement>().settlementTaken == true){
-                foreach(BoardVertex v in settlement.getHexObjects()){
-                    if((v != null) && (v.getHexTile() != robber.occupiedHex)){
-                        Debug.Log("TEST: " + settlement.getSettlment().GetComponent<ChooseSettlement>());
-                        if(settlement.GetComponent<ChooseSettlement>() != null && playerManager.playerNumber != null){
-                            Debug.Log("HERE");
-                            if(settlement.getSettlment().GetComponent<ChooseSettlement>().playerClaimedBy != playerManager.playerNumber){
-                                Debug.Log("PLUS");
-                                hexValues[v.getHexTile()] += 1;
-                            } else {
-                                Debug.Log("MINUS");
-                                hexValues[v.getHexTile()] += -1;
-                            }
-                        }
-                    }
-                }
-            }
-            
-        }
 
-        foreach(KeyValuePair<GameObject, int> entry in hexValues){
-            if(entry.Value > 0){
-                hexesToPlay.Add(entry.Key);
-            }
-        }
-
-        //sort the list for best solution
-        
         return hexesToPlay;
     }
 
@@ -81,7 +47,7 @@ public class AIAgent : MonoBehaviour
                 Debug.Log(current.GetComponent<ChooseBorder>().adjacentSettlements.Count);
                 foreach(GameObject s in current.GetComponent<ChooseBorder>().adjacentSettlements){
                     
-                    if(s.GetComponent<ChooseSettlement>().playerClaimedBy != 0){
+                    if(s.GetComponent<ChooseSettlement>().playerNumWhoOwnsThisSt != 0){
                         acceptable = false;
                         break;
                     }
@@ -97,10 +63,10 @@ public class AIAgent : MonoBehaviour
                 GameObject current = graph.edges[i].getRoad();
                 bool r1 = false;
                 bool r2 = false;
-                if(current.GetComponent<ChooseBorder>().playerClaimedBy != 0){
+                if(current.GetComponent<ChooseBorder>().playerNumWhoOwnsThisR != 0){
                     //check if an adjacent road is owned by the player
                     foreach(GameObject road in current.GetComponent<ChooseBorder>().adjacentRoads){
-                        if(road.GetComponent<ChooseBorder>().playerClaimedBy == playerManager.playerNumber){
+                        if(road.GetComponent<ChooseBorder>().playerNumWhoOwnsThisR == playerManager.playerNumber){
                             r1 = true;
                             break;
                         }
@@ -108,7 +74,7 @@ public class AIAgent : MonoBehaviour
 
                     //check if an adjacent settlement is owned by the player
                     foreach(GameObject settlement in current.GetComponent<ChooseBorder>().adjacentSettlements){
-                        if(settlement.GetComponent<ChooseSettlement>().playerClaimedBy == playerManager.playerNumber){
+                        if(settlement.GetComponent<ChooseSettlement>().playerNumWhoOwnsThisSt == playerManager.playerNumber){
                             r2 = true;
                             break;
                         }
@@ -132,7 +98,7 @@ public class AIAgent : MonoBehaviour
         
         for(int i = 0; i < turnManager.allSettlementBuildSites.Count; i++){
             GameObject current = turnManager.allSettlementBuildSites[i];
-            if(current.GetComponent<ChooseSettlement>().playerClaimedBy == 0){
+            if(current.GetComponent<ChooseSettlement>().playerNumWhoOwnsThisSt == 0){
                 List<GameObject> adjacentSettlements = current.GetComponent<ChooseSettlement>().adjacentSettlements;
                 bool acceptable = true;
                 foreach(GameObject adjSettlement in adjacentSettlements){

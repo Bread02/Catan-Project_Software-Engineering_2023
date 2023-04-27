@@ -282,4 +282,8 @@ public class ChooseBorder : MonoBehaviour
             this.gameObject.GetComponent<Renderer>().material = hoverOverColour;
         }
     }
+
+    public void AIBorderPlacment(){
+        
+    }
 }

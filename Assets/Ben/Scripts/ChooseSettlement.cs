@@ -393,4 +393,10 @@ public class ChooseSettlement : MonoBehaviour
             this.gameObject.GetComponent<Renderer>().material = hoverOverColour;
         }
     }
+
+    public void AISettlmentPlacment(){
+        
+    }
+
+
 }
