@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Other Scripts")]
     private LargestArmyCheck largestArmyCheck;
     private TerrainAssigner terrainAssigner; // needed for 2nd settlement placement
+    public AIAgent AIScript;
 
     [Header("Dictionaries")]
     public Dictionary<string, int> pCardQuantities; //key = card type, value = quantity of card type in player's hand
