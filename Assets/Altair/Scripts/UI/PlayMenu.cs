@@ -231,7 +231,7 @@ public class PlayMenu : MonoBehaviour
 
     private void DefaultMode()
     {
-        VictoryPointsOptions.SetActive(true);
+      //  VictoryPointsOptions.SetActive(true);
         abridgedModeOptions.SetActive(false);
     }
 
