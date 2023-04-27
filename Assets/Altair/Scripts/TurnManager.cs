@@ -333,8 +333,8 @@ public class TurnManager : MonoBehaviour
             /*
             *   FOR TESTING
             */
-                AIHandPrefab = Instantiate(AIHandPrefab, player2SpawnPosition);
-                //playerHandPrefab = Instantiate(playerHandPrefab, player2SpawnPosition);
+          //      AIHandPrefab = Instantiate(AIHandPrefab, player2SpawnPosition);
+                playerHandPrefab = Instantiate(playerHandPrefab, player2SpawnPosition);
                 break;
             case 3:
                 playerHandPrefab = Instantiate(playerHandPrefab, player3SpawnPosition);
