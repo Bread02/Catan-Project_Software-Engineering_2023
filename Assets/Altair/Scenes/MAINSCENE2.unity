@@ -31273,6 +31273,8 @@ MonoBehaviour:
   loseCardsObject: {fileID: 1237089495}
   donateCardsObject: {fileID: 1244545251}
   toggleCardsInPlayerHand: {fileID: 203750129}
+  AIHandPrefab: {fileID: 7351024857884848155, guid: 3d826fe21abee474eb96ba7b6da2796c,
+    type: 3}
   player1Camera: {fileID: 1654618361}
   player2Camera: {fileID: 1484620741}
   player3Camera: {fileID: 1973327190}
@@ -41414,7 +41416,7 @@ RectTransform:
   m_Children:
   - {fileID: 185934833}
   m_Father: {fileID: 1039071601}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
