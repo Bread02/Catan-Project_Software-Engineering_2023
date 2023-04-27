@@ -52,6 +52,7 @@ public class DiceReader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        diceRolling = GameObject.Find("DiceRolling").GetComponent<DiceRolling>();
         diceStartPosition = this.gameObject.transform.position;
         finishRollingResult = false;
         this.gameObject.GetComponent<Rigidbody>().useGravity = false;

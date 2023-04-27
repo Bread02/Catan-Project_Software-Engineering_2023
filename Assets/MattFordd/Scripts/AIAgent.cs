@@ -38,7 +38,7 @@ public class AIAgent : MonoBehaviour
                         Debug.Log("TEST: " + settlement.getSettlment().GetComponent<ChooseSettlement>());
                         if(settlement.GetComponent<ChooseSettlement>() != null && playerNumber != null){
                             Debug.Log("HERE");
-                            if(settlement.getSettlment().GetComponent<ChooseSettlement>().playerClaimedBy != playerNumber){
+                            if(settlement.getSettlment().GetComponent<ChooseSettlement>().playerNumWhoOwnsThisSt != playerNumber){
                                 Debug.Log("PLUS");
                                 hexValues[v.getHexTile()] += 1;
                             } else {
@@ -84,7 +84,7 @@ public class AIAgent : MonoBehaviour
         /*
         for(int i = 0; i < graph.settlements.Count - 1; i++){
             GameObject current = graph.settlements[i].getSettlment();
-            if(current.GetComponent<ChooseSettlement>().playerClaimedBy != 0){
+            if(current.GetComponent<ChooseSettlement>().playerNumWhoOwnsThisSt != 0){
                 current.GetComponent<ChooseSettlement>().FindAdjacentSettlements();
 
             }

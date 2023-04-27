@@ -31227,6 +31227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackMat: {fileID: 2100000, guid: 64b113604a0afca4e8d92d45530a7dfd, type: 2}
+  origMat: {fileID: 0}
   loseCardsZone: {fileID: 1237089495}
 --- !u!1 &1238634029
 GameObject:
@@ -43677,6 +43678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1719902078}
   - component: {fileID: 1719902077}
+  - component: {fileID: 1719902079}
   m_Layer: 0
   m_Name: LongestRoadCheck
   m_TagString: Untagged
@@ -43696,12 +43698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f9bcbd5bbed7a46bd34cb9205de10d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerWithLongestRoad: {fileID: 0}
-  longestRoad0SP: {fileID: 736389256}
-  longestRoadP1SP: {fileID: 1157221232}
-  longestRoadP2SP: {fileID: 1136819255}
-  longestRoadP3SP: {fileID: 2092868596}
-  longestRoadP4SP: {fileID: 909850926}
 --- !u!4 &1719902078
 Transform:
   m_ObjectHideFlags: 0
@@ -43722,6 +43718,23 @@ Transform:
   m_Father: {fileID: 681960253}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1719902079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719902076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae590b54000feb44b665948ecd2139a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  longestRoad0SP: {fileID: 736389256}
+  longestRoadP1SP: {fileID: 1157221232}
+  longestRoadP2SP: {fileID: 1136819255}
+  longestRoadP3SP: {fileID: 2092868596}
+  longestRoadP4SP: {fileID: 909850926}
 --- !u!1 &1719965244
 GameObject:
   m_ObjectHideFlags: 0

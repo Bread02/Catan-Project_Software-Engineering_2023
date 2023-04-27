@@ -56,7 +56,7 @@ public class StealCards : MonoBehaviour
 
         foreach (GameObject adjacentSettlement in adjacentSettlements)
         {
-            int playerOwned = adjacentSettlement.GetComponent<ChooseSettlement>().playerClaimedBy;
+            int playerOwned = adjacentSettlement.GetComponent<ChooseSettlement>().playerNumWhoOwnsThisSt;
 
             switch (playerOwned)
             {
