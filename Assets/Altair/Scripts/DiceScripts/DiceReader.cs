@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+/**
+ * This script is in charge of reading what number the dice rolls.
+ * It finds out what number is rolled by seeing what detectors have triggered.
+ * This number is then used to trigger board actions.
+ *
+ * @author Altair
+ * @version 27/04/2023
+ */
 public class DiceReader : MonoBehaviour
 {
 
-    //  private bool hitSurface = false;
-
-    public DiceColor diceColor;
-
-    public enum DiceColor
-    {
-        red,
-        yellow
-    }
-
-    public Vector3 diceStartPosition;
-
-    public DiceRolling diceRolling;
+    [Header("Other Scripts")]
+    private DiceReader otherDiceReader;
+    private DiceRolling diceRolling;
 
     // detectors are the opposite sides of their number.
     // it is the number of the top of the dice.
@@ -32,15 +31,23 @@ public class DiceReader : MonoBehaviour
 
     public List<GameObject> detectorList = new List<GameObject>();
 
+    [Header("Bools")]
     bool rolled = false;
     bool finishRollingResult = false;
 
     [Header("Number")]
-    private int diceNumber = 0;   
+    private int diceNumber = 0;
+
+    [Header("Other")]
     [SerializeField] private Button rollDiceButton;
+    public Vector3 diceStartPosition;
 
-    public DiceReader otherDiceReader;
-
+    public DiceColor diceColor;
+    public enum DiceColor
+    {
+        red,
+        yellow
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -104,6 +111,8 @@ public class DiceReader : MonoBehaviour
         }
     }
 
+    // Enables gravity for the dice so they roll. Then invoke rolled when
+    // dice is not stationary (stationary dice means rolling is complete).
     public void RollDice()
     {
         this.gameObject.GetComponent<Rigidbody>().useGravity = true;
@@ -112,12 +121,14 @@ public class DiceReader : MonoBehaviour
         Invoke("InvokeRolled", 0.5f);
     }
 
+    // Sets dice rolled to true.
     public void InvokeRolled()
     {
         rolled = true;
     }
 
 
+    // Checks what dice number has been rolled.
     void CheckDiceNumber()
     {
 
@@ -170,6 +181,7 @@ public class DiceReader : MonoBehaviour
         return diceNumber;
     }
 
+    // spins the dice to ensure it is fully random for rolling.
     void SpinDice()
     {
      //   this.transform.Rotate(9, 19, 4);

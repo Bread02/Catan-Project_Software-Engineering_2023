@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * This script is responsbie for controlling hex border hover.
+ *
+ * @author Altair
+ * @version 27/04/2023
+ */
 public class HexBorderHover : MonoBehaviour
 {
+    [Header("Other Scripts")]
     [SerializeField] private HexClick hexClick;
     [SerializeField] private HexHover hexHover;
 
-
+    [Header("Lists")]
     public List<GameObject> listOfBorders = new List<GameObject>();
 
     [Header("Hex 1 Borders")]
@@ -128,6 +135,8 @@ public class HexBorderHover : MonoBehaviour
     {
         AddAllBordersToList();
     }
+
+    // adds all the borders to the list.
     public void AddAllBordersToList()
     {
         listOfBorders.Add(Hex1Border1);
@@ -265,6 +274,7 @@ public class HexBorderHover : MonoBehaviour
 
     }
 
+    // unhovers all borders
     public void UnhoverAllBorders()
     {
         foreach (var border in listOfBorders)
@@ -277,6 +287,7 @@ public class HexBorderHover : MonoBehaviour
         
     }
 
+    // unhovers all borders directly
     public void UnhoverAllBordersDirect()
     {
         foreach (var border in listOfBorders)

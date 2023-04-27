@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * This script the clicking of borders.
+ *
+ * @author Altair
+ * @version 27/04/2023
+ */
 public class HexBorderClick : MonoBehaviour
 {
     public HexClick boardHexClick;

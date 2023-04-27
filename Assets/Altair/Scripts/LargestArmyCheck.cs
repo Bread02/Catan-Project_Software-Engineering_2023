@@ -6,7 +6,7 @@ using UnityEngine;
 /**
  * This script checks which player has the largest army.
  *
- * @author Altair Robinson
+ * @author Altair, Ben
  * @version 26/04/2023
  */
 public class LargestArmyCheck : MonoBehaviour
@@ -30,7 +30,13 @@ public class LargestArmyCheck : MonoBehaviour
     void Start()
     {
         FindScripts();
+        SomethingMethod();
 
+    }
+
+    // BEN PLS PUT COMMENT.
+    private void SomethingMethod()
+    {
         largestArmySPs = new List<GameObject>
         {
             largestArmy0SP

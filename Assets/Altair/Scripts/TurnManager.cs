@@ -106,28 +106,17 @@ public class TurnManager : MonoBehaviour
     // instantiate correct number of player managers.
     // instantiate players by their correct name.
 
-  
+  // pls clean up this script, awake should be for toggling methods.
     void Awake()
     {
-        abridgedFinalTurn = false;
         FindObjects();
+        SetStartingBools();
 
-        donateCardsObject.SetActive(false);
-
-        player1Camera.enabled = true;
-        player2Camera.enabled = false;
-
-        doNotRoll = true;
-        allPlayersBuiltStart = false;
-
-        finishedDiceRolling = false;
-        isTrading = true;
         // when starting the game, the first player has not finished turn.
         HideEndTurnButton();
 
-
         playerToPlay = 1;
-        playersToSpawn = 4;
+        playersToSpawn = 4; // default is 4 players to spawn.
 
         int playerNumber = 1;
 
@@ -146,10 +135,18 @@ public class TurnManager : MonoBehaviour
         SetAllPlayerPositions();
 
         //Add player dropZones to playerDropZones list
-        playerDropZones.Add(player1DropZone);
-        playerDropZones.Add(player2DropZone);
-        playerDropZones.Add(player3DropZone);
-        playerDropZones.Add(player4DropZone);
+        AddPlayerDropZonesToList();
+    }
+
+    // sets the starting booleans for the game.
+    private void SetStartingBools()
+    {
+        abridgedFinalTurn = false;
+        doNotRoll = true;
+        allPlayersBuiltStart = false;
+        finishedDiceRolling = false;
+        isTrading = true;
+        donateCardsObject.SetActive(false);
     }
 
 
@@ -157,22 +154,13 @@ public class TurnManager : MonoBehaviour
     // In FINAL VERSION, this will be used and NOT awake method.
     // this is triggered by the game data track to setup the game PROPERLY with the correct number of players.
     // ONLY UNCOMMENT THIS IF YOU PLAN TO USE THIS INSTEAD AND FOR THE FINAL VERSION
-    
+
     public void SetupGameFinal(int numberOfPlayers, List<int> colorInt, bool beginnerMap)
     {
         Debug.Log("Setup final");
         FindObjects();
+        SetStartingBools();
 
-        donateCardsObject.SetActive(false);
-
-     //   player1Camera.enabled = true;
-     //   player2Camera.enabled = false;
-
-        doNotRoll = true;
-        allPlayersBuiltStart = false;
-
-        finishedDiceRolling = false;
-        isTrading = true;
         // when starting the game, the first player has not finished turn.
         HideEndTurnButton();
 
@@ -226,7 +214,10 @@ public class TurnManager : MonoBehaviour
     Red = player 3
     White = player 4
     */
-    public void AssignPlayerToColor(List<int> playerColor)
+    // assigns colors to player based on the inserted list.
+    // If list is null, then the turnmanager has not communicated with the playerdatatrack.
+    // If list is not null, playerdatatrack has fed data from the previous scene into here.
+    private void AssignPlayerToColor(List<int> playerColor)
     {
         if(playerColor != null)
         {
@@ -256,7 +247,8 @@ public class TurnManager : MonoBehaviour
     }
 
     // if dice rolling is false, and trade is false, show button.
-    public void Update()
+    // REMOVE THIS ON FINAL VERSION, NOT NEEDED.
+     void Update()
     {
         /*
         if (finishedDiceRolling && !isTrading)
@@ -269,6 +261,7 @@ public class TurnManager : MonoBehaviour
         }
         */
         // force next player turn
+        // REMOVE THIS ON FINAL VERSION.
         if (Input.GetKeyDown(KeyCode.Q))
         {
             EndPlayerTurn();
@@ -276,6 +269,7 @@ public class TurnManager : MonoBehaviour
 
     }
 
+    // Instantiates the player hand locations with the given playernumber.
     public void InstantiatePlayerHandLocations(int playerNumber)
     {
         switch (playerNumber)
@@ -363,6 +357,7 @@ public class TurnManager : MonoBehaviour
         toggleCardsInPlayerHand.SetActive(true);
     }
 
+    // returns the playerManager by the playernumber inserted in.
     public PlayerManager ReturnPlayerManagerByNumber(int number)
     {
         return playerList[number - 1];
@@ -391,6 +386,7 @@ public class TurnManager : MonoBehaviour
     }
 
 
+    // returns the current player who's turn it is.
     public PlayerManager ReturnCurrentPlayer()
     {
         //    Debug.Log("player to play: " + playerToPlay);
@@ -399,6 +395,7 @@ public class TurnManager : MonoBehaviour
 
     }
 
+    // Ends the player's turn.
     public void EndPlayerTurn()
     {
         //Resets hasUsedDevCard
@@ -427,15 +424,12 @@ public class TurnManager : MonoBehaviour
             playerToPlay++;
         }
 
-    //    playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
-
         // reset dice
         if (allPlayersBuiltStart)
         {
             diceRolling.ResetDice();
         }
 
-     //   Debug.Log("Players spawned: " + playersToSpawn);
 
         if (playerToPlay > playersToSpawn)
         {
@@ -445,6 +439,7 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Player to play: " + playerToPlay);
     }
 
+    // Forces the given player's turn to play.
     public void ForcePlayerTurn(PlayerManager playerManagerTurn)
     {
         playerToPlay = playerManagerTurn.playerNumber;
@@ -452,11 +447,18 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Player to play: " + playerToPlay);
     }
 
+    // adds the player drop zones to the list
+    private void AddPlayerDropZonesToList()
+    {
+        playerDropZones.Add(player1DropZone);
+        playerDropZones.Add(player2DropZone);
+        playerDropZones.Add(player3DropZone);
+        playerDropZones.Add(player4DropZone);
+    }
+
+    // Displays the current player's turn by ensuring the correct camera is displayed.
     public void DisplayCurrentPlayerTurn()
     {
-        //   playerTurnText.text = "Turn: Player " + playerToPlay.ToString();
-
-
         // display correct camera
         switch (playerToPlay)
         {
@@ -520,20 +522,21 @@ public class TurnManager : MonoBehaviour
 
     // to end the turn, the player must not be in trade mode and must have rolled dice.
     #region Turn  Button
+    // displays the end turn button the player can interract with
     public void DisplayEndTurnButton()
     {
-     //   Debug.Log("Displaying end turn button");
         endTurnButton.SetActive(true);
     }
 
+    // hides the end turn button fropm the player.
     public void HideEndTurnButton()
     {
-   //     Debug.Log("Hiding end turn button");
         endTurnButton.SetActive(false);
     }
     #endregion
 
     #region ABRIDGED MODE
+    // sets the abridged mode final turn.
     public void AbridgedFinalPlayersTurn()
     {
 
@@ -556,6 +559,7 @@ public class TurnManager : MonoBehaviour
         // if on player 4, and play 4 clicks end turn. Game will end
     }
 
+// sets the 
     public void SetAbridgedFinalTurn()
     {
         Debug.Log("Final turn now set");
@@ -565,6 +569,7 @@ public class TurnManager : MonoBehaviour
     #endregion
 
     #region  Find  Objects
+    // finds the objects and scripts needed for this script.
     private void FindObjects()
     {
         diceRolling = GameObject.Find("DiceRolling").GetComponent<DiceRolling>();

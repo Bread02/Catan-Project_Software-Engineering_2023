@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+/**
+ * This script controls the dice rolling mechanic.
+ *
+ * @author Altair
+ * @version 27/04/2023
+ */
 public class DiceRolling : MonoBehaviour
 {
     [Header("Other Scripts")]
@@ -45,6 +51,7 @@ public class DiceRolling : MonoBehaviour
         bankMang = GameObject.Find("THE_BANK").GetComponent<BankManager>();
     }
 
+    // Ends the dice roll.
     public void EndDiceRoll()
     {
         triggerNumberActionActive = true;
@@ -60,12 +67,14 @@ public class DiceRolling : MonoBehaviour
 
     }
 
+    // Enables the roll button, enables the time to roll.
     public void TimeToRollDice()
     {
         timeToRoll = true;
         rollDiceButton.SetActive(true);
     }
 
+    // Disables the button for dice rolling and bool
     public void DisableTimeToRollDice()
     {
         timeToRoll = false;
@@ -73,6 +82,7 @@ public class DiceRolling : MonoBehaviour
     }
 
 
+    // Triggers the number action for whatever the dice lands on.
     public void TriggerNumberAction(int totalResult)
     {
 
@@ -150,6 +160,7 @@ public class DiceRolling : MonoBehaviour
         // add card to each matching tile with settlement.
     }
 
+    // Resets the dice position to be reused again in the next turn.
     public void ResetDice()
     {
         redDiceReader.ResetDicePosition();
@@ -159,6 +170,7 @@ public class DiceRolling : MonoBehaviour
         triggerNumberActionActive = false;
     }
 
+    // Resets the dice position to be reused again.
     public void DiceRollTrigger(bool red)
     {
         if(red)

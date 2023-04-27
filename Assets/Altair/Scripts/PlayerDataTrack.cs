@@ -157,6 +157,7 @@ public class PlayerDataTrack : MonoBehaviour
     }
 
 
+    // Sets the player stats to the victory screen player card.
     public void PlayerStatToVictoryScreen(int winningPlayerNumber)
     {
         switch (winningPlayerNumber)
