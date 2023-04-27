@@ -117,6 +117,10 @@ public class TerrainAssigner : MonoBehaviour
         orderedTileList[7].GetComponent<TerrainHex>().AssignTerrainTypeNumber(5); // for beginner map, a number would be assigned, otherwise 0 is random.
         orderedTileList[8].GetComponent<TerrainHex>().AssignTerrainTypeNumber(9); // for beginner map, a number would be assigned, otherwise 0 is random.
         orderedTileList[9].GetComponent<TerrainHex>().AssignDesertTile(); // for beginner map, a number would be assigned, otherwise 0 is random.
+
+        robber.MoveRobberToStart(orderedTileList[9]);
+
+
         orderedTileList[9].GetComponent<TerrainHex>().AssignTerrainTypeNumber(0); // for beginner map, a number would be assigned, otherwise 0 is random.
         orderedTileList[10].GetComponent<TerrainHex>().AssignTerrainTypeNumber(9); // for beginner map, a number would be assigned, otherwise 0 is random.
         orderedTileList[11].GetComponent<TerrainHex>().AssignTerrainTypeNumber(13); // for beginner map, a number would be assigned, otherwise 0 is random.
@@ -202,9 +206,7 @@ public class TerrainAssigner : MonoBehaviour
         desertHex = tileList[random10];
         Debug.Log("Assigned Desert Tile");
 
-
-
-
+        robber.MoveRobberToStart(desertHex);
 
         int random = numberList[Random.Range(0, numberList.Count)];
         numberList.Remove(random);

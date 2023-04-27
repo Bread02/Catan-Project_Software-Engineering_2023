@@ -16,8 +16,8 @@ public class DiceReader : MonoBehaviour
 {
 
     [Header("Other Scripts")]
-    private DiceReader otherDiceReader;
-    private DiceRolling diceRolling;
+    public DiceReader otherDiceReader;
+    public DiceRolling diceRolling;
 
     // detectors are the opposite sides of their number.
     // it is the number of the top of the dice.

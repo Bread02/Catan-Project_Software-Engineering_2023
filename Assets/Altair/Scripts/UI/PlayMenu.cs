@@ -93,6 +93,25 @@ public class PlayMenu : MonoBehaviour
     public int timeLimitInt; // THIS IS IN SECONDS
     public string gameModeString;
 
+    // THIS IS STANDARD MODE OPTIONS
+    private VictoryPointsLimit victoryPointsLimit;
+
+    [SerializeField] private GameObject victoryPointsOptions;
+    [SerializeField] private GameObject abridgedModeOptions;
+    private int victoryPointsLimitInt;
+
+    [SerializeField] private TextMeshProUGUI victoryPointsLimitText;
+
+    public enum VictoryPointsLimit
+    {
+        six,
+        eight,
+        ten,
+        twelve,
+        fourteen,
+        sixteen,
+    }
+
     [Header("Player Color Icon")]
     [SerializeField] private Image player1ColorIcon;
     [SerializeField] private Image player2ColorIcon;
@@ -185,6 +204,7 @@ public class PlayMenu : MonoBehaviour
     public int Player3ColorInt { get => player3ColorInt; set => player3ColorInt = value; }
     public int Player4ColorInt { get => player4ColorInt; set => player4ColorInt = value; }
     public bool BeginnerMap { get => beginnerMap; set => beginnerMap = value; }
+    public int VictoryPointsLimitInt { get => victoryPointsLimitInt; set => victoryPointsLimitInt = value; }
 
     private enum GameMode
         {
@@ -213,10 +233,17 @@ public class PlayMenu : MonoBehaviour
         playToGame.GetData(gameModeString, timeLimitInt);
     }
 
+    private void DefaultMode()
+    {
+        victoryPointsOptions.SetActive(true);
+        abridgedModeOptions.SetActive(false);
+    }
 
     // Start is called before the first frame update
     void Awake()
     {
+        DefaultMode();
+
         FindScripts();
         InvokeRepeating("ReadPlayerName", 0.5f, 0.5f);
 
@@ -228,6 +255,7 @@ public class PlayMenu : MonoBehaviour
 
         ColorListCreate();
         IconListCreate();
+        DefaultVPSettings();
 
         // standard is default mode
         ClickStandard();
@@ -241,7 +269,6 @@ public class PlayMenu : MonoBehaviour
         // beginner map default
         beginnerMap = true;
         beginnerToggle.sprite = iconEnabled;
-
     }
 
     // Finds scripts needed for this class.
@@ -354,6 +381,91 @@ public class PlayMenu : MonoBehaviour
             beginnerToggle.sprite = iconEnabled;
             playToGame.GetData(gameModeString, timeLimitInt);
             return;
+        }
+    }
+
+    public void DefaultVPSettings()
+    {
+        victoryPointsLimit = VictoryPointsLimit.ten;
+        victoryPointsLimitText.text = "10";
+        VictoryPointsLimitInt = 10;
+    }
+
+    // victory points
+    public void ClickIncreaseVictoryPoints()
+    {
+        if (victoryPointsLimit == VictoryPointsLimit.six)
+        {
+            victoryPointsLimit = VictoryPointsLimit.eight;
+            victoryPointsLimitText.text = "8";
+            VictoryPointsLimitInt = 8;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.eight)
+        {
+            victoryPointsLimit = VictoryPointsLimit.ten;
+            victoryPointsLimitText.text = "10";
+            VictoryPointsLimitInt = 10;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.ten)
+        {
+            victoryPointsLimit = VictoryPointsLimit.twelve;
+            victoryPointsLimitText.text = "12";
+            VictoryPointsLimitInt = 12;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.twelve)
+        {
+            victoryPointsLimit = VictoryPointsLimit.fourteen;
+            victoryPointsLimitText.text = "15";
+            VictoryPointsLimitInt = 15;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+    }
+
+    // Method triggered by a button which DECREASES the time limit for abridged mode.
+    public void ClickDecreaseVictoryPoints()
+    {
+        if (victoryPointsLimit == VictoryPointsLimit.fourteen)
+        {
+            victoryPointsLimit = VictoryPointsLimit.twelve;
+            victoryPointsLimitText.text = "12";
+            VictoryPointsLimitInt = 12;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.twelve)
+        {
+            victoryPointsLimit = VictoryPointsLimit.ten;
+            victoryPointsLimitText.text = "10";
+            VictoryPointsLimitInt = 10;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.ten)
+        {
+            victoryPointsLimit = VictoryPointsLimit.eight;
+            victoryPointsLimitText.text = "8";
+            VictoryPointsLimitInt = 8;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (victoryPointsLimit == VictoryPointsLimit.eight)
+        {
+            victoryPointsLimit = VictoryPointsLimit.six;
+            victoryPointsLimitText.text = "6";
+            VictoryPointsLimitInt = 6;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
         }
     }
 
@@ -495,6 +607,8 @@ public class PlayMenu : MonoBehaviour
         standardButton.GetComponent<Image>().color = colorEnabled;
         gameModeInfo.GetComponent<TextMeshProUGUI>().text = gameModeInfoTextStandard;
         gameModeString = "standard";
+        victoryPointsOptions.SetActive(true);
+        abridgedModeOptions.SetActive(false);
         playToGame.SetMode(gameModeString, timeLimitInt);
     }
 
@@ -506,6 +620,8 @@ public class PlayMenu : MonoBehaviour
         standardButton.GetComponent<Image>().color = colorDisabled;
         gameModeInfo.GetComponent<TextMeshProUGUI>().text = gameModeInfoTextAbridged;
         gameModeString = "abridged";
+        victoryPointsOptions.SetActive(false);
+        abridgedModeOptions.SetActive(true);
         playToGame.SetMode(gameModeString, timeLimitInt);
     }
     #endregion
