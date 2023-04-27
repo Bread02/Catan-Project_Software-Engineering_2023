@@ -77,6 +77,7 @@ public class TurnManager : MonoBehaviour
     public GameObject loseCardsObject;
     public GameObject donateCardsObject;
     public GameObject toggleCardsInPlayerHand;
+    public GameObject AIHandPrefab; 
 
     [Header("Player Cameras")]
     public Camera player1Camera;
@@ -329,7 +330,11 @@ public class TurnManager : MonoBehaviour
                 playerHandPrefab = Instantiate(playerHandPrefab, player1SpawnPosition);
                 break;
             case 2:
-                playerHandPrefab = Instantiate(playerHandPrefab, player2SpawnPosition);
+            /*
+            *   FOR TESTING
+            */
+                AIHandPrefab = Instantiate(AIHandPrefab, player2SpawnPosition);
+                //playerHandPrefab = Instantiate(playerHandPrefab, player2SpawnPosition);
                 break;
             case 3:
                 playerHandPrefab = Instantiate(playerHandPrefab, player3SpawnPosition);
@@ -646,5 +651,14 @@ public class TurnManager : MonoBehaviour
             terrainAssigner.AssignTilesRandom();
         }
     }
+    #endregion
+
+    #region AI
+
+    private bool isAI(PlayerManager playerManager){
+        return (playerManager.AIScript != null);
+    }
+
+
     #endregion
 }

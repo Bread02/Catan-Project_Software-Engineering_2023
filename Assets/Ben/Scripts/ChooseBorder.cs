@@ -262,6 +262,8 @@ public class ChooseBorder : MonoBehaviour
                 }
                 borderTaken = true;
 
+                makeTradeScript.GetComponent<MakeTrade>().HideCancelPieceBuildBut();
+
                 newLongestRoadCheck.FindLongestRoad();
             }
         }
