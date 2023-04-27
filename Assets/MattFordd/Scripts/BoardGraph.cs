@@ -35,6 +35,7 @@ public class BoardGraph : MonoBehaviour
             }    
             i++;
         }
+
         
     }
 
@@ -43,7 +44,8 @@ public class BoardGraph : MonoBehaviour
     }
 
     void AddRoad(KeyValuePair<string, GameObject> keyAndValue){
-        edges.Add(new BoardEdge(keyAndValue, verticies));
+        BoardEdge b = new BoardEdge(keyAndValue, verticies);
+        edges.Add(b);
     }
 
     void AddSettlement(KeyValuePair<string, GameObject> keyAndValue){

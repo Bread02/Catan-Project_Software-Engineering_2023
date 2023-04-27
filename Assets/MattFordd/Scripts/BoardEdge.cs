@@ -28,6 +28,8 @@ public class BoardEdge : MonoBehaviour
                 settlementVerticies[j] = verticies[hexes[j]];
             }
         }
+
+        road = keyValuePair.Value;
     }
 
     public GameObject getRoad(){

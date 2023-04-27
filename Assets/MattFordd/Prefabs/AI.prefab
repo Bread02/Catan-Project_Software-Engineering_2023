@@ -55,6 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85052e9f7bd357e468cab470731851b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 1013781290677744170}
 --- !u!114 &1013781290677744170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +105,7 @@ MonoBehaviour:
   playerNumber: 0
   playerVictoryPoints: 0
   playerTrueVictoryPoints: 0
+  AIScript: {fileID: 7351024857884848154}
   victoryPointCardsPlayed: 0
   victoryPointCardsHeld: 0
   rcQuantTxts:
