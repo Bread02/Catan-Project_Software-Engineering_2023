@@ -93,6 +93,22 @@ public class PlayMenu : MonoBehaviour
     public int timeLimitInt; // THIS IS IN SECONDS
     public string gameModeString;
 
+    // THIS IS STANDARD MODE OPTIONS
+    private VictoryPointsLimit victoryPointsLimit;
+
+    public GameObject victoryPointsOptions;
+    public GameObject abridgedModeOptions;
+
+    public enum VictoryPointsLimit
+    {
+        five,
+        eight,
+        ten,
+        twelve,
+        fifteen,
+        twenty
+    }
+
     [Header("Player Color Icon")]
     [SerializeField] private Image player1ColorIcon;
     [SerializeField] private Image player2ColorIcon;
@@ -213,10 +229,17 @@ public class PlayMenu : MonoBehaviour
         playToGame.GetData(gameModeString, timeLimitInt);
     }
 
+    private void DefaultMode()
+    {
+        VictoryPointsOptions.SetActive(true);
+        abridgedModeOptions.SetActive(false);
+    }
 
     // Start is called before the first frame update
     void Awake()
     {
+        DefaultMode();
+
         FindScripts();
         InvokeRepeating("ReadPlayerName", 0.5f, 0.5f);
 
@@ -352,6 +375,136 @@ public class PlayMenu : MonoBehaviour
         {
             beginnerMap = true;
             beginnerToggle.sprite = iconEnabled;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+    }
+
+    // victory points
+    public void ClickIncreaseVictoryPoints()
+    {
+        if (TimeLimit1 == TimeLimit.five)
+        {
+            TimeLimit1 = TimeLimit.ten;
+            timeLimitText.text = "10:00";
+            timeLimitInt = 600;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (TimeLimit1 == TimeLimit.ten)
+        {
+            TimeLimit1 = TimeLimit.fifteen;
+            timeLimitText.text = "15:00";
+            timeLimitInt = 900;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (TimeLimit1 == TimeLimit.fifteen)
+        {
+            TimeLimit1 = TimeLimit.twenty;
+            timeLimitText.text = "20:00";
+            timeLimitInt = 1200;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (TimeLimit1 == TimeLimit.twenty)
+        {
+            TimeLimit1 = TimeLimit.twentyfive;
+            timeLimitText.text = "25:00";
+            timeLimitInt = 1500;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (TimeLimit1 == TimeLimit.twentyfive)
+        {
+            TimeLimit1 = TimeLimit.thirty;
+            timeLimitText.text = "30:00";
+            timeLimitInt = 1800;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (TimeLimit1 == TimeLimit.thirty)
+        {
+            TimeLimit1 = TimeLimit.thirtyfive;
+            timeLimitText.text = "35:00";
+            timeLimitInt = 2100;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (TimeLimit1 == TimeLimit.thirtyfive)
+        {
+            TimeLimit1 = TimeLimit.forty;
+            timeLimitText.text = "40:00";
+            timeLimitInt = 2400;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+    }
+
+    // Method triggered by a button which DECREASES the time limit for abridged mode.
+    public void ClickDecreaseVictoryPoints()
+    {
+        if (TimeLimit1 == TimeLimit.ten)
+        {
+            TimeLimit1 = TimeLimit.five;
+            timeLimitText.text = "5:00";
+            timeLimitInt = 300;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (TimeLimit1 == TimeLimit.fifteen)
+        {
+            TimeLimit1 = TimeLimit.ten;
+            timeLimitText.text = "10:00";
+            timeLimitInt = 600;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (TimeLimit1 == TimeLimit.twenty)
+        {
+            TimeLimit1 = TimeLimit.fifteen;
+            timeLimitText.text = "15:00";
+            timeLimitInt = 900;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (TimeLimit1 == TimeLimit.twentyfive)
+        {
+            TimeLimit1 = TimeLimit.twenty;
+            timeLimitText.text = "20:00";
+            timeLimitInt = 1200;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (TimeLimit1 == TimeLimit.thirty)
+        {
+            TimeLimit1 = TimeLimit.twentyfive;
+            timeLimitText.text = "25:00";
+            timeLimitInt = 1500;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+
+        }
+        if (TimeLimit1 == TimeLimit.thirtyfive)
+        {
+            TimeLimit1 = TimeLimit.thirty;
+            timeLimitText.text = "30:00";
+            timeLimitInt = 1800;
+            playToGame.GetData(gameModeString, timeLimitInt);
+            return;
+        }
+        if (TimeLimit1 == TimeLimit.forty)
+        {
+            TimeLimit1 = TimeLimit.thirtyfive;
+            timeLimitText.text = "35:00";
+            timeLimitInt = 2100;
             playToGame.GetData(gameModeString, timeLimitInt);
             return;
         }
