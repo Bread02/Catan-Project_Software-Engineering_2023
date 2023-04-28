@@ -6,36 +6,49 @@ using TMPro;
 
 public class TradeManager : MonoBehaviour
 {
-    [SerializeField] private TMP_Text[] cardTxtObjs;
+    [Header("Ints")]
     private int pointer; //point to next Text object to use when a different resource card is traded
-
     private int sum = 0;
 
-    public TurnManager turnManager;
+    [Header("Other Scripts")]
+    private TurnManager turnManager;
     private HelpText helpText;
+
 
     [Header("Dictionaries")]
     private Dictionary<string, TMP_Text> cardTxtDict;
     private Dictionary<string, int> cardAmountsDict, totalTradedDict;
 
+    [Header("Game Objects")]
     [SerializeField] private GameObject bankMang, gameBoardMang, dropDownMenu, buyRoadBut, buySettBut, buyCityBut, buyDevCBut,
         unusedCardsBut, submitTradeBut, buyRCwGrainBut, buyRCwWoolBut, buyRCwBrickBut, buyRCwOreBut, buyRCwLumberBut, chooseRCpanel, endTurnButton;
 
+    public GameObject tradeBG;
+
+    [Header("Texts")]
+    [SerializeField] private TMP_Text[] cardTxtObjs;
     [SerializeField] private TMP_Text rcTypeToGiveToBankInMTtxt;
 
-
+    [Header("Bools")]
     public bool inTradeMode;
     public bool inStartMode;
 
     private void Awake()
     {
-        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
-        helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
+        tradeBG.SetActive(false);
+        FindScripts();
         cardTxtDict = new Dictionary<string, TMP_Text>();
         cardAmountsDict = new Dictionary<string, int>();
         totalTradedDict = new Dictionary<string, int>();
         pointer = 0;
         inTradeMode = true;
+    }
+
+    // Finds the scripts required for this class.
+    void FindScripts()
+    {
+        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+        helpText = GameObject.Find("HelpTextBox").GetComponent<HelpText>();
     }
 
     private void Update()
@@ -227,6 +240,10 @@ public class TradeManager : MonoBehaviour
         }
     }
 
+
+
+
+
     public void ReturnUnusedCardsButtonPressed()
     {
         foreach (KeyValuePair<string, int> cards in cardAmountsDict)
@@ -339,6 +356,7 @@ public class TradeManager : MonoBehaviour
 
     public void DifferentResourceTraded(string key)
     {
+        tradeBG.SetActive(true);
         cardTxtObjs[pointer].text = string.Format("{0}: {1}", key, 1);
         cardTxtObjs[pointer].gameObject.SetActive(true);
 

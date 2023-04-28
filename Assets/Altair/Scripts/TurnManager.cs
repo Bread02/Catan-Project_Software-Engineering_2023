@@ -117,7 +117,7 @@ public class TurnManager : MonoBehaviour
 
   // pls clean up this script, awake should be for toggling methods.
     void Awake()
-    {
+    { 
         // false until proven otherwise
         turnTimeLimitEnforced = false;
 
@@ -173,8 +173,8 @@ public class TurnManager : MonoBehaviour
 
         if (currentTimeLimit <= 0)
         {
-            EndPlayerTurn();
-           
+            // if the time runs out, prompt the player to end their turn.
+            turnTimeLimitText.text = "Time is up!";
         }
     }
 
@@ -202,6 +202,7 @@ public class TurnManager : MonoBehaviour
             // setup timer
             turnTimeLimitObject.SetActive(true);
             turnTimeLimitEnforced = true;
+            StartTurnTimer();
         }
 
         Debug.Log("Setup final");
