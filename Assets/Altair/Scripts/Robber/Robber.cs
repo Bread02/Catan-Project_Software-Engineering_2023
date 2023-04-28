@@ -66,14 +66,12 @@ public class Robber : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // roll 7 emulate debug
-        /*
+        // roll 7 emulate
         if(Input.GetKeyDown(KeyCode.Y))
         {
             Debug.Log("Rolling 7");
             discardHalfOfCards.LoseHalfOfCards(turnManager.ReturnCurrentPlayer());
         }
-        */
 
     }
 

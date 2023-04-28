@@ -366,14 +366,22 @@ public class TurnManager : MonoBehaviour
     // REMOVE THIS ON FINAL VERSION, NOT NEEDED.
      void Update()
     {
-
         /*
+        if (finishedDiceRolling && !isTrading)
+        {
+            DisplayEndTurnButton();
+        }
+        else
+        {
+            HideEndTurnButton();
+        }
+        */
+        // force next player turn
+        // REMOVE THIS ON FINAL VERSION.
         if (Input.GetKeyDown(KeyCode.Q))
         {
             EndPlayerTurn();
         }
-        */
-
         if(turnTimeLimitEnforced)
         {
             TurnTimer();
