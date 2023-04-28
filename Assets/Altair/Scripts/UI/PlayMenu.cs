@@ -416,7 +416,6 @@ public class PlayMenu : MonoBehaviour
     // victory points
     public void ClickIncreaseTurnTimeLimit()
     {
-        Debug.Log("Click");
         if (turnTimeLimit == TurnTimeLimit.thirty)
         {
             turnTimeLimit = TurnTimeLimit.sixty;
@@ -455,7 +454,6 @@ public class PlayMenu : MonoBehaviour
     // Method triggered by a button which DECREASES the time limit for abridged mode.
     public void ClickDecreaseTurnTimeLimit()
     {
-        Debug.Log("Click");
         if (turnTimeLimit == TurnTimeLimit.infinite)
         {
             turnTimeLimit = TurnTimeLimit.oneTwenty;

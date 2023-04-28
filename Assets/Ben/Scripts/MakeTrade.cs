@@ -64,6 +64,7 @@ public class MakeTrade : MonoBehaviour
     {
 
         // DEBUG KEYS
+        /*
         if(Input.GetKeyDown(KeyCode.Z))
         {
             SetRoadBought(true);
@@ -76,7 +77,7 @@ public class MakeTrade : MonoBehaviour
         {
             SetSettlementBought(true);
         }
-
+        */
     }
 
     public void BuyRoad()
