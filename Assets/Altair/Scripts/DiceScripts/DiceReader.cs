@@ -33,7 +33,7 @@ public class DiceReader : MonoBehaviour
 
     [Header("Bools")]
     bool rolled = false;
-    bool finishRollingResult = false;
+    public bool finishRollingResult = false;
 
     [Header("Number")]
     private int diceNumber = 0;

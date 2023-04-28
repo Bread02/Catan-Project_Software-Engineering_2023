@@ -286,6 +286,68 @@ public class ChooseBorder : MonoBehaviour
     }
 
     public void AIBorderPlacment(){
-        
+        Debug.Log("BUILDING BORDER");
+
+        if (!borderTaken)
+            {
+                makeTradeScript.GetComponent<MakeTrade>().SetRoadBought(false);
+
+                this.gameObject.GetComponent<Renderer>().enabled = true;
+                PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+                playerManager.playerOwnedRoads.Add(this.gameObject);
+                string playerColor = playerManager.GetPlayerColor();
+                //   Debug.Log("PLayer color: " + playerColor);
+
+                //Play sound queue
+                audioManager.PlaySound("build");
+
+                playerNumWhoOwnsThisR = turnManager.ReturnCurrentPlayer().playerNumber;
+
+                // get color of player to turn settlement into
+                switch (playerColor)
+                {
+                    case "red":
+                        this.gameObject.GetComponent<Renderer>().material = red;
+                        break;
+                    case "blue":
+                        this.gameObject.GetComponent<Renderer>().material = blue;
+                        break;
+                    case "white":
+                        this.gameObject.GetComponent<Renderer>().material = white;
+                        break;
+                    case "orange":
+                        this.gameObject.GetComponent<Renderer>().material = orange;
+                        break;
+                    default:
+                        Debug.LogError("Color ISSUE. Unacceptable string for color");
+                        this.gameObject.GetComponent<Renderer>().material = takenColour;
+                        break;
+
+                }
+
+                if (turnManager.isSetUpPhase)
+                {
+                    turnManager.roadAndSettlementPlacedSetUpCounter++;
+                }
+                else
+                {
+                    if (!bankMang.firstRoadPlacedInRB)
+                    {
+                        bankMang.firstRoadPlacedInRB = true;
+                    }
+                    else if (!bankMang.secondRoadPlacedInRB)
+                    {
+                        bankMang.secondRoadPlacedInRB = true;
+                    }
+                }
+                borderTaken = true;
+
+                makeTradeScript.GetComponent<MakeTrade>().HideCancelPieceBuildBut();
+
+                newLongestRoadCheck.FindLongestRoad();
+            }
+
+
+
     }
 }

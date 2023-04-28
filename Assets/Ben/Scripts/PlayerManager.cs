@@ -62,6 +62,9 @@ public class PlayerManager : MonoBehaviour
 
     public int victoryPointCardsHeld;
 
+    [Header("AI")]
+    public bool isPureAI;
+
 
     [Header("Other")]
     [SerializeField] private TMP_Text[] rcQuantTxts, dcQuantTxts; //direct address of the 'quantity' text components for resource cards and dev cards, respectively
