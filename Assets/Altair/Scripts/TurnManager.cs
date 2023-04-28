@@ -13,8 +13,8 @@ public class TurnManager : MonoBehaviour
 {
     [Header("Other Scripts")]
     private DiceRolling diceRolling;
-    private TradeManager tradeManager;
-    private MakeTrade makeTrade;
+    public TradeManager tradeManager;
+    public MakeTrade makeTrade;
     private HelpText helpText;
     private WinConditions winConditions;
     private PlayerDataTrack playerDataTrack;
@@ -767,7 +767,7 @@ public class TurnManager : MonoBehaviour
 
     #region AI
 
-    private bool isAI(PlayerManager playerManager){
+    public bool isAI(PlayerManager playerManager){
         return playerManager.isPureAI;
     }
 
