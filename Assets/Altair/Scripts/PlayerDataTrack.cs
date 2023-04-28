@@ -248,7 +248,7 @@ public class PlayerDataTrack : MonoBehaviour
 
 
         CheckColors();
-        turnManager.SetupGameFinal(numberOfPlayers, CheckColors(), playToGame.BeginnersModeToggled, turnTimeLimit);
+        turnManager.SetupGameFinal(numberOfPlayers, CheckColors(), playToGame.BeginnersModeToggled, turnTimeLimit, player1AI, player2AI, player3AI, player4AI);
     }
 
     // Parameters: Insert the icon number of the player, then matches the number to the correct icon.

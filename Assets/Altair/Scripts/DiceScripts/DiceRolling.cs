@@ -26,6 +26,8 @@ public class DiceRolling : MonoBehaviour
     public bool triggerNumberActionActive;
     public bool timeToRoll;
 
+    [Header("Ints")]
+    public int totalResult;
 
     //[SerializeField] private TextMeshProUGUI diceRollText;
     public GameObject rollDiceButton;
@@ -58,7 +60,7 @@ public class DiceRolling : MonoBehaviour
        int yellowResult = yellowDiceReader.RollResult();
        int redResult = redDiceReader.RollResult();
 
-       int totalResult = redResult + yellowResult;
+       totalResult = redResult + yellowResult;
 
        //diceRollText.text = "Rolled: " + totalResult.ToString();
 
@@ -216,5 +218,10 @@ public class DiceRolling : MonoBehaviour
         {
             turnManager.DisplayEndTurnButton();
         }
+    }
+
+
+    public int GetDiceRollResult(){
+        return totalResult;
     }
 }

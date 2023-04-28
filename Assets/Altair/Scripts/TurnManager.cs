@@ -13,8 +13,8 @@ public class TurnManager : MonoBehaviour
 {
     [Header("Other Scripts")]
     private DiceRolling diceRolling;
-    private TradeManager tradeManager;
-    private MakeTrade makeTrade;
+    public TradeManager tradeManager;
+    public MakeTrade makeTrade;
     private HelpText helpText;
     private WinConditions winConditions;
     private PlayerDataTrack playerDataTrack;
@@ -132,16 +132,18 @@ public class TurnManager : MonoBehaviour
 
         int playerNumber = 1;
 
+        /*
         for (int i = 1; i <= playersToSpawn; i++)
         {
-            InstantiatePlayerHandLocations(i);
+            InstantiatePlayerHandLocations(i, false);
             playerList.Add(playerHandPrefab.GetComponent<PlayerManager>());
             //    playerHandPrefab.GetComponent<PlayerManager>().PlayerColor(;
             playerList[i - 1].SetPlayerNumber(playerNumber);
             playerNumber++;
         }
+        */
 
-        AssignPlayerToColor(null); // COMMENT THIS OUT IF SETUPO GAME FINAL IS USED
+     //   AssignPlayerToColor(null); // COMMENT THIS OUT IF SETUPO GAME FINAL IS USED
         DisplayCurrentPlayerTurn();
 
         SetAllPlayerPositions();
@@ -191,13 +193,13 @@ public class TurnManager : MonoBehaviour
     // this is triggered by the game data track to setup the game PROPERLY with the correct number of players.
     // ONLY UNCOMMENT THIS IF YOU PLAN TO USE THIS INSTEAD AND FOR THE FINAL VERSION
 
-    public void SetupGameFinal(int numberOfPlayers, List<int> colorInt, bool beginnerMap, int timePerTurn)
+    public void SetupGameFinal(int numberOfPlayers, List<int> colorInt, bool beginnerMap, int timePerTurn, bool player1AI, bool player2AI, bool player3AI, bool player4AI)
     {
         turnTimeLimit = timePerTurn;
 
         turnTimeLimitObject.SetActive(false);
 
-        if(turnTimeLimit != 0)
+        if (turnTimeLimit != 0)
         {
             // setup timer
             turnTimeLimitObject.SetActive(true);
@@ -220,12 +222,78 @@ public class TurnManager : MonoBehaviour
 
         for (int i = 1; i <= playersToSpawn; i++)
         {
-            InstantiatePlayerHandLocations(i);
-            playerList.Add(playerHandPrefab.GetComponent<PlayerManager>());
-            //    playerHandPrefab.GetComponent<PlayerManager>().PlayerColor(;
-            playerList[i - 1].SetPlayerNumber(playerNumber);
-            playerNumber++;
+            if (i == 1)
+            {
+                if (player1AI)
+                {
+                    InstantiatePlayerHandLocations(i, true);
+                }
+                else
+                {
+                    InstantiatePlayerHandLocations(i, false);
+
+                }
+                playerList.Add(playerHandPrefab.GetComponent<PlayerManager>());
+                //    playerHandPrefab.GetComponent<PlayerManager>().PlayerColor(;
+                playerList[i - 1].SetPlayerNumber(playerNumber);
+                playerNumber++;
+            }
+
+
+            if (i == 2)
+            {
+                if (player2AI)
+                {
+                    InstantiatePlayerHandLocations(i, true);
+                }
+                else
+                {
+                    InstantiatePlayerHandLocations(i, false);
+
+                }
+                playerList.Add(playerHandPrefab.GetComponent<PlayerManager>());
+                //    playerHandPrefab.GetComponent<PlayerManager>().PlayerColor(;
+                playerList[i - 1].SetPlayerNumber(playerNumber);
+                playerNumber++;
+            }
+
+            if (i == 3)
+            {
+                if (player3AI)
+                {
+                    InstantiatePlayerHandLocations(i, true);
+                }
+                else
+                {
+                    InstantiatePlayerHandLocations(i, false);
+
+                }
+                playerList.Add(playerHandPrefab.GetComponent<PlayerManager>());
+                //    playerHandPrefab.GetComponent<PlayerManager>().PlayerColor(;
+                playerList[i - 1].SetPlayerNumber(playerNumber);
+                playerNumber++;
+            }
+
+            if (i == 4)
+            {
+                if (player4AI)
+                {
+                    InstantiatePlayerHandLocations(i, true);
+                }
+                else
+                {
+                    InstantiatePlayerHandLocations(i, false);
+
+                }
+                playerList.Add(playerHandPrefab.GetComponent<PlayerManager>());
+                //    playerHandPrefab.GetComponent<PlayerManager>().PlayerColor(;
+                playerList[i - 1].SetPlayerNumber(playerNumber);
+                playerNumber++;
+            }
         }
+
+
+
 
 
 
@@ -323,23 +391,56 @@ public class TurnManager : MonoBehaviour
     }
 
     // Instantiates the player hand locations with the given playernumber.
-    public void InstantiatePlayerHandLocations(int playerNumber)
+    public void InstantiatePlayerHandLocations(int playerNumber, bool isAI)
     {
         switch (playerNumber)
         {
             case 1:
                 playerHandPrefab = Instantiate(playerHandPrefab, player1SpawnPosition);
+                if (isAI)
+                {
+                    playerHandPrefab.GetComponent<PlayerManager>().isPureAI = true;
+                }
+                else
+                {
+                    playerHandPrefab.GetComponent<PlayerManager>().isPureAI = false;
+                }
                 break;
             case 2:
                 playerHandPrefab = Instantiate(playerHandPrefab, player2SpawnPosition);
-                playerHandPrefab.GetComponent<PlayerManager>().isPureAI = true;
+                if(isAI)
+                {
+                    playerHandPrefab.GetComponent<PlayerManager>().isPureAI = true;
+                }
+                else
+                {
+                    playerHandPrefab.GetComponent<PlayerManager>().isPureAI = false;
+
+                }
                 break;
             case 3:
                 playerHandPrefab = Instantiate(playerHandPrefab, player3SpawnPosition);
-                //playerHandPrefab.GetComponent<PlayerManager>().isPureAI = false;
+                if (isAI)
+                {
+                    playerHandPrefab.GetComponent<PlayerManager>().isPureAI = true;
+                }
+                else
+                {
+                    playerHandPrefab.GetComponent<PlayerManager>().isPureAI = false;
+
+                }
                 break;
             case 4:
                 playerHandPrefab = Instantiate(playerHandPrefab, player4SpawnPosition);
+                if (isAI)
+                {
+                    playerHandPrefab.GetComponent<PlayerManager>().isPureAI = true;
+                }
+                else
+                {
+                    playerHandPrefab.GetComponent<PlayerManager>().isPureAI = false;
+
+                }
                 break;
         }
     }
@@ -666,7 +767,7 @@ public class TurnManager : MonoBehaviour
 
     #region AI
 
-    private bool isAI(PlayerManager playerManager){
+    public bool isAI(PlayerManager playerManager){
         return playerManager.isPureAI;
     }
 

@@ -118,8 +118,12 @@ public class Robber : MonoBehaviour
         {
             GameObject hex = terrainAssigner.selectedRobberHex;
             // if robber is not in same position as previously, allow end. else make an error.
+            
             robberTriggerCanvas.SetActive(false);
-            MoveRobber(terrainAssigner.selectedRobberHex);
+            if(!turnManager.isAI(turnManager.playerList[turnManager.playerToPlay - 1])){
+                MoveRobber(terrainAssigner.selectedRobberHex);
+            }
+            
             terrainAssigner.EndTriggerRobber();
 
             // now steal card of adjacent player to robber. Check adjacent settlements.
