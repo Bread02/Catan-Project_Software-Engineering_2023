@@ -96,6 +96,7 @@ public class LargestArmyCheck : MonoBehaviour
             playerWithBiggestArmy = playersWithMoreThan2[0];
             playerWithBiggestArmy.SetLargestArmy(true);
             MoveLargestArmyCard();
+            playerWithBiggestArmy.playerVictoryPoints += 2;
             Debug.Log("Player now has largest army");
             return;
         }
@@ -111,7 +112,9 @@ public class LargestArmyCheck : MonoBehaviour
             {
                 if((playerWithBiggestArmy.ReturnNumberOfKnightCardsPlayed() < playersWithMoreThan2[i].ReturnNumberOfKnightCardsPlayed()) && (playerWithBiggestArmy != playersWithMoreThan2[i]))
                 {
+                    playerWithBiggestArmy.playerVictoryPoints -= 2;
                     playerWithBiggestArmy = playersWithMoreThan2[i];
+                    playerWithBiggestArmy.playerVictoryPoints += 2;
                     SetAllPlayersToFalse();
                     playerWithBiggestArmy.SetLargestArmy(true);
                     MoveLargestArmyCard();
@@ -143,7 +146,8 @@ public class LargestArmyCheck : MonoBehaviour
 
         }
 
-        for(int i = 0; i <= largestArmySPs.Count; i++)
+        Debug.Log("Number of Largest Army Spawn Points is " + largestArmySPs.Count);
+        for(int i = 0; i < largestArmySPs.Count; i++)
         {
             if(i == playerNumber)
             {
