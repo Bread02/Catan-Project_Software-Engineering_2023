@@ -218,7 +218,12 @@ public class AIAgent : MonoBehaviour
             Debug.Log("Dice Rolling...");
             yellowDiceReader.RollDice();
             redDiceReader.RollDice();
-        
+
+            if(yellowDiceReader.finishRollingResult == true && redDiceReader.finishRollingResult == true){
+                Debug.Log("DONE ROLL");
+                turnManager.EndPlayerTurn();
+            }
+        /*
             List<string> options = getAvaliableActions();
             string chosenOption = options[(Random.Range(0, options.Count))];
 
@@ -276,6 +281,8 @@ public class AIAgent : MonoBehaviour
                 }
 
             }
+        */
+
         }
         
         

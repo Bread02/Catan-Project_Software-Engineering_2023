@@ -336,7 +336,7 @@ public class TurnManager : MonoBehaviour
                 break;
             case 3:
                 playerHandPrefab = Instantiate(playerHandPrefab, player3SpawnPosition);
-                playerHandPrefab.GetComponent<PlayerManager>().isPureAI = false;
+                //playerHandPrefab.GetComponent<PlayerManager>().isPureAI = false;
                 break;
             case 4:
                 playerHandPrefab = Instantiate(playerHandPrefab, player4SpawnPosition);
@@ -580,6 +580,10 @@ public class TurnManager : MonoBehaviour
             default:
                 Debug.LogError("ERROR. CANNOT FIND CORRECT CAMERA FOR PLAYER");
                 break;
+        }
+
+        if(isSetUpPhase == false && isAI(playerList[playerToPlay - 1])){
+            playerList[playerToPlay - 1].AIScript.playTurn();
         }
 
         // highlight player's stat BG
