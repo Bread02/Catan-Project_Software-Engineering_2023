@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1102089624302547179}
   - component: {fileID: 1102089624302547176}
+  - component: {fileID: -9044532596396730452}
   m_Layer: 0
   m_Name: THE_PLAYER_HAND
   m_TagString: Player
@@ -54,6 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02284a63d595be448704a90e6f02ea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AIScript: {fileID: -9044532596396730452}
   cardPfab: {fileID: 2048995424853604670, guid: 3bb149b5382ca6e4dbd133cc84f44b91,
     type: 3}
   RCspawnPoints:
@@ -93,6 +95,7 @@ MonoBehaviour:
   playerTrueVictoryPoints: 0
   victoryPointCardsPlayed: 0
   victoryPointCardsHeld: 0
+  isPureAI: 0
   rcQuantTxts:
   - {fileID: 5584048189426163069}
   - {fileID: 5584048189767083140}
@@ -112,6 +115,21 @@ MonoBehaviour:
   ownsOreHarbor: 0
   ownsGrainHarbor: 0
   colorSelected: 0
+--- !u!114 &-9044532596396730452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102089624302547177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85052e9f7bd357e468cab470731851b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 1102089624302547176}
+  yellowDiceReader: {fileID: 0}
+  redDiceReader: {fileID: 0}
 --- !u!1001 &1102089624002783429
 PrefabInstance:
   m_ObjectHideFlags: 0
