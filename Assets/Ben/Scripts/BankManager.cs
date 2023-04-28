@@ -188,7 +188,7 @@ public class BankManager : MonoBehaviour
     [SerializeField] private GameObject monopolyPanel;
 
     //**Methods for Monopoly Development Card**
-    private void MonopolyDevCardPlayed()
+    public void MonopolyDevCardPlayed()
     {
         monopolyPanel.SetActive(true);
     }
@@ -242,7 +242,7 @@ public class BankManager : MonoBehaviour
     [SerializeField] private GameObject yearOfPlentyPanel;
     public bool firstRCchosenFromYOP, secondRCchosenFromYOP;
 
-    IEnumerator YearOfPlentyDevCardPlayed()
+    public IEnumerator YearOfPlentyDevCardPlayed()
     {
         yearOfPlentyPanel.SetActive(true);
         firstRCchosenFromYOP = false;

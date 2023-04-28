@@ -12,6 +12,8 @@ public class AIAgent : MonoBehaviour
     public PlayerManager playerManager;
     public DiceReader yellowDiceReader;
     public DiceReader redDiceReader;
+    public TerrainAssigner terrainAssigner;
+    private BankManager bankManager;
 
     private System.Random rnd = new System.Random();
 
@@ -30,7 +32,11 @@ public class AIAgent : MonoBehaviour
         
         List<GameObject> hexesToPlay = new List<GameObject>(); 
         
-
+        foreach(BoardVertex vertex in graph.verticies){
+            if(robber.occupiedHex != vertex.getHexTile()){
+                hexesToPlay.Add(vertex.getHexTile());
+            }
+        }
         return hexesToPlay;
     }
 
@@ -151,6 +157,12 @@ public class AIAgent : MonoBehaviour
             options.Add("buyDevelopmentCard");
         }
 
+        if(turnManager.hasUsedDevCardThisTurn == false){
+            if((playerManager.pCardQuantities["knight"] >= 1) || (playerManager.pCardQuantities["monopoly"] >= 1) || (playerManager.pCardQuantities["roadBuilding"] >= 1) || (playerManager.pCardQuantities["yearOfPlenty"] >= 1)){
+                options.Add("playDevelopmentCard");
+            }
+        }
+
         //check if any development cards are avaliable to use
 
         /*
@@ -215,74 +227,8 @@ public class AIAgent : MonoBehaviour
             //turnManager.EndPlayerTurn();
             
         } else {
-            Debug.Log("Dice Rolling...");
-            yellowDiceReader.RollDice();
-            redDiceReader.RollDice();
 
-            if(yellowDiceReader.finishRollingResult == true && redDiceReader.finishRollingResult == true){
-                Debug.Log("DONE ROLL");
-                turnManager.EndPlayerTurn();
-            }
-        /*
-            List<string> options = getAvaliableActions();
-            string chosenOption = options[(Random.Range(0, options.Count))];
-
-            Debug.Log("Option: " + chosenOption);
-        
-            if(options.Count == 0){
-                //end turn?
-            } else {
-                //selects a random option
-                switch (chosenOption){
-                    case "road":
-                        //build road
-                        List<GameObject> roadOptions = getSettlmentBuildingOptions();
-                        GameObject roadChosen = roadOptions[rnd.Next(roadOptions.Count)];
-                        roadChosen.GetComponent<ChooseBorder>().AIBorderPlacment();
-                        break;
-                    case "settlement":
-                        // build settlement
-                        List<GameObject> settlementOptions = getSettlmentBuildingOptions();
-                        GameObject settlmentChosen = settlementOptions[rnd.Next(settlementOptions.Count)];
-                        settlmentChosen.GetComponent<ChooseSettlement>().AISettlmentPlacment();
-                        break;
-                    case "city":
-                        List<GameObject> cityOptions;
-                        cityOptions = getCityBuildingOptions();
-                        GameObject cityChoice = cityOptions[Random.Range(0, cityOptions.Count -1)];
-                        cityChoice.GetComponent<ChooseSettlement>().ChangeToCity();
-                        playerManager.IncOrDecValue("grain", -2);
-                        playerManager.IncOrDecValue("ore", -3);
-                        break;
-                    case "buyDevelopmentCard":
-                        // buy development card
-                    case "playDevelopmentCard":
-                        //play specific card
-                        switch (chooseDevelopmentCardToPlay()){
-                            case "monopoly":
-                                //play monopoly
-                                break;
-                            case "knight":
-                                //play knight card
-                                robber.TriggerRobberMovementKnight();
-                                playerManager.IncrementKnightCardUsage();
-                                playerManager.IncOrDecValue("knight", -1);
-                                break;
-                            case "roadBuilding":
-                                //play road building
-                                break;
-                            case "yearOfPlenty":
-                                //play year of plenty
-                                break;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-        */
-
+            StartCoroutine(waitUntilDiceRollDone());
         }
         
         
@@ -298,5 +244,131 @@ public class AIAgent : MonoBehaviour
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         yellowDiceReader = GameObject.Find("YellowDice").GetComponent<DiceReader>();
         redDiceReader = GameObject.Find("RedDice").GetComponent<DiceReader>();
+        bankManager = GameObject.Find("THE_BANK").GetComponent<BankManager>();
+    }
+
+
+    IEnumerator waitUntilDiceRollDone(){
+
+        Debug.Log("Dice Rolling...");
+            yellowDiceReader.RollDice();
+            redDiceReader.RollDice();
+
+            yield return new WaitUntil(() => (yellowDiceReader.finishRollingResult == true && redDiceReader.finishRollingResult == true));
+
+            if(yellowDiceReader.finishRollingResult == true && redDiceReader.finishRollingResult == true){
+                Debug.Log("DONE ROLL");
+                if(yellowDiceReader.RollResult() + redDiceReader.RollResult() == 7){
+                    List<GameObject> hexOptions = getHexOptions();
+                    GameObject hexChosen = hexOptions[rnd.Next(hexOptions.Count)]; 
+                    robber.MoveRobber(hexChosen);
+                    robber.robberPositionSelected = true;
+                    robber.TriggerRobberMovementEnd();
+                }
+
+                List<string> options = getAvaliableActions();            
+
+                Debug.Log("Option Number: " + options.Count);
+                
+                if(options.Count == 0){
+                    turnManager.EndPlayerTurn();
+                } else {
+                    //selects a random option
+                    string chosenOption = options[(Random.Range(0, options.Count))];
+                    Debug.Log("Option: " + chosenOption);
+                    
+                    switch (chosenOption){
+                        case "road":
+                            //build road
+                            turnManager.tradeManager.inTradeMode = true;
+                            turnManager.isTrading = true;
+                            turnManager.makeTrade.SetRoadBought(true);
+                            List<GameObject> roadOptions1 = getRoadBuildingOptions();
+                            Debug.Log("AVALIABLE ROADS:" + roadOptions1.Count);
+                            GameObject roadChosen1 = roadOptions1[rnd.Next(roadOptions1.Count)];
+                            roadChosen1.GetComponent<ChooseBorder>().AIBorderPlacment();
+                            playerManager.IncOrDecValue("lumber", -1);
+                            playerManager.IncOrDecValue("brick", -1);
+                            break;
+                        case "settlement":
+                            // build settlement
+                            turnManager.tradeManager.inTradeMode = true;
+                            turnManager.isTrading = true;
+                            turnManager.makeTrade.SetSettlementBought(true);
+                            List<GameObject> settlementOptions1 = getSettlmentBuildingOptions();
+                            GameObject settlmentChosen1 = settlementOptions1[rnd.Next(settlementOptions1.Count)];
+                            settlmentChosen1.GetComponent<ChooseSettlement>().AISettlmentPlacment();
+                            playerManager.IncOrDecValue("grain", -1);
+                            playerManager.IncOrDecValue("wool", -1);
+                            playerManager.IncOrDecValue("lumber", -1);
+                            playerManager.IncOrDecValue("brick", -1);
+                            break;
+                        case "city":
+                            turnManager.tradeManager.inTradeMode = true;
+                            turnManager.isTrading = true;
+                            turnManager.makeTrade.SetCityBought(true);
+                            List<GameObject> cityOptions = getCityBuildingOptions();
+                            GameObject cityChoice = cityOptions[Random.Range(0, cityOptions.Count -1)];
+                            cityChoice.GetComponent<ChooseSettlement>().ChangeToCity();
+                            playerManager.IncOrDecValue("grain", -2);
+                            playerManager.IncOrDecValue("ore", -3);
+                            break;
+                        case "buyDevelopmentCard":
+                            // buy development card
+                        case "playDevelopmentCard":
+                            //play specific card
+                            switch (chooseDevelopmentCardToPlay()){
+                                case "monopoly":
+                                    //play monopoly
+                                    bankManager.MonopolyDevCardPlayed();
+                                    playerManager.IncOrDecValue("monopoly", -1);
+                                    int chosenMaterial = rnd.Next(5);
+                                    switch(chosenMaterial){
+                                        case 1:
+                                            bankManager.StealGrainButtonPressed();
+                                            break;
+                                        case 2:
+                                            bankManager.StealBrickButtonPressed();
+                                            break;
+                                        case 3:
+                                            bankManager.StealLumberButtonPressed();
+                                            break;
+                                        case 4:
+                                            bankManager.StealOreButtonPressed();
+                                            break; 
+                                        case 5:
+                                            bankManager.StealWoolButtonPressed();
+                                            break;
+                                    }
+                                    break;
+                                case "knight":
+                                    //play knight card
+                                    robber.TriggerRobberMovementKnight();
+                                    playerManager.IncrementKnightCardUsage();
+                                    playerManager.IncOrDecValue("knight", -1);
+                                    break;
+                                case "roadBuilding":
+                                    //play road building... selects and builds 2 roads
+                                    for(int i = 0; i < 2; i++){
+                                        List<GameObject> roadOptions = getSettlmentBuildingOptions();
+                                        GameObject roadChosen = roadOptions[rnd.Next(roadOptions.Count)];
+                                        roadChosen.GetComponent<ChooseBorder>().AIBorderPlacment();
+                                    }
+                                    break;
+                                case "yearOfPlenty":
+                                    //play year of plenty
+                                    StartCoroutine(bankManager.YearOfPlentyDevCardPlayed());
+                                    
+                                    break;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+
+            }
+            yield return null;
     }
 }
