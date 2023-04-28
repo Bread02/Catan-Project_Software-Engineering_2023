@@ -46,6 +46,7 @@ public class AbridgedMode : MonoBehaviour
     void Update()
     {
         // DEBUGS. REMOVE ON FINAL VERSION
+        /*
         if(Input.GetKeyDown(KeyCode.V))
         {
             SetupAbridged(180);
@@ -54,6 +55,7 @@ public class AbridgedMode : MonoBehaviour
         {
             timeRemaining = 3;
         }
+        */
 
         // count down if abridged mode
         if (isCountingDown)

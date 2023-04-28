@@ -378,10 +378,12 @@ public class TurnManager : MonoBehaviour
         */
         // force next player turn
         // REMOVE THIS ON FINAL VERSION.
+        /*
         if (Input.GetKeyDown(KeyCode.Q))
         {
             EndPlayerTurn();
         }
+        */
         if(turnTimeLimitEnforced)
         {
             TurnTimer();

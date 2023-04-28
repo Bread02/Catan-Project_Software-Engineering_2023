@@ -198,11 +198,12 @@ public class DiceRolling : MonoBehaviour
             //diceRollText.text = "Rolled: ?";
         }
 
-
+        /*
         if (Input.GetKeyDown(KeyCode.O))
         {
             ResetDice();
         }
+        */
 
         if(!tradeManager.inTradeMode && !yellowRolled && !redRolled)
         {

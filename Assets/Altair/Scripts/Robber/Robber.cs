@@ -67,12 +67,13 @@ public class Robber : MonoBehaviour
     void Update()
     {
         // roll 7 emulate
+        /*
         if(Input.GetKeyDown(KeyCode.Y))
         {
             Debug.Log("Rolling 7");
             discardHalfOfCards.LoseHalfOfCards(turnManager.ReturnCurrentPlayer());
         }
-
+        */
     }
 
 

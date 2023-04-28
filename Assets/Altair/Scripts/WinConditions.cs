@@ -36,10 +36,12 @@ public class WinConditions : MonoBehaviour
     // REMOVE IN FINAL VERSION
     public void TriggerVictoryButton()
     {
+        /*
         if(Input.GetKeyDown(KeyCode.M))
         {
             TriggerForfit();
         }
+        */
     }
 
     public void TriggerVictory(PlayerManager winningPlayer)
