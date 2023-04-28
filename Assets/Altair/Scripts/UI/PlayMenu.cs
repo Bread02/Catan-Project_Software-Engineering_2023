@@ -256,6 +256,11 @@ public class PlayMenu : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        player1AI = true;
+        player2AI = true;
+        player3AI = true;
+        player4AI = true;
+
         DefaultMode();
 
         FindScripts();

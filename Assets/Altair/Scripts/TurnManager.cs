@@ -472,10 +472,11 @@ public class TurnManager : MonoBehaviour
             makeTrade.SetSettlementBought(true);
             makeTrade.SetRoadBought(true);
 
+            /*
             if(isAI(playerList[i])){
                 playerList[i].AIScript.playTurn();
             }
-
+            */
             yield return new WaitUntil(() => roadAndSettlementPlacedSetUpCounter == 2);
             roadAndSettlementPlacedSetUpCounter = 0;
             EndPlayerTurn();
@@ -685,10 +686,11 @@ public class TurnManager : MonoBehaviour
                 break;
         }
 
+        /*
         if(isSetUpPhase == false && isAI(playerList[playerToPlay - 1])){
             playerList[playerToPlay - 1].AIScript.playTurn();
         }
-
+        */
         // highlight player's stat BG
 
 
