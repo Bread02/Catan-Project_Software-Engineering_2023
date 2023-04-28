@@ -30,12 +30,12 @@ public class LargestArmyCheck : MonoBehaviour
     void Start()
     {
         FindScripts();
-        SomethingMethod();
+        AddArmySpriteSpawnPointsToList();
 
     }
 
     // BEN PLS PUT COMMENT.
-    private void SomethingMethod()
+    private void AddArmySpriteSpawnPointsToList()
     {
         largestArmySPs = new List<GameObject>
         {

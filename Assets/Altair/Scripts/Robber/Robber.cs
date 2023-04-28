@@ -29,7 +29,7 @@ public class Robber : MonoBehaviour
     [SerializeField] private GameObject endTurnButton;
 
     [Header("Robber Notifications")]
-    public string robberActivatedRollString = "7 rolled! Robber Activated!\n\nMove the robber to a new location.";
+    public string robberActivatedRollString = "Robber Activated!\n\nMove the robber to a new location.";
     public string robberActivatedKnightString = "Knight card used! Robber Activated!\n\nMove the robber to a new location.";
     public TextMeshProUGUI robberActivatedText;
 
