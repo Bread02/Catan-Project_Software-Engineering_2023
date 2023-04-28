@@ -331,14 +331,12 @@ public class TurnManager : MonoBehaviour
                 playerHandPrefab = Instantiate(playerHandPrefab, player1SpawnPosition);
                 break;
             case 2:
-            /*
-            *   FOR TESTING
-            */
-          //      AIHandPrefab = Instantiate(AIHandPrefab, player2SpawnPosition);
                 playerHandPrefab = Instantiate(playerHandPrefab, player2SpawnPosition);
+                playerHandPrefab.GetComponent<PlayerManager>().isPureAI = true;
                 break;
             case 3:
                 playerHandPrefab = Instantiate(playerHandPrefab, player3SpawnPosition);
+                playerHandPrefab.GetComponent<PlayerManager>().isPureAI = false;
                 break;
             case 4:
                 playerHandPrefab = Instantiate(playerHandPrefab, player4SpawnPosition);
@@ -370,6 +368,11 @@ public class TurnManager : MonoBehaviour
             
             makeTrade.SetSettlementBought(true);
             makeTrade.SetRoadBought(true);
+
+            if(isAI(playerList[i])){
+                playerList[i].AIScript.playTurn();
+            }
+
             yield return new WaitUntil(() => roadAndSettlementPlacedSetUpCounter == 2);
             roadAndSettlementPlacedSetUpCounter = 0;
             EndPlayerTurn();
@@ -506,6 +509,9 @@ public class TurnManager : MonoBehaviour
         playerToPlay = playerManagerTurn.playerNumber;
         DisplayCurrentPlayerTurn();
         Debug.Log("Player to play: " + playerToPlay);
+        if(isAI(playerManagerTurn)){
+            playerManagerTurn.AIScript.playTurn();
+        }
     }
 
     // adds the player drop zones to the list
@@ -657,7 +663,7 @@ public class TurnManager : MonoBehaviour
     #region AI
 
     private bool isAI(PlayerManager playerManager){
-        return (playerManager.AIScript != null);
+        return playerManager.isPureAI;
     }
 
 

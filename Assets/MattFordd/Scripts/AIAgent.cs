@@ -215,6 +215,7 @@ public class AIAgent : MonoBehaviour
             //turnManager.EndPlayerTurn();
             
         } else {
+            Debug.Log("Dice Rolling...");
             yellowDiceReader.RollDice();
             redDiceReader.RollDice();
         

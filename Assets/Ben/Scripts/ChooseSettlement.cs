@@ -397,7 +397,91 @@ public class ChooseSettlement : MonoBehaviour
     }
 
     public void AISettlmentPlacment(){
+        Debug.Log("BUILDING SETTLEMENT");
+
         
+        if (!settlementTaken)
+        {
+            Debug.Log("settlement taken");
+            Debug.Log("value of isSetUpPhase in turnManager is: " + turnManager.isSetUpPhase);
+
+            //   this.gameObject.GetComponent<Renderer>().material = takenColour;
+            settlementTaken = true;
+            playerNumWhoOwnsThisSt = turnManager.playerToPlay;
+            this.gameObject.GetComponent<Renderer>().enabled = true;
+
+            // add to playerManager of correct player.
+            PlayerManager playerManager = turnManager.ReturnCurrentPlayer();
+            playerManager.playerOwnedSettlements.Add(this.gameObject);
+            string playerColor = playerManager.GetPlayerColor();
+
+
+            // give this player an improved port if this is a port hex.
+            if (isImprovedHarbor)
+            {
+                playerManager.ownsImprovedHarbor = true;
+            }
+            if (isBrickHarbor)
+            {
+                playerManager.ownsBrickHarbor = true;
+            }
+            if (isLumberHarbor)
+            {
+                playerManager.ownsLumberHarbor = true;
+            }
+            if (isWoolHarbor)
+            {
+                playerManager.ownsWoolHarbor = true;
+            }
+            if (isGrainHarbor)
+            {
+                playerManager.ownsGrainHarbor = true;
+            }
+            if (isOreHarbor)
+            {
+                playerManager.ownsOreHarbor = true;
+            }
+
+
+            //Play Audio Queue
+            audioManager.PlaySound("build");
+
+            // get color of player to turn settlement into
+            switch (playerColor)
+            {
+                case "red":
+                    this.gameObject.GetComponent<Renderer>().material = red;
+                    break;
+                case "blue":
+                    this.gameObject.GetComponent<Renderer>().material = blue;
+                    break;
+                case "white":
+                    this.gameObject.GetComponent<Renderer>().material = white;
+                    break;
+                case "orange":
+                    this.gameObject.GetComponent<Renderer>().material = orange;
+                    break;
+                default:
+                    Debug.LogError("Color ISSUE. Unacceptable string for color");
+                    this.gameObject.GetComponent<Renderer>().material = takenColour;
+                    break;
+            }
+
+            if (turnManager.isSetUpPhase)
+            {
+                turnManager.roadAndSettlementPlacedSetUpCounter++;
+            }
+            makeTradeScript.GetComponent<MakeTrade>().SetSettlementBought(false);
+            newLongestRoadCheck.AddSettlement(playerNumWhoOwnsThisSt, this.gameObject.GetComponent<ChooseSettlement>());
+            foreach (GameObject adjacentTile in adjacentTiles)
+            {
+                adjacentTile.GetComponent<TerrainHex>().adjacentSettlements.Add(this.gameObject);
+            }
+
+            makeTradeScript.GetComponent<MakeTrade>().HideCancelPieceBuildBut();
+
+            newLongestRoadCheck.FindLongestRoad(); //This method is called because there could be a scenario where a settlement is placed in between the player's roads
+        }
     }
 
 
