@@ -1,12 +1,11 @@
-/*
- * Code mainly sourced from: https://youtu.be/h6y7QtDNfpA
- */
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * This script enables a player to 'drag and drop' a CardPrefab object
+ * 
+ * The author of this script takes no credit for the code that enables this functionality, which can be found on lines 78-85.
+ * The original source can be found via the following YouTube tutorial: https://youtu.be/h6y7QtDNfpA
+ */
 public class DragAndDropControl : MonoBehaviour
 {
     private TurnManager turnManager;

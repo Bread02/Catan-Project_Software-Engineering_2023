@@ -1,19 +1,21 @@
-/*
- * Code mainly sourced from: https://youtu.be/h6y7QtDNfpA
- */
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * This script is vital for the drag and drop mechanic. It is attached to the 'TableTop' object in the game and provides an area
+ * that a CardPrefab object can be controlled by the player.
+ * 
+ * The author of this script takes no credit for the code that enables this functionality, which is in the Update method.
+ * The original source can be found via the following YouTube tutorial: https://youtu.be/h6y7QtDNfpA
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class GameBoardManager : MonoBehaviour
 {
     [HideInInspector] public Vector3 CurrentMousePosition;
     private Camera mainCamera;
 
     private TurnManager turnManager;
-
-  //  [SerializeField] private GameObject playerMang;
 
     void Start()
     {

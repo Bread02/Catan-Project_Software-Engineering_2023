@@ -1,8 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/**
+ * This script allows the player to toggle between viewing their resource cards and their development cards.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class ToggleCardsShownInHand : MonoBehaviour
 {
     private TurnManager turnManager;

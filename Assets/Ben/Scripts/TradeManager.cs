@@ -1,9 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
+/**
+ * This script is the central point for all maritime trades and asset builds.
+ * It stores the amount of cards the player whose turn it is still has available for trading,
+ * as well the total amount of cards they have 'dropped' onto the bank.
+ * In addition, this script controls the heads-up display text that allows the player to view the cards they can use for trading.
+ * When the requirements for a trade are met (for example, offering 1 grain, 1 wool, 1 ore for a development card) the appropriate
+ * trade button is set active, allowing the player to complete the trade.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class TradeManager : MonoBehaviour
 {
     [Header("Ints")]
@@ -240,10 +249,6 @@ public class TradeManager : MonoBehaviour
         }
     }
 
-
-
-
-
     public void ReturnUnusedCardsButtonPressed()
     {
         foreach (KeyValuePair<string, int> cards in cardAmountsDict)
@@ -309,7 +314,7 @@ public class TradeManager : MonoBehaviour
 
         foreach (GameObject playerDropZone in turnManager.playerDropZones)
         {
-            playerDropZone.SetActive(true);
+            playerDropZone.GetComponent<Collider>().enabled = true;
         }
 
         inTradeMode = false;
@@ -323,10 +328,10 @@ public class TradeManager : MonoBehaviour
     {
         submitTradeBut.SetActive(true);
 
-        //Ensure all player drop zones are NOT active
+        //Ensure the colliders for all player drop zones are not active
         foreach (GameObject playerDropZone in turnManager.playerDropZones)
         {
-            playerDropZone.SetActive(false);
+            playerDropZone.GetComponent<Collider>().enabled = false;
         }
 
         inTradeMode = true;

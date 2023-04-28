@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+
 /**
  * This script controls the loading scene functionality and the loading bar. Other scripts can easily access this
  * to generate a loading bar to help the user know if the game has crashed or is loading.

@@ -1,12 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 /**
  * This script checks which player has the largest army.
  *
- * @author Altair, Ben
+ * @author Altair Robinson, Ben Conway
  * @version 26/04/2023
  */
 public class LargestArmyCheck : MonoBehaviour

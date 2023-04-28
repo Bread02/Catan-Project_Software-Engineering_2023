@@ -158,9 +158,9 @@ public class StealCards : MonoBehaviour
         //Can now show interactable objects again
         foreach (GameObject playerDropZone in turnManager.playerDropZones)
         {
-            playerDropZone.SetActive(true);
+            playerDropZone.GetComponent<Collider>().enabled = true;
         }
-        bankMangObj.SetActive(true);
+        bankMangObj.GetComponent<Collider>().enabled = true;
         endTurnButton.SetActive(true);
         //
 

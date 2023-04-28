@@ -1,7 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
+/**
+ * This script is attached to every settlement/city point object in the game.
+ * The render component is set to true whenever the player is allowed to place a settlement/city on the board.
+ * When this point is claimed, the number of the player who claimed it is stored.
+ * 
+ * This script is also used in the longest road functionality.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class ChooseSettlement : MonoBehaviour
 {
     [SerializeField] private Material origColour, takenColour, hoverOverColour;

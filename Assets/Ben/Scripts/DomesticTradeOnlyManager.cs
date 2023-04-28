@@ -1,8 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/**
+ * This script allows the player to perform domestic (player-to-player) trading.
+ * It differs from TradeManager, because it does not store the cards traded by the 'trade initiate' and 'trade receiver'.
+ * Instead, when the trade initiate gives a card to the trade receiver, the card given is removed from the trade initiate's hand
+ * and instantly added to the trade receiver's hand.
+ * 
+ * To maintain integrity, both players must give at least one card to each other. This ensures a player cannot 'loan' a card to another player.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class DomesticTradeOnlyManager : MonoBehaviour
 {
     [SerializeField] private TurnManager turnManager;

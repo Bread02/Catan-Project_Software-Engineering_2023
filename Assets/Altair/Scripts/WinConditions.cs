@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 /**
  * This script controls the win screen, and the buttons involved in the win screen
  *
- * @author Altair
+ * @author Altair Robinson
  * @version 26/04/2023
  */
 public class WinConditions : MonoBehaviour

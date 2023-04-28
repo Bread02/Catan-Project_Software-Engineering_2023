@@ -1,5 +1,12 @@
 using UnityEngine;
 
+/**
+ * This script ensures that if a player 'throws' a card away from the table in the game,
+ * the card is returned back to the player's hand.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class SideOfGameBoardCollider : MonoBehaviour
 {
     private TurnManager turnManager;

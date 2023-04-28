@@ -1,8 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
+/**
+ * This script handles cards that are dropped into a player's drop zone.
+ * If the player is currently trading with the bank, then the collider of the object that this script is attached to is disabled.
+ * This means that the player only interacts with this script when they want to perform a domestic trade.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class PlayerDropZone : MonoBehaviour
 {
 

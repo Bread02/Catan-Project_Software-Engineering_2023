@@ -83,10 +83,10 @@ public class Robber : MonoBehaviour
         //Hides player dropzones
         foreach(GameObject playerDropZone in turnManager.playerDropZones)
         {
-            playerDropZone.SetActive(false);
+            playerDropZone.GetComponent<Collider>().enabled = false;
         }
         //Hides bank
-        bankMangObj.SetActive(false);
+        bankMangObj.GetComponent<Collider>().enabled = false;
         //Hide end turn button
         endTurnButton.SetActive(false);
         //These will be set to true again in the FinishTheft() method, in StealCards

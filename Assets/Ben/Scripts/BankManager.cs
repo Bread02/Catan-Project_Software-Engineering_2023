@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * This script helps manage the quantity of cards stored in the bank, similar to the bank in the original board game.
+ * It is attached to the bank object found in the game. This bank object contains a collider component,
+ * so that when the player drops a card onto the collider (insinuating that they want to trade with the bank) the bank initiates the trade.
+
+ * It also performs the effects of progress cards.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class BankManager : MonoBehaviour
 {
     [Header("Other Scripts")]
@@ -99,7 +109,6 @@ public class BankManager : MonoBehaviour
     private void OnTriggerEnter(Collider cardPlayed)
     {
         string cardType = cardPlayed.gameObject.tag;
-        Debug.Log(cardType);
         turnManager.ReturnCurrentPlayer().IncOrDecValue(cardType, -1, cardPlayed.gameObject);
 
         StartCoroutine(ChangeColour());

@@ -1,8 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/**
+ * This script manages the 'player hand'. The main functionality of this script is in how it stores the quantity for every card.
+ * This data is then reflected in the game, via instantiating 'CardPrefab' objects as children of the 'player hand' object this script is
+ * attached to. A CardPrefab object is a card owned by the player, containing the drag and drop mechanic.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class PlayerManager : MonoBehaviour
 {
     [Header("Other Scripts")]

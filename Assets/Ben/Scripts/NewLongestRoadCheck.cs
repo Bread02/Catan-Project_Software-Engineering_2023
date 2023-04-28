@@ -1,7 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * This script offers a solution to the 'longest road' feature found in the original board game.
+ * 
+ * It uses the settlement and road points found in the game as vertices and edges of a graph, respectively.
+ * By simulating a graph structure, the script can perform a depth-first traversal of the board to find out which player owns the longest road.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class NewLongestRoadCheck : MonoBehaviour
 {
     private TurnManager turnManager;
@@ -216,6 +224,20 @@ public class NewLongestRoadCheck : MonoBehaviour
             playerNumWhoOwnsCurrentLongestRoad = playerNumWithLongestRoad;
             lengthOfLongestRoad = longestRoadFoundValue;
             //Also need to update the scene so that the players can see who owns the longest road (thanks to the longest road card)
+            MoveLongestRoadCard();
+        }
+        else
+        {
+            //No player has a road with length of at least 5
+
+            if(playerNumWhoOwnsCurrentLongestRoad != 0)
+            {
+                //A player did have the longest road, but then they built a settlement that broke up the road.
+                //Therefore need to deduct 2 victory points from this player
+                turnManager.playerList[playerNumWhoOwnsCurrentLongestRoad - 1].playerVictoryPoints -= 2;
+            }
+            playerNumWhoOwnsCurrentLongestRoad = 0;
+            lengthOfLongestRoad = 0;
             MoveLongestRoadCard();
         }
 

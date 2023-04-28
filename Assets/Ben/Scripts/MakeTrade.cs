@@ -1,8 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
+/**
+ * This script executes the 'build asset' trades initiated by the player.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class MakeTrade : MonoBehaviour
 {
     [SerializeField] private GameObject tradeMang, submitTradeButt, bankMang, cancelPieceBuildBut;

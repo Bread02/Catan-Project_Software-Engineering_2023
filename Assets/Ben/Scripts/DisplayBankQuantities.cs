@@ -1,8 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/**
+ * This script updates the heads-up text display for the amount of cards remaining in the bank, a useful display for all players.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class DisplayBankQuantities : MonoBehaviour
 {
     private Dictionary<string, TMP_Text> bankTxtDict;

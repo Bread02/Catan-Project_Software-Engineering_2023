@@ -1,7 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
+/**
+ * This script is attached to every road point object in the game.
+ * The render component is set to true whenever the player is allowed to place a road on the board.
+ * When this point is claimed, the number of the player who claimed it is stored.
+ * 
+ * @author Ben Conway
+ * @version 28/04/2023
+ */
 public class ChooseBorder : MonoBehaviour
 {
     
