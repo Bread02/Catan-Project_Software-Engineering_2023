@@ -50,10 +50,12 @@ public class DomesticTradeOnlyManager : MonoBehaviour
             bankGraphicObject.SetActive(false);
 
             //Removes player dropzones for the players that aren't part of this current domestic trade
+            Debug.Log("There are " + turnManager.playerDropZones.Count + " drop zones");
             for(int i = 1; i <= turnManager.playerDropZones.Count; i++)
             {
                 if (i != tradeInitiateNum && i != tradeReceiverNum)
                 {
+                    Debug.Log("Removing player " + i + "'s drop zone");
                     turnManager.playerDropZones[i-1].SetActive(false);
                 }
             }

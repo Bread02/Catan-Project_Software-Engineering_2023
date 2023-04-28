@@ -147,9 +147,6 @@ public class TurnManager : MonoBehaviour
         DisplayCurrentPlayerTurn();
 
         SetAllPlayerPositions();
-
-        //Add player dropZones to playerDropZones list
-        AddPlayerDropZonesToList();
     }
 
     // sets the starting booleans for the game.
@@ -619,15 +616,6 @@ public class TurnManager : MonoBehaviour
             playerManagerTurn.AIScript.playTurn();
         }
         */
-    }
-
-    // adds the player drop zones to the list
-    private void AddPlayerDropZonesToList()
-    {
-        playerDropZones.Add(player1DropZone);
-        playerDropZones.Add(player2DropZone);
-        playerDropZones.Add(player3DropZone);
-        playerDropZones.Add(player4DropZone);
     }
 
     // Displays the current player's turn by ensuring the correct camera is displayed.
