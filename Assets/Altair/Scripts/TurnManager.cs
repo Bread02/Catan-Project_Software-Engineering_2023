@@ -613,9 +613,12 @@ public class TurnManager : MonoBehaviour
         playerToPlay = playerManagerTurn.playerNumber;
         DisplayCurrentPlayerTurn();
         Debug.Log("Player to play: " + playerToPlay);
+
+        /*
         if(isAI(playerManagerTurn)){
             playerManagerTurn.AIScript.playTurn();
         }
+        */
     }
 
     // adds the player drop zones to the list
